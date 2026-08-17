@@ -3,8 +3,8 @@
   "name": "Vectoree Blog",
   "description": "Product updates, guides, and notes from Vectoree — model gateway, CLI, and agent-native cloud.",
   "logo": {
-    "light": "/logo.png",
-    "dark": "/logo.png",
+    "light": "/favicon.png",
+    "dark": "/favicon.png",
     "variant": "mark",
     "width": 32,
     "height": 32,
