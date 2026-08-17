@@ -1,0 +1,24 @@
+{
+  "name": "@vectoree/blog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Vectoree public blog — Astro + Lotus. Ops: edit src/content/docs/posts/*.mdx",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "latest",
+    "@astrojs/mdx": "latest",
+    "@astrojs/sitemap": "^3.7.3",
+    "@prosefly/astro-components": "^0.5.0",
+    "@prosefly/astro-theme-lotus": "^0.6.2",
+    "@tailwindcss/vite": "latest",
+    "astro": "^7.2.0",
+    "tailwindcss": "latest",
+    "typescript": "^6.0.3"
+  }
+}

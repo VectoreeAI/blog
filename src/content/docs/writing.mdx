@@ -1,0 +1,45 @@
+---
+title: Writing guide
+description: How to publish a post without touching the theme or CI.
+sidebar:
+  order: 2
+---
+
+## Path operators own
+
+```text
+src/content/docs/posts/<slug>.mdx
+```
+
+Copy `ops/post-template.mdx` → `src/content/docs/posts/<slug>.mdx`, fill the
+frontmatter, write the body, open a PR, merge to `main`.
+
+## Frontmatter
+
+```yaml
+---
+title: "Clear title"
+description: "One-line summary for SEO and listings."
+sidebar:
+  order: 10
+---
+```
+
+Use `sidebar.order` so newer posts can sort how you want in the Blog nav
+(lower numbers appear first unless you change theme defaults).
+
+## Images
+
+Put files in `public/images/` and reference them as `/images/your-file.png`.
+
+## Local preview (optional)
+
+```sh
+pnpm install
+pnpm dev
+```
+
+## Do not edit for a normal post
+
+Theme, CI, and site chrome live outside `posts/`. Ask engineering if you need
+nav, domain, or layout changes.

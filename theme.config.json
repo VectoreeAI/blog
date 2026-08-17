@@ -1,0 +1,116 @@
+{
+  "$schema": "https://prosefly.dev/schema/lotus.json",
+  "name": "Vectoree Blog",
+  "description": "Product updates, guides, and notes from Vectoree — model gateway, CLI, and agent-native cloud.",
+  "favicon": "/favicon.svg",
+  "docsBase": "/",
+  "siteNav": [
+    {
+      "label": "Posts",
+      "href": "/posts/"
+    },
+    {
+      "label": "About",
+      "href": "/about/"
+    },
+    {
+      "label": "Docs",
+      "href": "https://docs.vectoree.ai",
+      "external": true,
+      "trailingIcon": "lucide:arrow-up-right"
+    },
+    {
+      "label": "App",
+      "href": "https://vectoree.ai",
+      "external": true,
+      "trailingIcon": "lucide:arrow-up-right"
+    }
+  ],
+  "socials": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/VectoreeAI/blog",
+      "external": true,
+      "icon": "github"
+    },
+    {
+      "label": "Discord",
+      "href": "https://discord.gg/SgbKCtqEgT",
+      "external": true,
+      "icon": "discord"
+    }
+  ],
+  "search": {
+    "provider": "local"
+  },
+  "source": {
+    "github": "VectoreeAI/blog",
+    "branch": "main"
+  },
+  "editLink": true,
+  "docsNav": [
+    {
+      "label": "Blog",
+      "icon": "lucide:newspaper",
+      "items": [
+        {
+          "autogenerate": {
+            "directory": "posts"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Meta",
+      "icon": "lucide:info",
+      "items": [
+        "about",
+        "writing"
+      ]
+    }
+  ],
+  "footer": {
+    "copyright": "Copyright © 2026 Vectoree.",
+    "sections": [
+      {
+        "title": "Vectoree",
+        "links": [
+          {
+            "label": "App",
+            "href": "https://vectoree.ai",
+            "external": true
+          },
+          {
+            "label": "Docs",
+            "href": "https://docs.vectoree.ai",
+            "external": true
+          },
+          {
+            "label": "Blog",
+            "href": "https://blog.vectoree.ai"
+          }
+        ]
+      },
+      {
+        "title": "Developers",
+        "links": [
+          {
+            "label": "CLI",
+            "href": "https://www.npmjs.com/package/@vectoree/cli",
+            "external": true
+          },
+          {
+            "label": "Skills",
+            "href": "https://github.com/VectoreeAI/vectoree-skills",
+            "external": true
+          },
+          {
+            "label": "This repo",
+            "href": "https://github.com/VectoreeAI/blog",
+            "external": true
+          }
+        ]
+      }
+    ]
+  }
+}
