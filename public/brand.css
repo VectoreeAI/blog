@@ -16,11 +16,48 @@ html[data-theme="system"] {
   --pf-accent-contrast: #101010 !important;
 }
 
-.lotus-prose :where(a) {
+/*
+  Light mode: acid (#d8ff00) as link *text* fails contrast on white/paper.
+  Match product pattern — ink text + acid underline; acid stays for button fills.
+*/
+html[data-theme="light"] .lotus-prose :where(a),
+html:not([data-theme="dark"]) .lotus-prose :where(a) {
+  color: #101010;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #d8ff00;
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.2em;
+}
+
+html[data-theme="light"] .lotus-prose :where(a:hover),
+html:not([data-theme="dark"]) .lotus-prose :where(a:hover) {
+  color: #101010;
+  background-color: #d8ff00;
+  text-decoration-color: #101010;
+}
+
+html[data-theme="light"] .lotus-prose :where(a:focus-visible),
+html:not([data-theme="dark"]) .lotus-prose :where(a:focus-visible) {
+  outline: 2px solid #101010;
+  outline-offset: 2px;
+}
+
+/* Heading anchors stay quiet */
+html[data-theme="light"] .lotus-prose :where(h1, h2, h3, h4, h5, h6) :where(a),
+html:not([data-theme="dark"]) .lotus-prose :where(h1, h2, h3, h4, h5, h6) :where(a) {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+/* Dark mode: acid text on dark is fine */
+html[data-theme="dark"] .lotus-prose :where(a) {
+  color: #d8ff00;
   font-weight: 500;
   text-underline-offset: 0.18em;
 }
 
-.lotus-prose :where(a:hover) {
-  color: color-mix(in oklab, #d8ff00 50%, #101010);
+html[data-theme="dark"] .lotus-prose :where(a:hover) {
+  color: #d8ff00;
+  text-decoration-color: #d8ff00;
 }
