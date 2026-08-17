@@ -2,7 +2,35 @@
   "$schema": "https://prosefly.dev/schema/lotus.json",
   "name": "Vectoree Blog",
   "description": "Product updates, guides, and notes from Vectoree — model gateway, CLI, and agent-native cloud.",
-  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo.png",
+    "dark": "/logo.png",
+    "variant": "mark",
+    "width": 32,
+    "height": 32,
+    "href": "/"
+  },
+  "favicon": [
+    {
+      "href": "/favicon.svg",
+      "type": "image/svg+xml"
+    },
+    {
+      "href": "/favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "href": "/favicon-32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "rel": "apple-touch-icon",
+      "href": "/apple-touch-icon.png",
+      "sizes": "180x180"
+    }
+  ],
   "docsBase": "/",
   "siteNav": [
     {
