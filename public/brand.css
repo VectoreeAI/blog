@@ -1,0 +1,26 @@
+/* Vectoree Acid — force exact brand tokens over Lotus remaps.
+   Main site: packages/ui/src/styles.css (--acid / --ink) */
+
+:root,
+html,
+html[data-theme="light"],
+html[data-theme="dark"],
+html[data-theme="system"] {
+  --lotus-accent-light: #d8ff00 !important;
+  --lotus-accent-dark: #d8ff00 !important;
+  --lotus-accent: #d8ff00 !important;
+  --lotus-accent-contrast: #101010 !important;
+  --lotus-accent-soft: color-mix(in oklab, #d8ff00 18%, var(--lotus-background)) !important;
+  --pf-accent: #d8ff00 !important;
+  --pf-accent-soft: var(--lotus-accent-soft) !important;
+  --pf-accent-contrast: #101010 !important;
+}
+
+.lotus-prose :where(a) {
+  font-weight: 500;
+  text-underline-offset: 0.18em;
+}
+
+.lotus-prose :where(a:hover) {
+  color: color-mix(in oklab, #d8ff00 50%, #101010);
+}

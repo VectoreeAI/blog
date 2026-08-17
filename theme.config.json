@@ -32,6 +32,18 @@
     }
   ],
   "docsBase": "/",
+  "appearance": {
+    "accent": "#d8ff00",
+    "gray": "stone",
+    "radius": "none",
+    "defaultMode": "light"
+  },
+  "head": [
+    {
+      "tag": "style",
+      "src": "./public/brand.css"
+    }
+  ],
   "siteNav": [
     {
       "label": "Posts",
