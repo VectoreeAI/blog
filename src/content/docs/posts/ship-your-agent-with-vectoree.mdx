@@ -38,9 +38,19 @@ Instead of piecing together different services after your agent finishes buildin
 
 The idea is simple:
 
-Let your agent build the product. Let Vectoree handle the last mile. We brings these capabilities together so your agent can move beyond a prototype.
+Let your agent build the product. Let Vectoree handle the last mile. We bring these capabilities together so your agent can move beyond a prototype.
 
-Agent ↓ Build ↓ Models · Auth · Database · Storage ↓ Deploy ↓ Production
+```text
+Agent
+  ↓
+Build
+  ↓
+Models · Auth · Database · Storage
+  ↓
+Deploy
+  ↓
+Production
+```
 
 The goal is to give the agent the pieces it needs to finish the job.
 
@@ -49,10 +59,13 @@ But how does an agent use Vectoree?
 That's an important part of the problem.
 
 Giving an agent access to a set of services isn't enough. The agent needs to understand what each capability does, when to use it, and how to put everything together.
+Markdown
 
-That's why we built Vectoree Skills.
+That's why we built [Vectoree Skills](https://vectoree.ai/dashboard/skills).
 
-Vectoree Skills give agents practical, task-oriented knowledge for working with Vectoree.https://vectoree.ai/dashboard/skills
+Vectoree Skills give agents practical, task-oriented knowledge for working with Vectoree.
+
+[Try Vectoree Skills](https://vectoree.ai/dashboard/skills)https://vectoree.ai/dashboard/skills
 
 And as Vectoree grows, we'll continue adding Skills for more capabilities and development scenarios.
 
@@ -64,7 +77,13 @@ The Vectoree CLI gives agents and developers a simple, scriptable way to interac
 
 For example:
 
-npx @vectoree/cli login npx @vectoree/cli link npx @vectoree/cli ai status
+Markdown
+
+```bash
+npx @vectoree/cli login
+npx @vectoree/cli link
+npx @vectoree/cli ai status
+```
 
 The relationship is simple:
 
