@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import { Card, CardGrid } from '@prosefly/astro-components';
+
+const posts = (await getCollection('docs'))
+  .filter((entry) => {
+    if (entry.data.draft && import.meta.env.PROD) return false;
+    const id = entry.id.replace(/\\/g, '/');
+    return id.startsWith('posts/') && id !== 'posts/index';
+  })
+  .sort((a, b) => {
+    const orderA = a.data.sidebar?.order ?? a.data.order ?? Number.POSITIVE_INFINITY;
+    const orderB = b.data.sidebar?.order ?? b.data.order ?? Number.POSITIVE_INFINITY;
+    if (orderA !== orderB) return orderA - orderB;
+    return a.data.title.localeCompare(b.data.title);
+  });
+
+function hrefFor(id: string) {
+  return `/${id.replace(/\\/g, '/')}/`;
+}
+---
+
+{
+  posts.length > 0 ? (
+    <CardGrid>
+      {posts.map((post) => (
+        <Card title={post.data.title} href={hrefFor(post.id)} icon="lucide:newspaper">
+          {post.data.description}
+        </Card>
+      ))}
+    </CardGrid>
+  ) : (
+    <p>No posts yet. Add an MDX file under <code>src/content/docs/posts/</code>.</p>
+  )
+}
