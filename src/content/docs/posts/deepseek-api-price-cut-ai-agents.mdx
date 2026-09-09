@@ -1,0 +1,78 @@
+---
+title: "DeepSeek API Price Cut: Up to 60% Lower Costs for AI Agents"
+description: "DeepSeek has announced a major API price cut of up to 60%, bringing off-peak inference costs lower for developers building AI agents and applications."
+sidebar:
+  order: 10
+---
+
+DeepSeek has announced another major API pricing adjustment, with prices for its V4-Flash series falling by as much as **60%**.
+
+The new pricing takes effect on **September 10, 2026 at 12:00 PM Beijing Time**. For developers building AI agents, coding agents, and other API-driven applications, the change could significantly reduce inference costs.
+
+## DeepSeek API Prices Drop Again
+
+According to the latest pricing update, DeepSeek V4-Flash and related Flash models will become substantially cheaper during off-peak hours.
+
+The new off-peak pricing is:
+
+| API Usage | New Off-Peak Price |
+| --- | ---: |
+| Input — Cache Hit | ¥0.02 / 1M tokens |
+| Input — Cache Miss | ¥1 / 1M tokens |
+| Output | ¥4 / 1M tokens |
+
+Peak-hour pricing remains twice the off-peak rate.
+
+The biggest change is the cache-hit input price, which drops from ¥0.05 to ¥0.02 per million tokens — a **60% reduction**.
+
+This effectively brings the off-peak cache-hit price back toward the extremely low pricing levels developers had become accustomed to before the recent pricing changes.
+
+## Why Lower API Prices Matter for AI Agents
+
+For traditional chatbot applications, lower token prices are helpful. For **AI agents**, the impact can be much larger.
+
+An agent may repeatedly call models to:
+
+- Analyze user requests
+- Generate and execute code
+- Call external tools
+- Read files and databases
+- Perform multi-step reasoning
+- Review and modify previous outputs
+
+A single user request can therefore trigger multiple model calls.
+
+As agent workloads become more complex, **model inference cost becomes an important part of the overall infrastructure bill**.
+
+Lower API prices make it easier for developers to run more iterations, support longer workflows, and experiment with autonomous agents without increasing infrastructure costs at the same rate.
+
+## Peak and Off-Peak Pricing Changes the Way Developers Think About Cost
+
+DeepSeek's current pricing strategy also highlights an important trend: **AI inference is becoming more sensitive to time and capacity utilization**.
+
+DeepSeek defines peak periods as weekday **9:00–12:00 and 14:00–18:00 Beijing Time**, with the remaining hours treated as off-peak.
+
+For workloads that are not latency-sensitive, developers can potentially schedule batch processing, evaluations, background tasks, and other workloads during cheaper periods.
+
+This makes cost optimization more than simply choosing the cheapest model.
+
+It becomes a question of:
+
+> **Which model should an agent use, when should it use it, and how much should each request cost?**
+
+## Vectoree: A Backend for AI Agents
+
+This is where infrastructure becomes increasingly important.
+
+**[Vectoree](https://vectoree.ai/)** is designed as a backend for coding agents and AI applications, bringing **models, authentication, databases, storage, and a model gateway** into one platform.
+
+Its Model Gateway provides a unified interface across multiple AI model providers, allowing developers to use a single project key instead of integrating every provider separately.
+
+For developers building agents, this creates a simpler architecture:
+
+```text
+Agent
+  ↓
+Vectoree Gateway
+  ↓
+AI Model
