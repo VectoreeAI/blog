@@ -1,0 +1,158 @@
+---
+title: "Gemini 3.8 Live: Building Real-Time Voice Agents with 97+ Languages"
+description: "Explore Gemini 3.8 Live, Google's real-time speech-to-speech model for building voice agents across 97+ languages."
+---
+
+Real-time voice agents are becoming a new way to interact with AI.
+
+Instead of typing a request and waiting for a response, users can have a continuous conversation with an AI agent that understands speech, processes context, and takes actions through tools.
+
+Google's Gemini 3.8 Live is designed for this type of experience. It brings native speech-to-speech interaction, support for 97+ languages, visual context, and tool calling to real-time AI applications.
+
+For developers building voice agents, Gemini 3.8 Live provides a foundation for creating more interactive AI experiences.
+
+## What Is Gemini 3.8 Live?
+
+Gemini 3.8 Live is Google's real-time voice model for applications that need natural, continuous conversations.
+
+It uses native speech-to-speech interaction through the Gemini Live API, allowing developers to build applications where users communicate with an AI agent directly through voice.
+
+The model can also work with external tools and APIs while maintaining the conversation.
+
+This makes Gemini 3.8 Live suitable for voice assistants, customer support agents, AI tutors, productivity tools, and other conversational AI applications.
+
+Google provides access to Gemini 3.8 Live through the Gemini API and Google AI Studio.
+
+## 97+ Languages for Voice Agents
+
+One of the key capabilities of Gemini 3.8 Live is its multilingual support.
+
+The model supports more than 97 languages, making it possible to build voice applications for users across different markets with the same underlying model.
+
+For global AI products, multilingual voice support can simplify the development of voice experiences for different users and regions.
+
+A voice agent can handle conversations across multiple languages while maintaining a consistent interaction model.
+
+## Building Real-Time Voice Agents
+
+Gemini 3.8 Live is not only designed for conversations. It can also become part of an AI agent that understands requests, processes information, and uses external tools to complete tasks.
+
+For example, a customer support agent could receive a spoken request, retrieve information from a database, call an external API, and continue the conversation with the user.
+
+A simple architecture could look like this:
+
+User
+↓
+Voice Input
+↓
+Gemini 3.8 Live
+↓
+Reasoning and Tool Calls
+↓
+External APIs and Backend
+↓
+Agent Response
+
+This turns the voice model into the conversational layer of a complete AI agent.
+
+## Voice, Vision, and Tools
+
+Gemini 3.8 Live also supports visual context.
+
+A real-time interaction does not have to be limited to what the user says. Applications can provide visual information to the model as part of the interaction.
+
+For example, a user could show an object, document, or interface while talking with the agent.
+
+Tool calling adds another important capability.
+
+Gemini 3.8 Live supports asynchronous function calling, allowing API or tool operations to run while the conversation continues.
+
+This can be useful for agents that need to retrieve information or perform actions without stopping the entire voice interaction.
+
+Together, voice, visual context, reasoning, and tools allow developers to build more capable real-time AI agents.
+
+## Gemini 3.8 Live Extended Thinking
+
+Google also introduced Gemini 3.8 Live Extended Thinking alongside Gemini 3.8 Live.
+
+The two models are designed for different workflows.
+
+Gemini 3.8 Live focuses on real-time voice interaction, while Gemini 3.8 Live Extended Thinking is designed for more complex reasoning and multi-step tasks.
+
+For AI agents, developers can choose the model based on the task.
+
+A real-time conversation may use Gemini 3.8 Live, while a more complex task may use a model with deeper reasoning capabilities.
+
+## The Model Is Only One Part of an AI Agent
+
+A capable model is important, but it is only one part of a production AI agent.
+
+An agent also needs infrastructure for authentication, model access, databases, storage, APIs, and application state.
+
+This becomes more complicated when an application uses multiple AI models.
+
+For example, a voice agent might use Gemini 3.8 Live for real-time conversations and another model for a different reasoning or coding task.
+
+Developers then need to manage different providers, APIs, credentials, and integrations.
+
+A model gateway can simplify this architecture by providing one interface to multiple models.
+
+## One Model Gateway for Your AI Agent
+
+An OpenAI-compatible model gateway allows an AI application to connect to different model providers through a consistent API.
+
+Instead of creating a separate integration for every provider, developers can use one project key and select the model they need.
+
+This makes it easier to test different models and change the model behind an agent without rebuilding the entire application.
+
+For AI agents, this approach is useful when different tasks require different models.
+
+## Build AI Agents with Vectoree
+
+Vectoree provides a backend designed for AI agents.
+
+It brings model access, authentication, database, storage, and other backend capabilities together in one cloud environment.
+
+The Vectoree Model Gateway provides access to multiple AI providers through one OpenAI-compatible API and one project key.
+
+Developers can connect their agents to models from providers such as Google, OpenAI, Anthropic, xAI, and DeepSeek.
+
+For example, a real-time voice agent can use Gemini 3.8 Live through the Vectoree Model Gateway while using Vectoree for its backend services.
+
+The architecture can look like this:
+
+Voice Agent
+↓
+Vectoree Model Gateway
+↓
+Gemini 3.8 Live
+↓
+Voice, Reasoning, and Tools
+↓
+Vectoree Backend
+↓
+Authentication, Database, and Storage
+
+The model provides the intelligence and real-time interaction.
+
+Vectoree provides the backend infrastructure around the agent.
+
+## From Voice Model to Production Agent
+
+Gemini 3.8 Live brings real-time voice interaction, multilingual support, visual context, and tool calling together in one model.
+
+These capabilities make it possible to build voice agents that do more than simply answer questions.
+
+However, building a production AI agent requires more than choosing a model.
+
+The agent also needs a backend, authentication, data storage, model access, and a reliable way to connect these components.
+
+A model gateway can provide a simpler way to connect an agent with different AI models, while an agent-focused backend can handle the infrastructure around the application.
+
+If you are building a real-time voice agent, Gemini 3.8 Live is a model worth exploring.
+
+With Vectoree, you can connect your agent to the models and backend services it needs through one platform.
+
+Build the agent with the model you want. Give it the backend it needs.
+
+[Explore Vectoree](https://vectoree.ai/)
