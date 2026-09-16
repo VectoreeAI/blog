@@ -1,6 +1,8 @@
 ---
 title: "Gemini 3.8 Live: Building Real-Time Voice Agents with 97+ Languages"
 description: "Explore Gemini 3.8 Live, Google's real-time speech-to-speech model for building voice agents across 97+ languages."
+sidebar:
+  order: 10
 ---
 
 Real-time voice agents are becoming a new way to interact with AI.
