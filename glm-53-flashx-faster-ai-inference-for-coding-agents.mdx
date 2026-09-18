@@ -1,6 +1,8 @@
 ---
 title: "GLM-5.3-FlashX: Faster AI Inference for Coding Agents"
 description: "Explore GLM-5.3-FlashX and how Vectoree's Model Gateway helps developers build faster AI coding agents and workflows."
+sidebar:
+  order: 90
 ---
 
 GLM-5.3-FlashX is the latest high-speed AI model from Z.ai, bringing faster inference to developers building AI applications, coding agents, and automated workflows.
@@ -48,7 +50,7 @@ This makes high-speed models useful for:
 
 For these applications, developers often need to balance model capability, latency, cost, and reliability.
 
-## GLM-5.3-FlashX Meets Vectoree
+## GLM-5.3-FlashX Meets [Explore Vectoree](https://vectoree.ai/)
 
 The AI model is only one part of an agent infrastructure.
 
@@ -60,40 +62,7 @@ With Vectoree, developers can use one project key and manage model access throug
 
 This makes it easier to test new models such as GLM-5.3-FlashX and compare them with other available models.
 
-## Connect AI Agents Through Vectoree Model Gateway
-
-The workflow is simple:
-
-Login → Create a project → Select a model → Connect through the Gateway
-
-Developers can browse available models in Vectoree Model Plaza and use the selected model in their applications or AI coding workflows.
-
-For applications that already use the OpenAI SDK, an OpenAI-compatible gateway can also make model integration easier.
-
-Example:
-
-    import OpenAI from "openai"
-
-    const client = new OpenAI({
-      baseURL: "https://vectoree.ai/api/v1",
-      apiKey: process.env.VECTOREE_API_KEY,
-    })
-
-    const completion = await client.chat.completions.create({
-      model: "GLM-5.3-FlashX",
-      messages: [
-        {
-          role: "user",
-          content: "Help me analyze this codebase.",
-        },
-      ],
-    })
-
-    console.log(completion.choices[0].message)
-
-The exact model identifier and API endpoint may change as the Vectoree model catalog evolves. Developers should check the current Model Plaza and API documentation before using a model in production.
-
-## Build AI Coding Agents with Vectoree
+## Build AI Coding Agents with [Explore Vectoree](https://vectoree.ai/)
 
 GLM-5.3-FlashX is particularly relevant to developers building AI coding agents.
 
@@ -106,7 +75,7 @@ Modern AI agents often need several infrastructure components:
 - Tool integration
 - Backend services
 
-Vectoree brings these capabilities together for developers building AI agent applications.
+[Explore Vectoree](https://vectoree.ai/) brings these capabilities together for developers building AI agent applications.
 
 In addition to the Model Gateway, Vectoree provides authentication, Postgres database capabilities, and object storage.
 
@@ -122,10 +91,10 @@ GLM-5.3-FlashX gives developers another model to evaluate for high-speed AI work
 
 With Vectoree Model Gateway, developers can experiment with GLM-5.3-FlashX alongside other AI models without creating a separate integration for every provider.
 
-## Try GLM-5.3-FlashX with Vectoree
+## Try GLM-5.3-FlashX with [Explore Vectoree](https://vectoree.ai/)
 
 If you are building an AI coding agent, developer tool, or AI-powered application, GLM-5.3-FlashX is worth testing for workflows where inference speed matters.
 
 Vectoree provides a unified Model Gateway for connecting AI applications with multiple models, together with backend infrastructure for building agent-powered applications.
 
-Explore GLM-5.3-FlashX and other AI models through Vectoree Model Plaza and build your next AI agent with Vectoree.
+Explore GLM-5.3-FlashX and other AI models through Vectoree Model Plaza and build your next AI agent with [Explore Vectoree](https://vectoree.ai/).
