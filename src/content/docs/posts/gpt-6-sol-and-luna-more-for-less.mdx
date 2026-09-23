@@ -1,0 +1,209 @@
+---
+title: "GPT-6 Sol and Luna: OpenAI's New AI Models Deliver More for Less"
+description: "GPT-6 Sol and Luna bring stronger coding and agentic capabilities at significantly lower API costs. Learn what OpenAI's new models mean for developers, AI agents, and high-volume workloads."
+sidebar:
+  order: 70
+---
+
+OpenAI has released **GPT-6 Sol** and **GPT-6 Luna**, two new models expanding the GPT-6 family beyond its flagship GPT-6 Astra.
+
+The new models focus on a practical goal: bringing more of GPT-6's capabilities to developers at a lower cost.
+
+GPT-6 Sol is designed for **complex coding and agentic workflows**, while GPT-6 Luna is built for **cost-sensitive, high-volume tasks**. Both models support a 1.05 million token context window, up to 128K output tokens, reasoning, function calling, web search, file search, and computer use.
+
+For developers building AI agents and production applications, the key story is not only what these models can do, but how much they cost to run.
+
+## What Are GPT-6 Sol and GPT-6 Luna?
+
+GPT-6 Sol and GPT-6 Luna are part of OpenAI's latest GPT-6 model family.
+
+OpenAI positions the models around different workload requirements:
+
+- **GPT-6 Sol** is built for complex coding and agentic workflows
+- **GPT-6 Luna** is designed for focused, high-volume workloads
+
+Both models support multiple reasoning levels, allowing developers to control how much reasoning the model uses for a particular task.
+
+GPT-6 Sol supports reasoning effort from `none` to `max`, while GPT-6 Luna provides the same range of reasoning controls.
+
+The API model IDs are:
+
+- `gpt-6-sol`
+- `gpt-6-luna`
+
+Both models are available through the OpenAI Responses API and support tools including web search, file search, code interpreter, computer use, and MCP. :contentReference[oaicite:1]{index=1}
+
+## GPT-6 Sol: Built for Coding and AI Agents
+
+GPT-6 Sol is designed for developers working on more complex tasks.
+
+OpenAI describes Sol as a model for **complex coding and agentic workflows**. This makes it particularly relevant to coding agents that need to understand a codebase, use tools, modify files, run tests, and iterate on their work.
+
+Potential use cases include:
+
+- AI coding agents
+- Code generation
+- Code review
+- Repository refactoring
+- Debugging
+- Software development automation
+- Multi-step agent workflows
+
+On OpenAI's FrontierCode evaluation, which measures whether coding agents can produce changes that are ready to merge into real codebases, GPT-6 Sol improves substantially over GPT-5.6 Sol.
+
+OpenAI also reports strong results on DeepSWE, a benchmark focused on complex software engineering tasks in real codebases. At maximum reasoning effort, GPT-6 Sol scored 68.8% in the reported evaluation. :contentReference[oaicite:2]{index=2}
+
+For developers, this means Sol is positioned not simply as a general-purpose model, but as a model for workflows where an AI agent needs to complete meaningful software engineering tasks.
+
+## GPT-6 Luna: More Efficiency for High-Volume Workloads
+
+GPT-6 Luna takes a different approach.
+
+OpenAI describes Luna as its **most efficient model for focused, high-volume tasks**.
+
+This makes Luna particularly relevant when an application needs to process a large number of requests while keeping model costs low.
+
+Potential use cases include:
+
+- Data extraction
+- Classification
+- Summarization
+- Content processing
+- Routine automation
+- Customer support
+- High-volume API applications
+- Lightweight AI agents
+
+Luna also supports different reasoning effort levels, allowing developers to use minimal reasoning for straightforward tasks and increase reasoning when a task requires more work.
+
+This gives developers a way to balance reasoning depth and cost within the same model.
+
+## More AI Capability at a Lower Cost
+
+Cost efficiency is one of the most notable aspects of the GPT-6 Sol and Luna release.
+
+OpenAI says it is reducing API prices for Sol and Luna by **50% compared with the promotional pricing of their GPT-5.6 predecessors**.
+
+The current standard pricing is:
+
+- GPT-6 Sol: $2 per million input tokens
+- GPT-6 Sol: $10 per million output tokens
+- GPT-6 Luna: $0.10 per million input tokens
+- GPT-6 Luna: $0.50 per million output tokens
+
+Cached input is priced at $0.20 per million tokens for Sol and $0.01 per million tokens for Luna under standard pricing. :contentReference[oaicite:3]{index=3}
+
+The difference is especially significant for AI agents.
+
+An agent may make many model calls during a single task. It can read files, call tools, generate code, run tests, analyze results, and repeat the process several times.
+
+For these applications, the total cost of completing a task can matter more than the cost of a single request.
+
+Lower token prices give developers more room to run longer workflows and experiment with agent-based applications.
+
+## GPT-6 Sol and Luna vs. GPT-6 Astra
+
+GPT-6 Astra remains OpenAI's flagship model for the most demanding reasoning and coding workloads.
+
+Sol and Luna are positioned differently.
+
+GPT-6 Sol is designed to balance intelligence and cost, particularly for coding and agentic workflows.
+
+GPT-6 Luna focuses more heavily on efficiency and high-volume workloads.
+
+This creates a broader range of choices within the GPT-6 family:
+
+- **GPT-6 Astra** for the most demanding workloads
+- **GPT-6 Sol** for complex coding and agentic workflows with a focus on cost efficiency
+- **GPT-6 Luna** for cost-sensitive, high-volume workloads
+
+Developers can therefore choose a model based on the requirements and economics of each workflow rather than using the same model for every request. :contentReference[oaicite:4]{index=4}
+
+## A 1.05 Million Token Context Window
+
+Both GPT-6 Sol and GPT-6 Luna provide a **1.05 million token context window** and support up to **128K output tokens**.
+
+Large context windows are especially useful for AI agents.
+
+A coding agent, for example, may need to work with a large repository containing source code, documentation, configuration files, test results, and tool outputs.
+
+A larger context window allows more relevant information to remain available during a workflow.
+
+This can be useful for:
+
+- Large code repositories
+- Technical documentation
+- Long-running agent sessions
+- Multi-document analysis
+- Complex software projects
+- Tool-heavy workflows
+
+Both models also support text and image input, making them suitable for applications that need to process more than text alone. :contentReference[oaicite:5]{index=5}
+
+## GPT-6 Sol and Luna for AI Agents
+
+The release is closely connected to the growing role of AI agents.
+
+A traditional AI application might send a prompt and receive a response.
+
+An AI agent can instead:
+
+1. Understand a task
+2. Analyze available context
+3. Call external tools
+4. Search or retrieve information
+5. Modify files or generate code
+6. Run tests or other actions
+7. Evaluate the results
+8. Continue until the task is complete
+
+GPT-6 Sol is designed for complex workflows of this type.
+
+GPT-6 Luna provides a lower-cost option when the workflow involves large numbers of more focused tasks.
+
+OpenAI also highlights improvements to caching and inference as part of the reason it can serve GPT-6 models at lower costs. Better prompt caching can reduce repeated processing for long conversations and persistent agent workflows. :contentReference[oaicite:6]{index=6}
+
+## What GPT-6 Sol and Luna Mean for Developers
+
+The release of Sol and Luna shows that model selection is becoming an important part of AI application design.
+
+Developers do not necessarily need to use one model for everything.
+
+A single application could use GPT-6 Sol for complex coding tasks and GPT-6 Luna for high-volume classification, extraction, or summarization.
+
+This approach can help developers balance:
+
+- Model capability
+- API cost
+- Reasoning requirements
+- Request volume
+- Context size
+- Workflow complexity
+
+Instead of asking which model is best for every task, developers can choose the model that fits the economics and requirements of a particular workflow.
+
+## Access GPT-6 Sol and Luna Through Vectoree
+
+As more AI models become available, developers also face another challenge: managing multiple models without creating a separate integration for every provider.
+
+[Vectoree](https://vectoree.ai/) provides an **AI Model Gateway** that gives developers access to multiple AI models through a unified, OpenAI-compatible API.
+
+This makes it easier to experiment with different models while keeping the application architecture consistent.
+
+For example, developers can use GPT-6 Sol for complex coding and agentic tasks, while using GPT-6 Luna for high-volume or cost-sensitive workloads.
+
+The same approach can also be extended to other AI models available through Vectoree, allowing developers to choose models based on capability, speed, and cost.
+
+Explore [Vectoree](https://vectoree.ai/) to access multiple AI models through a unified Model Gateway.
+
+## Conclusion
+
+GPT-6 Sol and GPT-6 Luna expand the GPT-6 family with a strong focus on **cost efficiency**.
+
+GPT-6 Sol is built for complex coding and agentic workflows, while GPT-6 Luna is designed for focused, high-volume workloads.
+
+Both models offer a 1.05 million token context window, up to 128K output tokens, reasoning capabilities, and a broad set of tools for building AI applications. At the same time, OpenAI has reduced their standard API prices by 50% compared with the promotional pricing of their GPT-5.6 predecessors. :contentReference[oaicite:7]{index=7}
+
+For developers building AI agents, coding tools, and large-scale AI applications, the combination of capability and lower operating costs makes GPT-6 Sol and Luna notable additions to the GPT-6 family.
+
+With [Vectoree](https://vectoree.ai/), developers can access multiple AI models through a unified Model Gateway and choose the right model for each workflow.
