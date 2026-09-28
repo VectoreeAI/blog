@@ -1,0 +1,283 @@
+---
+title: "Jev makes the call. Vectoree does the rest."
+description: "Call TypeSafe AI's Jev through the Vectoree Model Gateway — typed, calibrated decisions on your project key — then let the same key draft, search, and store the result."
+template: splash
+lastUpdated: 2026-09-28
+sidebar:
+  label: "Jev × Vectoree"
+  order: 5
+hero:
+  title: "Jev makes the call. Vectoree does the rest."
+  tagline: "Typed decisions from TypeSafe AI's Jev. Models, tools, auth, and data from Vectoree — on one project key."
+  actions:
+    - text: Set up the CLI
+      link: https://docs.vectoree.ai/quickstart
+      variant: primary
+      icon: lucide:terminal
+    - text: Read the Jev launch post
+      link: https://typesafe.ai/blog/introducing-system-one-models-and-jev
+      variant: secondary
+      icon: lucide:arrow-up-right
+---
+
+import { Accordions, AccordionItem, Callout, Card, CardGrid, Steps } from '@prosefly/astro-components';
+import Eyebrow from '../../../components/Eyebrow.astro';
+import Flow from '../../../components/Flow.astro';
+
+TypeSafe AI shipped Jev on September 15. It is not a chat model. You hand it some state and a set of typed questions — yes or no, one of N, a score on a scale — and it answers all of them in one parallel pass, returning a probability and a confidence for each instead of generated text. TypeSafe's own launch numbers put a call at 70 to 500 milliseconds and $0.042 per million input tokens, with output free.
+
+That changes where the expensive model sits in your agent. Jev decides; something else has to act. It has to draft the reply, fetch the page, remember what was decided, and know who asked. That something is Vectoree: one project, one key, a Model Gateway for the generative half, Tool Hub for retrieval, Postgres for the record, Auth for the people on the other end. Here's how the two fit together.
+
+| | Jev (TypeSafe's figures) | What it means for your agent |
+| --- | --- | --- |
+| Latency | 70–500 ms end-to-end | A decision fits inside a request handler |
+| Price | $0.042 / MTok in, output free | Ask ten questions; the tenth costs tokens, not time |
+| Output | Typed value + probability + confidence | Thresholds are code, not prompt engineering |
+| Context | 64k tokens for state + questions | Retrieve and filter first, then judge |
+| Generation | None | The reply still needs an LLM — that's the gateway's job |
+
+<Eyebrow>Three kinds of question</Eyebrow>
+
+## What Jev answers
+
+<div class="vt-grid-3">
+  <CardGrid>
+    <Card title="Yes or no — Noul">
+      "Does this message express urgency?"
+
+      `noul 0.95`
+    </Card>
+    <Card title="One of N — Choice">
+      "Which team owns this ticket?"
+
+      `choice billing · confidence 0.84`
+    </Card>
+    <Card title="A score on a scale — Score">
+      "How frustrated is the customer?"
+
+      `score 1.9 of 2 · confidence 0.78`
+    </Card>
+  </CardGrid>
+</div>
+
+Up to 255 options in a Choice, two to ten worded levels in a Score, and a Noul is a single probability. Every question is evaluated against the same state in parallel, so ask everything up front and let code decide which answers matter.
+
+<Eyebrow>Setup</Eyebrow>
+
+## One key, one pipeline
+
+### Where the key lives
+
+You do not create a TypeSafe account or put a TypeSafe key in the agent. Jev is a catalog model on the [Model Gateway](https://docs.vectoree.ai/models). Your project key (`sk-ve-v1-…`) is the only credential the agent holds; Vectoree attaches the upstream key on the way out. Keep that key on the server — never in a browser bundle, never behind `NEXT_PUBLIC_`.
+
+<Flow
+  items={[
+    {
+      eyebrow: 'Your agent',
+      title: 'Project key',
+      code: 'VECTOREE_API_KEY',
+      text: 'One key for Jev and for everything after the answer. The TypeSafe key is never here.',
+    },
+    {
+      eyebrow: 'Vectoree',
+      title: 'Model Gateway',
+      code: 'POST /api/v1/systemone',
+      text: 'Checks the calling project, bills the org wallet, and forwards state plus questions to Jev.',
+      accent: true,
+    },
+    {
+      eyebrow: 'TypeSafe AI',
+      title: 'Jev',
+      code: 'typesafe/jev-latest',
+      text: 'The decision comes back on the same path: a typed value, probabilities, and a confidence.',
+    },
+  ]}
+/>
+
+<Steps>
+
+1. **Connect Vectoree to the repo your agent lives in.**
+
+   `link` picks or creates a project and writes a scoped API key under `.vectoree/`. That key is what calls Jev.
+
+   ```bash
+   npx skills add VectoreeAI/vectoree-skills
+   npx @vectoree/cli login
+   npx @vectoree/cli link
+   ```
+
+   Headless CI: `npx @vectoree/cli login --use-device-code`, or set `VECTOREE_API_KEY` and skip login.
+
+2. **Confirm Jev is on your catalog.**
+
+   Decisions models are not chat models. Filter the list by output modality, and use the slug it prints. Do not send that slug to `ai chat` — chat completions reject it and point you at `/api/v1/systemone`. `/api/v1/decisions` is the same route.
+
+   ```bash
+   npx @vectoree/cli ai models list --output-modality decisions
+   ```
+
+3. **Let Jev triage, then draft only what needs a language model.**
+
+   Both calls use the project key, through two different clients. Jev is not a chat model, so the OpenAI SDK cannot call it. TypeSafe's SDK can: it `POST`s `{base_url}/v1/systemone`, and `base_url` (or `TYPESAFE_BASE_URL`) overrides the default `https://api.typesafe.ai`. Point it at `https://vectoree.ai/api` — the SDK adds `/v1/systemone` itself. Set `model` to `typesafe/jev-latest`. Left unset, the SDK sends the bare id `jev-latest`, which is not the catalog slug.
+
+   The reply, if you still need one, is an ordinary chat completion. That half is the OpenAI SDK, with `base_url` set to `https://vectoree.ai/api/v1`.
+
+   ```python
+   import os
+   from openai import OpenAI
+   from typesafe_sdk import Choice, Noul, Score, TypeSafeClient
+
+   KEY = os.environ["VECTOREE_API_KEY"]
+
+   # SDK appends /v1/systemone. Do not include /v1 here.
+   jev = TypeSafeClient(
+       api_key=KEY,
+       base_url="https://vectoree.ai/api",
+       model="typesafe/jev-latest",
+   )
+   llm = OpenAI(base_url="https://vectoree.ai/api/v1", api_key=KEY)
+
+   def handle(ticket: dict):
+       r = jev.system_one(
+           state=ticket,
+           questions={
+               "team": Choice(
+                   instructions="Which team should handle this",
+                   criteria={
+                       "billing": "Payments, invoices, refunds",
+                       "technical": "Bugs or integration problems",
+                       "other": "Anything else",
+                   },
+               ),
+               "urgent": Noul(
+                   instructions="The message conveys urgency or a deadline",
+               ),
+               "mood": Score(
+                   instructions="How frustrated the customer appears",
+                   criteria=["Calm", "Frustrated but civil", "Very angry"],
+               ),
+           },
+       )
+       team, urgent, mood = r.answers["team"], r.answers["urgent"], r.answers["mood"]
+
+       # Low confidence or an angry customer: a person decides.
+       if team.confidence < 0.5 or mood.score > 1.5:
+           return page_human(ticket, r)
+
+       # Chat completions only. typesafe/jev-latest is rejected on this route.
+       draft = llm.chat.completions.create(
+           model="vectoree/auto",
+           messages=[
+               {
+                   "role": "system",
+                   "content": f"You are on the {team.choice} team. Reply in three sentences.",
+               },
+               {"role": "user", "content": ticket["text"]},
+           ],
+       )
+       return file_reply(ticket, draft.choices[0].message.content, decision=r)
+   ```
+
+   The JavaScript SDK is the same idea: `new TypeSafeClient({ apiKey: key, baseURL: "https://vectoree.ai/api", defaultModel: "typesafe/jev-latest" })`. Install with `pip install typesafe-sdk` or `npm install @typesafe-ai/sdk`.
+
+   Questions run in parallel, so `mood` is asked even when it turns out not to matter. A tenth question costs tokens, not another round trip, and the chat call only happens on the branch that earns it.
+
+</Steps>
+
+<Eyebrow>In the loop</Eyebrow>
+
+## What your agent should ask Jev
+
+<CardGrid>
+  <Card title="Route the task before paying for it." icon="lucide:git-fork">
+    **one of N** — A Choice over the task: handle in plain code, send to `vectoree/auto`, send to a pinned frontier slug, or hand to a person. The gateway only bills for the work that needs a model.
+  </Card>
+  <Card title="Pick a tool, or don't use one." icon="lucide:wrench">
+    **one of N** — List Tool Hub's `search` and `extract` as options with an explicit "none". A low-confidence answer means: don't call anything, answer from what you have.
+  </Card>
+  <Card title="Triage what comes in." icon="lucide:inbox">
+    **yes or no · one of N · score** — A ticket goes in as state. Which team, how urgent, how frustrated — one pass. The agent files it, pages someone, or drafts a reply through the gateway.
+  </Card>
+  <Card title="Flag the diff for a human." icon="lucide:shield-alert">
+    **yes or no** — Before your coding agent runs a migration or touches billing code, ask whether the change is destructive. Above a threshold, stop and request review. Jev raises the flag; a person makes the call.
+  </Card>
+</CardGrid>
+
+<Callout type="warning" title="State is not treated as hostile">
+  TypeSafe's docs are explicit that Jev reads whatever you put in the state at face value. Text written to argue for its own classification can move the answer. If user-controlled content ends up in state, that is your threat model: know who wrote it (Auth), keep a confidence floor, and gate anything destructive behind a person.
+</Callout>
+
+<Eyebrow>Why Vectoree</Eyebrow>
+
+## What happens after Jev answers
+
+Jev returns a number. Your agent acts on it, and that action needs a backend. Here's what each Vectoree product does on the other side of the decision.
+
+### It writes the reply.
+
+Jev does not generate — no text, no code, no summaries. The [Model Gateway](https://docs.vectoree.ai/models) is one OpenAI-compatible endpoint and one key across 36+ models, so the same `openai` client that drafted the reply above can also call `/api/v1/embeddings`, `/api/v1/images`, or `/api/v1/audio/transcriptions`. That last one matters: Jev is text-only, so a voicemail or a screen recording goes through STT on the gateway first, then to Jev as state.
+
+### It fetches the state.
+
+Jev knows nothing beyond what you hand it, and its accuracy falls as state fills with material the question doesn't need. [Tool Hub](https://docs.vectoree.ai/api-reference/tool-hub/web-search) is hosted MCP with Tavily-compatible `search` and `extract` — same key, billed from the org wallet, no third-party search account. Retrieve wide, filter in code, and send Jev only the fields the question reads.
+
+```bash
+npx @vectoree/cli tools snippet --write --replace-search
+```
+
+`--write` targets Cursor's `.cursor/mcp.json` by default; pass `--client claude` or `--client vscode` for the others.
+
+### It remembers the decision.
+
+Every project gets its own Postgres. Log the choice, the probabilities, the confidence, and the slug you called. `typesafe/jev-latest` tracks the current release, so a later listing can move answers under a threshold you already tuned. When `ai models list --output-modality decisions` also shows a versioned slug, pin that one. With the record in a table, retuning is a query, not a guess.
+
+```bash
+npx @vectoree/cli db insert decisions --data '{
+  "ticket_id": "A-104", "team": "billing",
+  "confidence": 0.84, "urgent": 0.95, "model": "typesafe/jev-latest"
+}'
+```
+
+Or from code: `POST https://vectoree.ai/api/database/records/decisions` with a JSON array body and your project key.
+
+### It knows who asked.
+
+[Authentication](https://docs.vectoree.ai/auth) gives the people using your agent email OTP and Google sign-in, and their identity flows straight into row-level security on the database. So the ticket that becomes Jev's state carries a real user, user A never reads user B's decisions, and "who wrote this text" is a column, not a guess.
+
+<Eyebrow>FAQ</Eyebrow>
+
+## Frequently asked questions
+
+<Accordions>
+  <AccordionItem title="What is Jev?">
+    Jev is TypeSafe AI's first System One model: a decision model rather than a chat model. It takes a piece of state and a set of typed questions — Noul (yes/no), Choice (one of N), Score (a position on a scale) — and returns a value from your schema with a probability and confidence, instead of generated text. It launched in early access on September 15, 2026.
+  </AccordionItem>
+  <AccordionItem title="Can I call Jev through the Vectoree Model Gateway?">
+    Yes. TypeSafe's Python and JavaScript SDKs take a base URL and then call `{base_url}/v1/systemone`. Set `base_url` to `https://vectoree.ai/api` (no trailing `/v1`) and `api_key` to your Vectoree project key, and pass `model="typesafe/jev-latest"`. The OpenAI SDK cannot make this call: chat completions reject a decisions slug. Vercel AI SDK's `experimental_evaluate` talks to Vercel AI Gateway (`typesafe-ai/jev`, question type `boolean`), not to Vectoree's `/api/v1/systemone`, so it is not a client for this gateway. `/api/v1/decisions` is an alias of the same Vectoree route if you call it with `fetch` instead of the SDK.
+  </AccordionItem>
+  <AccordionItem title="Do I need a TypeSafe API key?">
+    No. `npx @vectoree/cli link` writes one project key (`sk-ve-v1-…`) under `.vectoree/`. That key calls Jev, chat, Tool Hub, Database, and Storage. Vectoree holds the upstream TypeSafe credential and attaches it per request. The key belongs on your server, never in the browser bundle.
+  </AccordionItem>
+  <AccordionItem title="Can Jev replace the LLM my agent uses?">
+    No. Jev answers typed questions and does not generate or stream text, so an agent still needs a language model for writing code and prose. The pattern is a cascade: Jev classifies and routes cheaply, plain code handles what it can, and a model from the gateway takes the minority that needs one.
+  </AccordionItem>
+  <AccordionItem title="Where do Jev's decisions get stored?">
+    In your project's Postgres. Insert from the CLI with `db insert`, or `POST /api/database/records/{table}` with a JSON array body. Row-level security means multi-tenant apps get per-user isolation without glue code. `pgvector` is available if you also want to store embeddings for retrieval.
+  </AccordionItem>
+  <AccordionItem title="How does Jev get state from the web?">
+    It doesn't — it only sees what you send. Use Tool Hub's `search` and `extract` (hosted MCP at `https://vectoree.ai/mcp`, or REST at `/api/tools/v1/search` and `/api/tools/v1/extract`) to retrieve, filter in code, then pass only the relevant fields to Jev as state.
+  </AccordionItem>
+  <AccordionItem title="How is all of this billed?">
+    From the organization wallet, same as every other gateway model: top up with Stripe, no monthly plan. TypeSafe publishes Jev at $0.042 per million input tokens with output free; the price your project pays is the one in Model Plaza. Tool Hub bills per request. In this launch, Auth, Database, and Storage run on shared infrastructure and are not billed separately.
+  </AccordionItem>
+  <AccordionItem title="What about rate limits and version drift?">
+    A key over its request limit gets `429` with `Retry-After`. `typesafe/jev-latest` follows the current release. Once thresholds are tuned, pin a versioned slug from `ai models list --output-modality decisions` if one is listed, and log the slug with every decision.
+  </AccordionItem>
+  <AccordionItem title="Can I put the agent on a public URL?">
+    Deploy — a public HTTPS URL for the linked project — and Payments are in development and launching soon. Today the agent runs wherever you run it, against the same project; when Deploy ships, it attaches to that project without a migration.
+  </AccordionItem>
+</Accordions>
+
+<Callout type="note" title="About the numbers">
+  Latency, price, and accuracy figures for Jev are TypeSafe AI's own, self-run and not yet independently reproduced. Evaluate on your own traffic before you move a threshold into production.
+</Callout>

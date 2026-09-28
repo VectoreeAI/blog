@@ -1,0 +1,117 @@
+---
+/**
+ * Horizontal request flow: N nodes joined by arrows. Stacks vertically on small screens.
+ * Usage in MDX:
+ *   <Flow items={[{ eyebrow: 'Your agent', title: 'TypeSafe SDK', code: 'TYPESAFE_API_KEY', text: '...' }, ...]} />
+ */
+interface FlowItem {
+  eyebrow: string;
+  title: string;
+  code?: string;
+  text: string;
+  accent?: boolean;
+}
+
+interface Props {
+  items: FlowItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="vt-flow" style={`--vt-flow-cols: ${items.length}`}>
+  {
+    items.map((item) => (
+      <li class:list={['vt-flow__node', { 'vt-flow__node--accent': item.accent }]}>
+        <span class="vt-flow__eyebrow">{item.eyebrow}</span>
+        <strong class="vt-flow__title">{item.title}</strong>
+        {item.code && <code class="vt-flow__code">{item.code}</code>}
+        <span class="vt-flow__text">{item.text}</span>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .vt-flow {
+    --vt-flow-gap: 2.25rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--vt-flow-gap);
+    margin: 1.5rem 0 2.75rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .vt-flow__node {
+    position: relative;
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 1.1rem 1.25rem 1.25rem;
+    border: 1px solid var(--lotus-border-muted);
+    background: var(--lotus-background);
+  }
+
+  .vt-flow__node--accent {
+    border-color: color-mix(in oklab, var(--lotus-accent) 55%, var(--lotus-border-muted));
+    background: var(--lotus-accent-soft);
+  }
+
+  .vt-flow__node:not(:last-child)::after {
+    content: '↓';
+    position: absolute;
+    left: 50%;
+    bottom: calc(-1 * var(--vt-flow-gap));
+    display: grid;
+    place-items: center;
+    width: var(--vt-flow-gap);
+    height: var(--vt-flow-gap);
+    transform: translateX(-50%);
+    font-size: 1.25rem;
+    color: var(--lotus-text-subtle);
+  }
+
+  .vt-flow__eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lotus-text-muted);
+  }
+
+  .vt-flow__title {
+    font-size: 1.15rem;
+    line-height: 1.3;
+    color: var(--lotus-text-strong);
+  }
+
+  .vt-flow__code {
+    justify-self: start;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.45rem;
+    border: 1px solid var(--lotus-code-border);
+    background: var(--lotus-code-background);
+  }
+
+  .vt-flow__text {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--lotus-text-muted);
+  }
+
+  @media (min-width: 768px) {
+    .vt-flow {
+      grid-template-columns: repeat(var(--vt-flow-cols, 3), minmax(0, 1fr));
+    }
+
+    .vt-flow__node:not(:last-child)::after {
+      content: '→';
+      left: auto;
+      right: calc(-1 * var(--vt-flow-gap));
+      top: 50%;
+      bottom: auto;
+      transform: translateY(-50%);
+    }
+  }
+</style>

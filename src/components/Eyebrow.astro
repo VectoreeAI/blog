@@ -1,0 +1,33 @@
+---
+/**
+ * Small uppercase section label used above an H2 on feature pages.
+ * Usage in MDX: <Eyebrow>Setup</Eyebrow>
+ */
+---
+
+<p class="vt-eyebrow"><slot /></p>
+
+<style>
+  .vt-eyebrow {
+    margin: 3.5rem 0 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lotus-text-muted);
+  }
+
+  .vt-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-right: 0.55rem;
+    vertical-align: 1px;
+    background: var(--lotus-accent);
+  }
+
+  .vt-eyebrow + :global(h2) {
+    margin-top: 0.25rem;
+  }
+</style>

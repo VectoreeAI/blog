@@ -50,6 +50,13 @@ html:not([data-theme="dark"]) .lotus-prose :where(h1, h2, h3, h4, h5, h6) :where
   text-decoration: none;
 }
 
+/* Feature pages: three-up card row (CardGrid is 2-up by default) */
+@media (min-width: 48rem) {
+  .lotus-prose .vt-grid-3 .pf-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 /* Dark mode: acid text on dark is fine */
 html[data-theme="dark"] .lotus-prose :where(a) {
   color: #d8ff00;
