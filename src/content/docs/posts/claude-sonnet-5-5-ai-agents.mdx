@@ -1,0 +1,263 @@
+---
+title: "Claude Sonnet 5.5: Faster Everyday Work at Sonnet 5's Price"
+description: "Anthropic's Sonnet 5.5 keeps the $2/$10 sticker, runs faster, and spends fewer tokens on scoped tasks. Call it through the Vectoree Model Gateway once the catalog lists the slug."
+template: splash
+lastUpdated: 2026-09-29
+sidebar:
+  label: "Claude Sonnet 5.5"
+  order: 70
+hero:
+  title: "Claude Sonnet 5.5: Faster Everyday Work at Sonnet 5's Price"
+  tagline: "Shipped September 28, beside Opus 5.5. Scoped bugs, docs, and slides on Sonnet — one Vectoree project key for the call, the search, and the token log."
+  actions:
+    - text: Set up the CLI
+      link: https://docs.vectoree.ai/quickstart
+      variant: primary
+      icon: lucide:terminal
+    - text: Read the Sonnet 5.5 launch
+      link: https://www.anthropic.com/claude-sonnet-5-5
+      variant: secondary
+      icon: lucide:arrow-up-right
+---
+
+import { Accordions, AccordionItem, Callout, Card, CardGrid, Steps } from '@prosefly/astro-components';
+import Eyebrow from '../../../components/Eyebrow.astro';
+import Flow from '../../../components/Flow.astro';
+
+Anthropic shipped Claude Sonnet 5.5 on September 28, less than a week after Opus 5.5. It is the model for work that already has a scope: fix the bug, iterate the feature, write the one-pager, build the slide from a template, clean up the sheet. Opus 5.5 stays the model for careful judgment. Anthropic's own figures put Sonnet 5.5 more than 30% faster than Sonnet 5 on output, at Sonnet 5's sticker — $2 per million input tokens, $10 per million output — and up to 30% cheaper per task, because a typical task spends fewer tokens.
+
+That split only helps if the call, the page it needed, and the bill land in one place. That place is Vectoree: one project, one key, a [Model Gateway](https://docs.vectoree.ai/models) for the generation, [Tool Hub](https://docs.vectoree.ai/api-reference/tool-hub/web-search) when the fact is newer than the June 2026 cutoff, Postgres for the token log, Auth for the person on the other end. Here's how the two fit together.
+
+| | Sonnet 5.5 (Anthropic's figures) | What it means for your agent |
+| --- | --- | --- |
+| Sticker | $2 / MTok in, $10 / MTok out. Opus 5.5 is $4 / $20. Cache reads $0.20 on both. | Pinning Sonnet is half Opus's per-token price. Tokens still decide the bill. |
+| Per task | Up to 30% less than Sonnet 5, from fewer tokens, not a lower sticker | The discount shows up in your usage table, or it doesn't |
+| Speed | Output more than 30% faster than Sonnet 5 | A fix-and-rerun loop fits a tighter handler |
+| Coding | Terminal-Bench 4.0: 70.6%, against 10.3% for Sonnet 5 | Scoped agentic coding moved. Confirm it on your repo, not on their harness. |
+| Knowledge work | GDPval-AA v2.1: 1,844, against 1,449 for Sonnet 5 and 1,846 for Opus 5.5 | Close to Opus on that suite. Judgment-heavy work still has a reason to leave Sonnet. |
+| Context | 1M tokens, 128k max output. Knowledge cutoff June 2026. | Anything newer than the cutoff comes from Tool Hub, then into the prompt |
+
+<Eyebrow>Three kinds of work</Eyebrow>
+
+## What Sonnet 5.5 is for
+
+<div class="vt-grid-3">
+  <CardGrid>
+    <Card title="A scoped code change">
+      A bug with a repro, a feature with a check you can run.
+
+      `pin the Sonnet slug`
+    </Card>
+    <Card title="A doc, a slide, a sheet">
+      A one-pager, a template deck, a spreadsheet cleanup. Anthropic also credits it with a sharp eye for UI polish.
+
+      `pin the Sonnet slug`
+    </Card>
+    <Card title="A judgment call">
+      Long-horizon work, ambiguous specs, the case where being wrong is expensive.
+
+      `pin Opus, or ask a person`
+    </Card>
+  </CardGrid>
+</div>
+
+Anthropic's prompting guide says the same thing in their words: Sonnet 5.5 for well-specified tasks, an Opus model for the hardest long-horizon work. Haiku 5.5, the high-volume tier, is not out yet — Anthropic says it joins the 5.5 family in the coming weeks. Until a slug for it appears in your catalog, it is not a route you can call.
+
+<Eyebrow>Setup</Eyebrow>
+
+## One key, one model id
+
+### Where the key lives
+
+You do not create an Anthropic account or put an Anthropic key in the agent. When Sonnet 5.5 is on your catalog, it is a chat model on the Model Gateway. Your project key (`sk-ve-v1-…`) is the only credential the agent holds; Vectoree attaches the upstream credential on the way out. Keep that key on the server — never in a browser bundle, never behind `NEXT_PUBLIC_`.
+
+<Flow
+  items={[
+    {
+      eyebrow: 'Your agent',
+      title: 'Project key',
+      code: 'VECTOREE_API_KEY',
+      text: 'One key for Sonnet and for the tools and rows around it. The Anthropic key is never here.',
+    },
+    {
+      eyebrow: 'Vectoree',
+      title: 'Model Gateway',
+      code: 'POST /api/v1/chat/completions',
+      text: 'Checks the calling project, bills the org wallet, and forwards the chat request to the catalog model.',
+      accent: true,
+    },
+    {
+      eyebrow: 'Catalog',
+      title: 'The slug search printed',
+      code: 'ai models search sonnet',
+      text: 'Anthropic\'s API id is claude-sonnet-5-5. The gateway id is whatever this command prints. They are not the same string.',
+    },
+  ]}
+/>
+
+<Steps>
+
+1. **Connect Vectoree to the repo your agent lives in.**
+
+   `link` picks or creates a project and writes a scoped API key under `.vectoree/`. That key is what calls the model.
+
+   ```bash
+   npx skills add VectoreeAI/vectoree-skills
+   npx @vectoree/cli login
+   npx @vectoree/cli link
+   ```
+
+   Headless CI: `npx @vectoree/cli login --use-device-code`, or set `VECTOREE_API_KEY` and skip login.
+
+2. **Confirm Sonnet 5.5 is on your catalog, and copy the slug.**
+
+   Catalog ids come from search. Anthropic's model id, `claude-sonnet-5-5`, is the id on the Claude API, Bedrock (`anthropic.claude-sonnet-5-5`), Google Cloud, and Microsoft Foundry. Do not paste it into the gateway and hope. If search prints nothing, the model is not on this catalog yet — stay on `vectoree/auto` until a row appears. Do the same search before you pin Opus.
+
+   ```bash
+   npx @vectoree/cli ai models search sonnet
+   npx @vectoree/cli ai models get <slug-from-search>
+   npx @vectoree/cli ai chat "ping" --model <slug-from-search>
+   ```
+
+   `ai models get` is also where you read input modality. Sonnet 5.5 accepts images on Anthropic's API, at their high-resolution tier, which spends more image tokens than Sonnet 4.6. On Vectoree, send an image only when that slug's input modality includes `image`. Otherwise downscale and extract text first, or don't send the image.
+
+3. **Call chat completions with the slug search printed.**
+
+   This route is the OpenAI SDK, `base_url` set to `https://vectoree.ai/api/v1`. The Anthropic SDK is a different API: it posts to `/v1/messages` and speaks `output_config.effort` and `thinking`. Pointing that SDK at the gateway does not turn those fields into gateway features.
+
+   ```python
+   import os
+   from openai import OpenAI
+
+   client = OpenAI(
+       base_url="https://vectoree.ai/api/v1",
+       api_key=os.environ["VECTOREE_API_KEY"],
+   )
+
+   # Printed by: npx @vectoree/cli ai models search sonnet
+   SONNET = os.environ["VECTOREE_SONNET_SLUG"]
+
+   def run(task: str, scoped: bool) -> str:
+       # scoped: a bug with a repro, a slide from a template, a sheet cleanup.
+       # everything else stays on the router until you pin an Opus slug the same way.
+       model = SONNET if scoped else "vectoree/auto"
+       resp = client.chat.completions.create(
+           model=model,
+           messages=[
+               {
+                   "role": "system",
+                   "content": "Do the task. Keep the change small enough to review.",
+               },
+               {"role": "user", "content": task},
+           ],
+       )
+       usage = resp.usage
+       record(model, usage.prompt_tokens, usage.completion_tokens)
+       return resp.choices[0].message.content
+   ```
+
+   `record` is your insert into the project database — the next section has the CLI form. The JavaScript call is the same client: `new OpenAI({ baseURL: "https://vectoree.ai/api/v1", apiKey })`. A snippet for the slug you picked is `npx @vectoree/cli ai snippet --model <slug> --lang ts` (or `python`). Paste it into a server route.
+
+</Steps>
+
+<Callout type="warning" title="Effort is a Claude API knob">
+  Sonnet 5.5 has five effort levels — `low`, `medium`, `high`, `xhigh`, `max` — and they are recalibrated, so a level you tuned on Sonnet 5 is not the same amount of thinking. Anthropic defaults to Medium in Claude Code and the Claude apps, and High on the Claude API. Those fields live on the Messages API (`output_config.effort`, `thinking`). The Vectoree gateway is `POST /api/v1/chat/completions`. Do not send Messages-only fields on this route and expect Claude API behavior. Pick the slug, probe it with `ai chat`, and judge cost from the token log.
+</Callout>
+
+<Eyebrow>In the loop</Eyebrow>
+
+## Where Sonnet sits in the agent
+
+<CardGrid>
+  <Card title="Pin it for the job you run all day." icon="lucide:pin">
+    **scoped** — Bugfix, review, a draft from a template. Once `ai chat "ping" --model <slug>` returns, that slug is the model for this branch. `vectoree/auto` keeps choosing for you; a pin is how you know tomorrow's call is still Sonnet 5.5.
+  </Card>
+  <Card title="Leave the router on the rest." icon="lucide:shuffle">
+    **unscoped** — Work you have not classified stays on `vectoree/auto`. Promote a call to a pinned Opus slug only when the task is the judgment case in the table above, and only after search prints that slug too.
+  </Card>
+  <Card title="Fetch the page, then prompt." icon="lucide:search">
+    **cutoff June 2026** — The weights stop there. Tool Hub's `search` and `extract` take the same project key. Retrieve, cut the page down in code, and put only that text in the user message.
+  </Card>
+  <Card title="Read the usage before you trust the 30%." icon="lucide:receipt">
+    **tokens** — Anthropic's "up to 30% less" is their workload. Write `prompt_tokens`, `completion_tokens`, and the slug on every call. A week of your traffic is the number you can budget with.
+  </Card>
+</CardGrid>
+
+<Callout type="note" title="What people running it early reported">
+  These are the customers' own evals, not Vectoree's. Slack saw Sonnet 5.5 beat Sonnet 5 on almost all of their offline Slackbot checks, in fewer steps and about 14% fewer output tokens, without a prompt change. Zendesk, on hundreds of real support cases, processed tickets about 20% faster. A finance suite of 2,441 tasks used about 121k tokens per answer where Sonnet 5 used 497k. Treat them as a reason to measure, not as your forecast.
+</Callout>
+
+<Eyebrow>Why Vectoree</Eyebrow>
+
+## What the gateway is doing around the model
+
+Sonnet 5.5 returns text. Your agent still has to pay for it, ground it, and remember which slug produced it. Here's what each Vectoree product does on this call.
+
+### It is the only key.
+
+The [Model Gateway](https://docs.vectoree.ai/models) is one OpenAI-compatible endpoint. The same `openai` client can call `/api/v1/chat/completions` for Sonnet's slug, `/api/v1/embeddings` when you need a vector, `/api/v1/audio/transcriptions` when the input is a voicemail. Sonnet on Anthropic's API is text and images in, text out — a recording still becomes text on the gateway before it becomes a prompt. Browse price and status in Model Plaza; the price your project pays is the one listed there, not Anthropic's sticker copied into a comment.
+
+### It fetches what the cutoff doesn't have.
+
+[Tool Hub](https://docs.vectoree.ai/api-reference/tool-hub/web-search) is hosted MCP with Tavily-compatible `search` and `extract` — same key, billed from the org wallet, no second search account. Anthropic's early testers described Sonnet 5.5 as reaching for the web less often than Sonnet 5. When you do need a page, call the tool yourself and pass the extract in. The model does not get its own search key.
+
+```bash
+npx @vectoree/cli tools snippet --write --replace-search
+```
+
+`--write` targets Cursor's `.cursor/mcp.json` by default; pass `--client claude` or `--client vscode` for the others. REST is `POST /api/tools/v1/search` and `POST /api/tools/v1/extract`.
+
+### It remembers what the call cost.
+
+Every project gets its own Postgres. Log the slug, the token counts, and the latency. Anthropic will keep shipping aliases; a later catalog row can move the work you thought you had pinned. When `ai models search sonnet` shows a versioned slug, pin that one and store it on the row. Retuning is a query.
+
+```bash
+npx @vectoree/cli db insert generations --data '{
+  "task_id": "B-220", "model": "<slug-from-search>",
+  "prompt_tokens": 1400, "completion_tokens": 380
+}'
+```
+
+Or from code: `POST https://vectoree.ai/api/database/records/generations` with a JSON array body and your project key.
+
+### It knows who asked.
+
+[Authentication](https://docs.vectoree.ai/auth) gives the people using your agent email OTP and Google sign-in, and their identity flows straight into row-level security on the database. The prompt that went to Sonnet can carry a real user id, and user A does not read user B's generations.
+
+<Eyebrow>FAQ</Eyebrow>
+
+## Frequently asked questions
+
+<Accordions>
+  <AccordionItem title="What is Claude Sonnet 5.5?">
+    Anthropic's mid-tier model in the Claude 5.5 family, released September 28, 2026, after Opus 5.5. On Anthropic's account it is a faster, cheaper-per-task upgrade over Sonnet 5, aimed at well-scoped everyday work: bugs, features, documents, slides, spreadsheets. The Claude API id is `claude-sonnet-5-5`. Context is 1M tokens, max output 128k, knowledge cutoff June 2026.
+  </AccordionItem>
+  <AccordionItem title="How do I call it through Vectoree?">
+    `npx @vectoree/cli ai models search sonnet`, then the OpenAI SDK against `https://vectoree.ai/api/v1` with your project key and the slug that command printed. Probe with `npx @vectoree/cli ai chat "ping" --model <slug>` before you pin it in code. `vectoree/auto` remains the router when you are not pinning.
+  </AccordionItem>
+  <AccordionItem title="Do I need an Anthropic API key?">
+    No. `npx @vectoree/cli link` writes one project key (`sk-ve-v1-…`) under `.vectoree/`. That key calls chat, Tool Hub, Database, and Storage. Vectoree holds the upstream credential and attaches it per request. The key belongs on your server, never in the browser bundle.
+  </AccordionItem>
+  <AccordionItem title="Can I pass effort or thinking to the gateway?">
+    Not as Claude API fields. `output_config.effort`, `thinking: {"type": "adaptive"}`, `thinking: {"type": "between_tools"}`, and forced `tool_choice` are Messages API parameters, and several of them return 400 on Sonnet 5.5 if you send the Sonnet 5 form (`thinking` disabled, a non-default `temperature` / `top_p` / `top_k`, assistant prefill). The gateway call is chat completions. Use the slug, then read tokens. If a workload only makes sense with effort control, that workload stays on the Claude API.
+  </AccordionItem>
+  <AccordionItem title="Should I switch every Opus call to Sonnet 5.5?">
+    No. Anthropic positions Sonnet 5.5 as the complement to Opus 5.5: scoped everyday tasks on Sonnet, careful judgment on Opus. On GDPval-AA the two scores are close (1,844 vs 1,846). On Terminal-Bench 4.0 Anthropic lists Sonnet 5.5 at 70.6% and Opus 5.5 at 66.4% at Opus's highest effort setting — their comparison, their harness. Keep the Opus slug for the long-horizon branch, and pick it with `ai models search` the same way.
+  </AccordionItem>
+  <AccordionItem title="What if search does not list Sonnet 5.5?">
+    Then you are not calling it. A guessed id fails the request or bills a different model. Leave that branch on `vectoree/auto` and check Model Plaza again when you expect the row. Don't alias it in code "for later."
+  </AccordionItem>
+  <AccordionItem title="How is this billed?">
+    From the organization wallet, same as every other gateway model: top up with Stripe, no monthly plan. Anthropic publishes $2 / $10 per million tokens; the price your project pays is the one in Model Plaza. Tool Hub bills per request. In this launch, Auth, Database, and Storage run on shared infrastructure and are not billed separately.
+  </AccordionItem>
+  <AccordionItem title="What about rate limits?">
+    A key over its request limit gets `429` with `Retry-After`. On Anthropic's own API, Sonnet 5.5 has a separate rate-limit pool from Sonnet 5, with the same default tier values. The gateway's limit is the project's. Log the slug beside the 429 so you can tell a catalog miss from a quota miss.
+  </AccordionItem>
+  <AccordionItem title="Can I put the agent on a public URL?">
+    Deploy — a public HTTPS URL for the linked project — and Payments are in development and launching soon. Today the agent runs wherever you run it, against the same project; when Deploy ships, it attaches to that project without a migration.
+  </AccordionItem>
+</Accordions>
+
+<Callout type="note" title="About the numbers">
+  Speed, price, Terminal-Bench, and GDPval figures are Anthropic's, from the Sonnet 5.5 launch and their model overview. Customer percentages are those companies' own evals. None of them are Vectoree measurements. The number you can act on is `prompt_tokens` and `completion_tokens` in your project's table, on your traffic, against the price Model Plaza shows for the slug you pinned.
+</Callout>
