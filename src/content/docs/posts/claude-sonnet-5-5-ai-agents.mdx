@@ -24,7 +24,7 @@ import Flow from '../../../components/Flow.astro';
 
 Anthropic shipped Claude Sonnet 5.5 on September 28, less than a week after Opus 5.5. It is the model for work that already has a scope: fix the bug, iterate the feature, write the one-pager, build the slide from a template, clean up the sheet. Opus 5.5 stays the model for careful judgment. Anthropic's own figures put Sonnet 5.5 more than 30% faster than Sonnet 5 on output, at Sonnet 5's sticker — $2 per million input tokens, $10 per million output — and up to 30% cheaper per task, because a typical task spends fewer tokens.
 
-That split only helps if the call, the page it needed, and the bill land in one place. That place is Vectoree: one project, one key, a [Model Gateway](https://docs.vectoree.ai/models) for the generation, [Tool Hub](https://docs.vectoree.ai/api-reference/tool-hub/web-search) when the fact is newer than the June 2026 cutoff, Postgres for the token log, Auth for the person on the other end. Here's how the two fit together.
+That split only helps if the call, the page it needed, and the bill land in one place. That something is Vectoree: one project, one key, a Model Gateway for the generative half, Tool Hub for retrieval, Postgres for the record, Auth for the people on the other end.. Here's how the two fit together.
 
 | | Sonnet 5.5 (Anthropic's figures) | What it means for your agent |
 | --- | --- | --- |
