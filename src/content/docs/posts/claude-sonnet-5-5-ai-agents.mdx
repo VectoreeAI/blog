@@ -1,6 +1,6 @@
 ---
 title: "Claude Sonnet 5.5: Faster Everyday Work at Sonnet 5's Price"
-description: "Anthropic's Sonnet 5.5 keeps the $2/$10 sticker, runs faster, and spends fewer tokens on scoped tasks. Call it through the Vectoree Model Gateway once the catalog lists the slug."
+description: "Anthropic's Sonnet 5.5 keeps the same published rates as Sonnet 5 ($2 / MTok in, $10 / MTok out), runs faster, and uses fewer tokens on scoped tasks. Call it through the Vectoree Model Gateway once the catalog lists the slug."
 sidebar:
   label: "Claude Sonnet 5.5"
   order: 70
@@ -187,15 +187,12 @@ def draft(brief: str) -> str:
 
 The JavaScript client is the same idea: `new OpenAI({ baseURL: "https://vectoree.ai/api/v1", apiKey })`.
 
-### Fetch anything newer than June 2026
-
-The weights stop at the cutoff. [Tool Hub](https://docs.vectoree.ai/api-reference/tool-hub/web-search) is hosted search and extract on the same project key.
-
+### Get the page, then put it in the brief
+If the brief needs a page, fetch it with [Tool Hub](https://docs.vectoree.ai/api-reference/tool-hub/web-search). Search and extract use the same project key. Cut the result down, and put only that text in the brief.
 ```bash
 npx @vectoree/cli tools snippet --write --replace-search
 ```
-
-`--write` targets Cursor's `.cursor/mcp.json`. Pass `--client claude` or `--client vscode` for the others. Retrieve the page, cut it down, and put only that text in the brief.
+`--write` targets Cursor's `.cursor/mcp.json`. Pass `--client claude` or `--client vscode` for the others.
 
 ### Keep the token log next to the slug
 
@@ -216,4 +213,4 @@ From code, `POST https://vectoree.ai/api/database/records/generations` with a JS
 
 Sonnet 5.5 is the faster, cheaper-per-task model for work you can specify. Pin it on Vectoree for the bug with a repro, the draft from a template, the sheet, the UI pass, and the agent step you repeat. Keep Opus for the open-ended branch. Log the tokens beside the slug.
 
-Speed, price, Terminal-Bench, and GDPval figures are Anthropic's, from the [Sonnet 5.5 launch](https://www.anthropic.com/claude-sonnet-5-5). The Slack, Zendesk, and finance figures are those teams' own evals. Setup for the CLI is in the [Vectoree quickstart](https://docs.vectoree.ai/quickstart).
+Speed, price, Terminal-Bench, and GDPval figures are Anthropic's, from the Sonnet 5.5 launch. The Slack, Zendesk, and finance figures are those teams' own evals. Setup for the CLI is in the [Vectoree quickstart](https://docs.vectoree.ai/quickstart).
