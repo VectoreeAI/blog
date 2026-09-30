@@ -1,0 +1,137 @@
+---
+title: "GPT-6.1 Sol for AI Agents: Near-Astra Performance at a Lower"
+description: "GPT-6.1 Sol is $2 / MTok in and $10 / MTok out, with near-Astra results on coding, documents, and multi-step work. Run it beside Astra and Luna on one Vectoree project key."
+sidebar:
+  order: 70
+---
+
+OpenAI released **GPT-6.1 Sol** on September 29, 2026, a week after GPT-6 Sol. It is the model for agent work you run every day: a bug across a real repo, a professional PDF, a multi-step business flow, a screen that has no API. On those jobs OpenAI says it comes close to **GPT-6 Astra**, at one-fifth of Astra's standard input and output prices.
+
+The API id is `gpt-6.1-sol`. Plus, Pro, Business, Enterprise, and Edu plans can use it in ChatGPT Work and Codex. Developers can call it on the OpenAI API, and it is generally available in Microsoft Foundry. Regular Chat does not have it yet.
+
+The practical question on launch day is which queue gets Sol, which stays on Luna, and which still needs Astra. [Vectoree](https://vectoree.ai/) is the backend for that split. One project key calls the [Model Gateway](https://docs.vectoree.ai/introduction), holds the file, and writes the token row. You change the slug. The OpenAI SDK stays.
+
+## What you pay
+
+Standard rates per million tokens:
+
+| | Price |
+| --- | --- |
+| Input | $2.00 |
+| Cached input | $0.10 |
+| Cache write | $2.50 |
+| Output | $10.00 |
+
+Uncached input and output match GPT-6 Sol. Cached input is half of GPT-6 Sol's cache rate, and 5% of the normal input price. An agent that resends the same repo map, policy, or contract on every turn spends the second turn onward at $0.10 per million cached tokens. Keep that prefix stable. Put the ticket and the latest tool result after it.
+
+Three rules change the invoice even when the card above does not:
+
+- More than **272,000** input tokens bills the **whole** request at 2× input and cache, and 1.5× output. A full repo dump or a 200-page contract is cheaper after a retrieval step that sends only the pages the question needs.
+- **Fast** mode is 2× standard. **Batch** and **Flex** are about half of standard. **Ultrafast**, up to 8× token generation in Codex, is coming in the next few days. Tool calls are billed on top of text.
+- US and EU data residency are available. Fast mode is off when the request stays in the EU.
+
+Astra remains the model for the hardest runs, at about five times Sol's standard input and output rates. On Terminal-Bench Science 0.1, OpenAI's own maximum-effort cost was **$5.47** per task for GPT-6.1 Sol, **$23.21** for Claude Opus 5.5, and **$23.80** for Astra. Luna stays the cheap model for short, high-volume steps. Sol has no `none` or `minimal` effort, so those steps still pay for reasoning if you leave them on Sol.
+
+On Vectoree you do not copy this card into the app. [Model Plaza](https://vectoree.ai/) charges the catalog price from the organization wallet. There is no monthly plan. [Sign in](https://vectoree.ai/dashboard/login), then `npx @vectoree/cli login` and `link`, and the project includes **$5** of credit. An empty wallet cannot call the gateway. Spend shows up under Organization → Billing, beside the slug that spent it.
+
+## What the model can do
+
+GPT-6.1 Sol carries a **1,050,000-token** context window and up to **128,000** tokens of output. The knowledge cutoff is **April 30, 2026**. Input is text and images. Output is text.
+
+Reasoning effort is `low`, `medium` (the default), `high`, `xhigh`, or `max`. Start at `medium` for a bug with a repro and for a business workflow. Move to `high` or `max` when the same task fails twice, or when the job is computer use or a scientific script. The biggest factuality gain over GPT-6 Sol showed up at `low`: on hard prompts, answers with a factual error fell from **11.4%** to **7.7%**. Across the tested efforts, the error rate stays within **1.9 points** of Astra. Those prompts were cases where an earlier model had already been wrong. Check figures against the source anyway.
+
+Tools go through the **Responses API**: file search, code interpreter, hosted shell, apply patch, computer use, MCP, skills, and image generation. **Chat Completions** is the path for a draft or a summary over text you already have. It does not call tools on this model.
+
+That is also how the gateway is split. Codex on Vectoree speaks the Responses wire API, so apply-patch and the rest of Codex's tools stay available. The setup is [Integrate with Codex](https://docs.vectoree.ai/codex). Server code that only needs a completion uses Chat Completions against `https://vectoree.ai/api/v1`.
+
+OpenAI applies the same safeguard stack it uses for Astra. The model is more direct when a search tool is broken, and more consistent about limits the user set. A person still approves payments, permission changes, and anything that leaves the company.
+
+## Four jobs, and where Vectoree sits in each
+
+The scores below are OpenAI's evals. Repeat them on your own tickets before you move a production queue. Each job can share one Vectoree project: model, file, and usage row on the same key.
+
+### A bug that crosses several files
+
+DeepSWE v1.1 scores agents on long software-engineering tasks in real codebases. OpenAI says GPT-6.1 Sol matches Astra at about one-fifth of the cost, and beats GPT-6 Sol's best score by **6.4 points** at a lower reasoning effort.
+
+Use it when the agent must read the failing test, edit more than one file, run a command, and try again. Paste current docs into the prompt. Releases after April 30, 2026 are not in the weights.
+
+Point Codex at the gateway and start on `vectoree/auto` ([the one-command setup](https://docs.vectoree.ai/codex)). When `npx @vectoree/cli ai models search sol` prints a GPT-6.1 Sol slug, switch this profile to that slug and keep an Astra slug for the second pass. The repo stays on disk. The invoice is the org wallet.
+
+### A PDF with tables, charts, and fine print
+
+GDP.pdf asks professional questions over documents from finance, healthcare, legal, and seven other fields. Across the tested settings, GPT-6.1 Sol scores above Claude Opus 5.5 with fallbacks at less than half the cost per task, and approaches Astra at about one-fifth of the cost. Contract diffs, filing footnotes, and tender exceptions are this shape.
+
+Upload the file to Vectoree Storage, public or private. If a figure has to be newer than the cutoff, fetch the page with Tool Hub `search` and `extract` on the same project key, and put only that extract in the prompt. Sol writes the answer. You still match the number to the page. The file remains in the project for the next question.
+
+### A business flow with several tools
+
+AutomationBench runs end-to-end work across 47 tools in sales, marketing, operations, support, finance, and HR. At medium effort, GPT-6.1 Sol scores **2.2 points** above Opus 5.5 at about a third of the cost, and **4.8 points** above GPT-6 Sol. A support agent that reads a ticket, checks the order, drafts a reply, and writes it back is this job.
+
+Give the agent a Postgres table in the same project, from the dashboard or `vectoree db`. One row per run: ticket id, slug, prompt tokens, completion tokens, and whether a person approved the send. Email and Google sign-in are on the project, so the draft belongs to a user and the next run can read the last one. The model call and the row use one key from [Vectoree](https://vectoree.ai/).
+
+### A screen with no API, or a scientific script
+
+On OSWorld 2.0's offline computer-use set, maximum effort beats GPT-6 Sol by **7 points** at less than half the cost, and lands within **2.1 points** of Astra at about one-seventh of Astra's cost per task. Use computer use for the old admin UI. Use an API or a SQL query wherever one exists.
+
+On Terminal-Bench Science 0.1, maximum effort more than doubles GPT-6 Sol at less than half the cost. Astra still leads that eval at **68.1%**. Cleaning, plots, fits, and a reproducible script fit Sol. The run whose score is the product stays on Astra.
+
+Pin Sol at `medium` for the script. After two failures, send the same task id to an Astra slug. Both rows land in the generations table, so the cost gap is yours, measured on [vectoree.ai](https://vectoree.ai/).
+
+## Which slug gets the step
+
+| The step | Slug |
+| --- | --- |
+| Classify, extract, rewrite, or a short reply from a policy already in the prompt | Luna, from `ai models search` |
+| Repo fix, hard PDF, CRM update, screen with no API | GPT-6.1 Sol, once the catalog lists it |
+| That Sol task, after two failures at `high` | Astra, same project key |
+| Research where the score is the product | Astra |
+| A step you have not classified | `vectoree/auto` |
+
+`gpt-6.1-sol` is the id on OpenAI's API. On Vectoree, use the slug search prints. An empty search means this project is still on `vectoree/auto`.
+
+## Turn it on
+
+The path is the [Vectoree overview](https://docs.vectoree.ai/introduction): a local agent, one Cloud project, then models, auth, data, and files.
+
+**Open the project.** [Create the account](https://vectoree.ai/dashboard/login), install the [skill](https://vectoree.ai/SKILL.md), and link. Login plus link is the $5 credit.
+
+```bash
+npx skills add VectoreeAI/vectoree-skills
+npx @vectoree/cli login
+npx @vectoree/cli link
+npx @vectoree/cli ai models search sol
+```
+
+**Point Codex at the gateway** when the job is a repo. Menu 1 is `vectoree/auto`. Type the Sol slug when search prints it. Restore steps live in the [Codex guide](https://docs.vectoree.ai/codex).
+
+```bash
+bash <(curl -fsSL https://vectoree.ai/scripts/codex-vectoree-setup.sh)
+```
+
+```powershell
+irm https://vectoree.ai/scripts/codex-vectoree-setup.ps1 | iex
+```
+
+**Call the gateway from the server** for documents and workflows. The key stays in the environment. It does not go in the browser bundle.
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://vectoree.ai/api/v1",
+  apiKey: process.env.VECTOREE_API_KEY,
+});
+
+const completion = await client.chat.completions.create({
+  model: process.env.VECTOREE_SOL_SLUG ?? "vectoree/auto",
+  messages: [
+    {
+      role: "user",
+      content: "Summarize the failing test and the files in play.",
+    },
+  ],
+});
+```
+
+Log each run: task id, slug, prompt tokens, completion tokens. Thirty to fifty of your own tasks — one repo fix, one hard PDF, one multi-step flow — on medium and high, next to Astra, is the comparison worth keeping. Prices and access follow OpenAI's [launch note](https://openai.com/index/introducing-gpt-6-1-sol/) and the [`gpt-6.1-sol` docs](https://developers.openai.com/api/docs/models/gpt-6.1-sol). The project that runs the split is [vectoree.ai](https://vectoree.ai/).
