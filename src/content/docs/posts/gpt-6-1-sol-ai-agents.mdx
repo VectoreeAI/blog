@@ -30,7 +30,7 @@ Three rules change the invoice even when the card above does not:
 - **Fast** mode is 2× standard. **Batch** and **Flex** are about half of standard. **Ultrafast**, up to 8× token generation in Codex, is coming in the next few days. Tool calls are billed on top of text.
 - US and EU data residency are available. Fast mode is off when the request stays in the EU.
 
-Astra remains the model for the hardest runs, at about five times Sol's standard input and output rates. On Terminal-Bench Science 0.1, OpenAI's own maximum-effort cost was **$5.47** per task for GPT-6.1 Sol, **$23.21** for Claude Opus 5.5, and **$23.80** for Astra. Luna stays the cheap model for short, high-volume steps. Sol has no `none` or `minimal` effort, so those steps still pay for reasoning if you leave them on Sol.
+On Terminal-Bench Science 0.1 at maximum effort, GPT-6.1 Sol averaged $5.47 per task. OpenAI reports $23.80 for the same run on GPT-6 Astra and $23.21 on Claude Opus 5.5, so this scientific workflow costs about a quarter as much on Sol.
 
 On Vectoree you do not copy this card into the app. [Model Plaza](https://vectoree.ai/) charges the catalog price from the organization wallet. There is no monthly plan. [Sign in](https://vectoree.ai/dashboard/login), then `npx @vectoree/cli login` and `link`, and the project includes **$5** of credit. An empty wallet cannot call the gateway. Spend shows up under Organization → Billing, beside the slug that spent it.
 
