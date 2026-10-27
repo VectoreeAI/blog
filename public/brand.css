@@ -50,6 +50,167 @@ html:not([data-theme="dark"]) .lotus-prose :where(h1, h2, h3, h4, h5, h6) :where
   text-decoration: none;
 }
 
+/*
+  Post cards are one <a class="pf-card"> around the title and the summary.
+  The prose link rule above would underline and embolden both. Reset the
+  link chrome, then set title vs summary ourselves.
+*/
+html[data-theme="light"] .lotus-prose a.pf-card,
+html:not([data-theme="dark"]) .lotus-prose a.pf-card,
+html[data-theme="dark"] .lotus-prose a.pf-card,
+html[data-theme="light"] .lotus-prose a.pf-card:hover,
+html:not([data-theme="dark"]) .lotus-prose a.pf-card:hover,
+html[data-theme="dark"] .lotus-prose a.pf-card:hover {
+  color: inherit;
+  font-weight: 400;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.lotus-prose .pf-card:has(.vt-card-title) .pf-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.lotus-prose .pf-card .vt-card-kicker {
+  margin: 0;
+  color: var(--lotus-text-muted);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lotus-prose .pf-card .vt-card-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.4rem;
+  background: #d8ff00;
+  vertical-align: 1px;
+}
+
+.lotus-prose .pf-card .vt-card-title {
+  margin: 0;
+  color: var(--lotus-text-strong, #101010);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.28;
+  text-decoration: none;
+  text-wrap: balance;
+}
+
+.lotus-prose .pf-card .vt-card-summary {
+  margin: 0;
+  color: var(--lotus-text-subtle, #78716c);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.55;
+  text-decoration: none;
+}
+
+/* Stage jump links on the posts index — metadata, not body links. */
+html[data-theme="light"] .lotus-prose .vt-stage-nav a,
+html:not([data-theme="dark"]) .lotus-prose .vt-stage-nav a,
+html[data-theme="dark"] .lotus-prose .vt-stage-nav a,
+html[data-theme="light"] .lotus-prose .vt-stage-nav a:hover,
+html:not([data-theme="dark"]) .lotus-prose .vt-stage-nav a:hover,
+html[data-theme="dark"] .lotus-prose .vt-stage-nav a:hover {
+  color: var(--lotus-text-strong, #101010);
+  font-weight: 600;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.lotus-prose .vt-stage-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.75rem;
+}
+
+.lotus-prose .vt-stage-nav a {
+  border: 1px solid var(--lotus-border-muted);
+  border-bottom: 2px solid #d8ff00;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lotus-prose .vt-stage-nav a:hover {
+  background: var(--lotus-accent-soft);
+}
+
+.lotus-prose .vt-post-group {
+  margin-top: 2.25rem;
+}
+
+.lotus-prose .vt-post-group:first-of-type {
+  margin-top: 0;
+}
+
+.lotus-prose h2.vt-post-group__title {
+  margin: 0;
+  color: var(--lotus-text-strong, #101010);
+  font-size: 1.5rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.lotus-prose .vt-post-group__blurb,
+.lotus-prose .vt-post-group__empty {
+  margin: 0.35rem 0 0;
+  color: var(--lotus-text-subtle, #78716c);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.lotus-prose .vt-post-group .pf-card-grid {
+  margin-top: 1rem;
+}
+
+/*
+  Article and text pages: the theme lede is only one step down from the
+  title (semibold 2.25rem vs regular 1.125rem). Push them apart.
+  Splash heroes are outside article > header and stay as designed.
+*/
+article header h1 {
+  color: var(--lotus-text-strong, #101010);
+  font-size: clamp(2.15rem, 4vw, 2.85rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+article header h1 + p {
+  max-width: 40rem;
+  margin-top: 0.9rem;
+  color: var(--lotus-text-subtle, #78716c);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* Dark theme does not redefine --lotus-text-subtle. Use the theme's muted token. */
+html[data-theme="dark"] .lotus-prose .pf-card .vt-card-summary,
+html[data-theme="dark"] .lotus-prose .vt-post-group__blurb,
+html[data-theme="dark"] .lotus-prose .vt-post-group__empty,
+html[data-theme="dark"] article header h1 + p {
+  color: var(--lotus-text-muted);
+}
+
 /* Feature pages: three-up card row (CardGrid is 2-up by default) */
 @media (min-width: 48rem) {
   .lotus-prose .vt-grid-3 .pf-card-grid {
