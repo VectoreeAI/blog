@@ -20,13 +20,30 @@ frontmatter, write the body, open a PR, merge to `main`.
 ---
 title: "Clear title"
 description: "One-line summary for SEO and listings."
+category: evaluate
+tags:
+  - models
 sidebar:
   order: 10
 ---
 ```
 
-Use `sidebar.order` so newer posts can sort how you want in the Blog nav
-(lower numbers appear first unless you change theme defaults).
+`category` is the funnel stage. Set exactly one. The posts index groups by
+these, in this order, and every listing card shows the label:
+
+| `category` | Label | Write this when |
+| --- | --- | --- |
+| `problem` | Problem | The reader has a pain point or a scenario, before picking a tool. |
+| `evaluate` | Evaluate | The reader is choosing or connecting a model or API. Model launches go here. |
+| `solution` | Solution | The piece is about Vectoree itself: what it provides and why it matters. |
+| `adopt` | Adopt | The piece walks a pilot or the path from a trial to production. |
+
+`tags` are optional and can repeat. They are not primary navigation. Use only
+these slugs: `models`, `gateway`, `agents`, `cli`, `integration`.
+
+Use `sidebar.order` so newer posts can sort how you want in the Blog nav and
+on the homepage (lower numbers appear first). Within a stage, the posts index
+uses the same order.
 
 ## Images
 
