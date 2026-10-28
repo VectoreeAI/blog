@@ -1,0 +1,222 @@
+---
+title: "Claude Sonnet 5.5: Faster Everyday Work at Sonnet 5's Price"
+description: "Anthropic's Sonnet 5.5 keeps the same published rates as Sonnet 5 ($2 / MTok in, $10 / MTok out), runs faster, and uses fewer tokens on scoped tasks. Call it through the Vectoree Model Gateway once the catalog lists the slug."
+category: evaluate
+tags:
+  - models
+  - gateway
+  - cli
+  - integration
+sidebar:
+  label: "Claude Sonnet 5.5"
+  order: 70
+hero:
+  title: "Claude Sonnet 5.5: Faster Everyday Work at Sonnet 5's Price"
+  tagline: "Anthropic has introduced Claude Sonnet 5.5, the second model in the Claude 5.5 family.Positioned between high-end reasoning models and faster, more cost-efficient models.Call it through the Vectoree Model Gateway once the catalog lists the slug."
+  actions:
+    - text: Set up the CLI
+      link: https://docs.vectoree.ai/quickstart
+      variant: primary
+      icon: lucide:terminal
+    - text: Read the Sonnet 5.5 launch
+      link: https://www.anthropic.com/claude-sonnet-5-5
+      variant: secondary
+      icon: lucide:arrow-up-right
+---
+
+Anthropic released Claude Sonnet 5.5 on September 28, 2026. It is the everyday model in the Claude 5.5 family: the one you point at a bug, a document, a slide, a spreadsheet, or a screen that needs another pass. Opus 5.5, released six days earlier, stays the model for long work that needs careful judgment.
+
+This post covers three things: what the model is like, what this release changed, and how those jobs run on [Vectoree](https://vectoree.ai/).
+
+## What Sonnet 5.5 is
+
+### A model for work that already has a boundary
+
+Sonnet 5.5 writes, edits, and iterates. Hand it a task with a clear edge — a failing test, a template, a sheet to clean, a screen to tidy — and it is the model Anthropic built for that job.
+
+It is a chat model. It returns text: a patch, a draft, a cleaned table, a rewritten component. The Claude API id is `claude-sonnet-5-5`.
+
+### Where it sits in the family
+
+| Model | What Anthropic positions it for | Published price |
+| --- | --- | --- |
+| Opus 5.5 | Complex work that needs careful judgment | $4 / MTok in, $20 / MTok out |
+| Sonnet 5.5 | Well-scoped everyday tasks | $2 / MTok in, $10 / MTok out |
+| Haiku 5.5 | High-volume, cost-sensitive work | Not released yet |
+
+Haiku 5.5 is due in the coming weeks. Until it appears in a catalog, it is not a route you can call.
+
+### The spec that matters in an agent
+
+| | Sonnet 5.5 |
+| --- | --- |
+| Context | 1 million tokens |
+| Max output | 128k tokens |
+| Input | Text and images |
+| Output | Text |
+| Knowledge cutoff | June 2026 |
+| Cache read | $0.20 / MTok |
+| Cache write, 5 minutes | $2.50 / MTok |
+| Cache write, 1 hour | $4 / MTok |
+
+The minimum prompt that can be cached dropped to 512 tokens, from 1,024 on Sonnet 5. Shorter system prompts and tool definitions now qualify. A cache read is a tenth of the input price.
+
+Images use a high-resolution tier. A 2000×1500 image costs on the order of 2.5× the image tokens of Sonnet 4.6. If the screen does not need that detail, downscale it before you send it.
+
+## What this release changed
+
+The sticker is the same as Sonnet 5. The task got cheaper and the reply comes back faster. That is the release.
+
+### Same price card, lower cost per task
+
+Input stays $2 per million tokens. Output stays $10. Anthropic's account of the savings is usage, not a discount on the card: a typical task needs fewer tokens, so the same work costs up to 30% less to finish.
+
+That shows up in other people's numbers as well as Anthropic's. Slack, without changing prompts, used about 14% fewer output tokens on their offline Slackbot checks. One finance team, on 2,441 private tasks, used about 121k tokens per answer where Sonnet 5 used 497k. Those are their evals. Yours belongs in a usage table.
+
+### Faster output
+
+Anthropic says Sonnet 5.5 generates output more than 30% faster than Sonnet 5, and that it is the fastest Sonnet so far. For a fix-and-reread loop, or a draft you will revise twice, the wait between passes is the part you feel.
+
+Zendesk, on hundreds of real support cases, processed tickets about 20% faster than the Claude models they had in production.
+
+### Fewer steps to a finished edit
+
+The model spends fewer tool calls on the way to a result. One coding team measured about a third fewer tool calls and roughly half the shell runs to finish a task. Anthropic's early testers also described it as reaching for web search less often than Sonnet 5.
+
+Fewer steps is the right outcome when the brief already contains the facts. When a figure has to be newer than June 2026, fetch the page yourself and put the extract in the prompt.
+
+### Coding and knowledge-work scores
+
+On Terminal-Bench 4.0, an agentic coding evaluation, Anthropic reports 70.6% for Sonnet 5.5 and 10.3% for Sonnet 5. On GDPval-AA v2.1, real tasks across 44 occupations, Sonnet 5.5 scores 1,844, against 1,449 for Sonnet 5 and 1,846 for Opus 5.5.
+
+Read those as Anthropic's harnesses. The practical reading is narrower: scoped coding moved a long way, and everyday knowledge work landed close to Opus. Long-horizon judgment still has a reason to stay on Opus.
+
+### Effort, if you are on the Claude API
+
+Sonnet 5.5 has five effort levels: `low`, `medium`, `high`, `xhigh`, and `max`. They were recalibrated, so a level you tuned on Sonnet 5 is a different amount of thinking. Claude Code and the Claude apps default to Medium. The Claude API defaults to High.
+
+Those fields live on Anthropic's Messages API. The Vectoree gateway speaks chat completions. On Vectoree you pick the slug and read the token log. A workload that only pays off with effort control stays on the Claude API.
+
+## Four jobs it fits
+
+Each job below is one Sonnet call. The Vectoree piece is the same in all four: the project key, the catalog slug, and a row that records how many tokens the call used.
+
+### 1. Fix a bug that already has a repro
+
+The ticket names the module. The test fails the same way twice. The change should be small enough to review.
+
+Put three things in the brief: the failing test or the repro steps, the files in play, and what done means. Sonnet 5.5 is built to scope that edit and keep the diff tight. Pin the catalog slug for this branch so the next bug in the same service hits the same model.
+
+Leave an open-ended migration, a subsystem redesign, or a change that touches billing for Opus 5.5 or for a person.
+
+### 2. Turn notes into a doc, a deck, or a clean sheet
+
+Anthropic positions this release for polished documents, slides, and spreadsheets, with writing that needs less cleanup than Sonnet 5.
+
+A one-pager from notes you already have. A deck that follows a template you pass in. A sheet whose dates, names, and totals need to line up, plus a summary tab.
+
+Pass the source in the prompt, and ask for no figures beyond that source. Generation is the whole task. You review the draft.
+
+### 3. Polish an interface
+
+Anthropic credits Sonnet 5.5 with a strong eye for design: spacing and type on a screen that already works, a diagram that reads more clearly than the paragraph it replaced, slides that follow the template closely enough to need little editing.
+
+Send a screenshot only when the catalog says this slug accepts images. Otherwise describe the screen in text, or downscale the shot. Detail you do not need is tokens you do pay for.
+
+### 4. Repeat one well-defined agent step
+
+Some agent work is the same shape of step, run over and over: review this diff, draft this reply from a policy you already wrote down, investigate this alert inside a runbook.
+
+This is where the release shows up in a bill. Output more than 30% faster means the next iteration starts sooner. Fewer tokens means the hundredth run costs less than the same loop on Sonnet 5, on an unchanged price card.
+
+| The task in front of you | Call |
+| --- | --- |
+| A bug with a repro, a small feature with a check, a review of a small diff | The Sonnet slug |
+| A one-pager, a template deck, a sheet cleanup, a UI pass | The same Sonnet slug |
+| A step you run on every ticket, with the policy already in the prompt | The same Sonnet slug |
+| Work you have not classified | `vectoree/auto` |
+| Long-horizon, ambiguous, or expensive to get wrong | An Opus slug, or a person |
+
+## On Vectoree
+
+[Vectoree](https://vectoree.ai/) is where that slug is called, paid for, and logged. One project. One key. The Anthropic key stays off the agent.
+
+### One project key
+
+`npx @vectoree/cli link` writes a project key (`sk-ve-v1-…`) under `.vectoree/`. That key calls chat, Tool Hub, and the project database. Vectoree attaches the upstream credential per request. Keep the key on the server. It does not belong in a browser bundle, and it does not belong behind `NEXT_PUBLIC_`.
+
+The price this project pays is the one in Model Plaza, not a copy of Anthropic's card pasted into a comment. Billing comes from the organization wallet, topped up with Stripe, with no monthly plan.
+
+### Find the slug, then send the brief
+
+```bash
+npx skills add VectoreeAI/vectoree-skills
+npx @vectoree/cli login
+npx @vectoree/cli link
+npx @vectoree/cli ai models search sonnet
+npx @vectoree/cli ai chat "ping" --model <slug-from-search>
+```
+
+Use the slug search prints. `claude-sonnet-5-5` is the id on the Claude API, on Bedrock as `anthropic.claude-sonnet-5-5`, and on Google Cloud and Microsoft Foundry. If search prints nothing, this project is not calling Sonnet 5.5 yet. Leave the branch on `vectoree/auto` until a row appears.
+
+```python
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://vectoree.ai/api/v1",
+    api_key=os.environ["VECTOREE_API_KEY"],
+)
+
+# Printed by: npx @vectoree/cli ai models search sonnet
+SONNET = os.environ["VECTOREE_SONNET_SLUG"]
+
+def draft(brief: str) -> str:
+    resp = client.chat.completions.create(
+        model=SONNET,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "Do the task in the brief. "
+                    "Keep the result small enough to review. "
+                    "Use only facts included in the brief."
+                ),
+            },
+            {"role": "user", "content": brief},
+        ],
+    )
+    usage = resp.usage
+    record(SONNET, usage.prompt_tokens, usage.completion_tokens)
+    return resp.choices[0].message.content
+```
+
+The JavaScript client is the same idea: `new OpenAI({ baseURL: "https://vectoree.ai/api/v1", apiKey })`.
+
+### Get the page, then put it in the brief
+If the brief needs a page, fetch it with [Tool Hub](https://docs.vectoree.ai/api-reference/tool-hub/web-search). Search and extract use the same project key. Cut the result down, and put only that text in the brief.
+```bash
+npx @vectoree/cli tools snippet --write --replace-search
+```
+`--write` targets Cursor's `.cursor/mcp.json`. Pass `--client claude` or `--client vscode` for the others.
+
+### Keep the token log next to the slug
+
+The 30% figure is Anthropic's workload. A week of your own calls is the number you can budget with.
+
+```bash
+npx @vectoree/cli db insert generations --data '{
+  "task_id": "B-220", "model": "<slug-from-search>",
+  "prompt_tokens": 1400, "completion_tokens": 380
+}'
+```
+
+From code, `POST https://vectoree.ai/api/database/records/generations` with a JSON array body and the project key.
+
+[Authentication](https://docs.vectoree.ai/auth) attaches a person to that row: email OTP and Google sign-in, with identity in row-level security. User A does not read user B's drafts. In this launch, Auth, Database, and Storage run on shared infrastructure and are not billed separately. Tool Hub bills per request.
+
+## What to take from the launch
+
+Sonnet 5.5 is the faster, cheaper-per-task model for work you can specify. Pin it on Vectoree for the bug with a repro, the draft from a template, the sheet, the UI pass, and the agent step you repeat. Keep Opus for the open-ended branch. Log the tokens beside the slug.
+
+Speed, price, Terminal-Bench, and GDPval figures are Anthropic's, from the Sonnet 5.5 launch. The Slack, Zendesk, and finance figures are those teams' own evals. Setup for the CLI is in the [Vectoree quickstart](https://docs.vectoree.ai/quickstart).

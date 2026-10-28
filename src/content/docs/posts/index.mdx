@@ -1,12 +1,11 @@
 ---
 title: Posts
-description: All Vectoree blog posts.
+description: All Vectoree blog posts, grouped from the problem through adoption.
 sidebar:
   order: 0
   hidden: true
 ---
 
-Posts will appear in the **Blog** sidebar as they are published.
+import PostList from '../../../components/PostList.astro';
 
-Operators: add a file under `src/content/docs/posts/` (see
-[Writing guide](/writing/)). Until then, start from the placeholder below.
+<PostList grouped />

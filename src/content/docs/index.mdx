@@ -19,15 +19,8 @@ hero:
       icon: lucide:book-open
 ---
 
-This site is the public blog for [Vectoree](https://vectoree.ai). Product API
-reference and SDK docs stay on the [Mintlify docs site](https://docs.vectoree.ai).
+import PostList from '../../components/PostList.astro';
 
-## For operators
+## Latest posts
 
-Publish by editing Markdown/MDX under `src/content/docs/posts/`. Merge to `main`
-and GitHub Pages deploys automatically.
-
-## For agents
-
-See [`/llms.txt`](/llms.txt) for a machine-readable index. Source posts live in
-the public repo [`VectoreeAI/blog`](https://github.com/VectoreeAI/blog).
+<PostList />
