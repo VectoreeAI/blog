@@ -1,5 +1,5 @@
 /** Funnel stages for blog posts. English labels match the live site. */
-export const categorySlugs = ['problem', 'evaluate', 'solution', 'adopt'] as const;
+export const categorySlugs = ['challenge', 'evaluate', 'solution', 'adopt'] as const;
 
 export type CategorySlug = (typeof categorySlugs)[number];
 
@@ -13,9 +13,9 @@ export const categories: {
   blurb: string;
 }[] = [
   {
-    slug: 'problem',
-    label: 'Problem',
-    blurb: 'Pain points and the situations agents are asked to handle.',
+    slug: 'challenge',
+    label: 'Challenge',
+    blurb: 'Challenges and the situations agents are asked to handle.',
   },
   {
     slug: 'evaluate',
