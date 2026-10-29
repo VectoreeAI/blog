@@ -45,6 +45,83 @@ Use `sidebar.order` so newer posts can sort how you want in the Blog nav and
 on the homepage (lower numbers appear first). Within a stage, the posts index
 uses the same order.
 
+Posts use the default doc template. Do not set `template: splash` on a post.
+Splash drops the right rail, the share row, and the recommendations. The
+homepage is the splash page.
+
+Every post page already includes:
+
+- A larger title and body
+- A sticky right rail. Each item is a question that jumps to a heading. On
+  smaller screens the same questions are in the “On this page” menu.
+- **Try Vectoree** and **Read the docs** in that rail (and under the article
+  when the rail is hidden)
+- **Share this article** (X, LinkedIn, copy link — no third-party tracker)
+- **Keep reading**, preferring the same category and tags
+
+## Question labels
+
+Heading text in the article stays normal. The rail turns it into a question.
+Override the awkward ones with `nav`. Keys are the heading slug or the heading
+text. Values should already be questions.
+
+```yaml
+nav:
+  what-you-pay: "What do you pay?"
+  turn-it-on: "How do I turn it on?"
+```
+
+## Calls to action and internal links
+
+Import the components once, under the frontmatter:
+
+```mdx
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+```
+
+`<CtaRow />` renders the two default buttons (app, then docs). Pass `items`
+when a post needs a different pair. Put at least one row in the body, not
+only in the rail.
+
+`<PostLink href="/posts/other-post/">How does the other post fit?</PostLink>`
+is an in-article link. Ordinary Markdown links work too.
+
+Extra rail links (product pages or posts) go in frontmatter:
+
+```yaml
+links:
+  - label: How do I ship an agent?
+    href: /posts/ship-your-agent-with-vectoree/
+```
+
+## FAQ
+
+Add a short FAQ in frontmatter. The page renders it after the article, adds
+it to the rail as “What are the common questions?”, and emits FAQ schema.
+
+```yaml
+faq:
+  - question: What is Vectoree?
+    answer: An agent-native backend for models, auth, data, and files.
+```
+
+To place the same block in the article instead, add a real H2 and the
+component, and leave `faq` out of the frontmatter so it is not rendered twice:
+
+```mdx
+import Faq from '../../../components/post/Faq.astro';
+import FaqItem from '../../../components/post/FaqItem.astro';
+
+## Frequently asked questions
+
+<Faq labelled={false}>
+  <FaqItem question="What is Vectoree?">
+    An agent-native backend for models, auth, data, and files.
+  </FaqItem>
+</Faq>
+```
+
 ## Images
 
 Put files in `public/images/` and reference them as `/images/your-file.png`.

@@ -229,3 +229,440 @@ html[data-theme="dark"] .lotus-prose :where(a:hover) {
   color: #d8ff00;
   text-decoration-color: #d8ff00;
 }
+
+/* Question labels need a slightly wider rail than the theme default. */
+:root {
+  --lotus-toc-width: 17rem;
+}
+
+/*
+  Post pages only (the footer marker is not on the homepage, about, or the
+  posts index). Title and body step up from the theme scale.
+*/
+article:has(.vt-post-footer) header h1 {
+  font-size: clamp(2.7rem, 5vw, 3.55rem);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+article:has(.vt-post-footer) header h1 + p {
+  max-width: 42rem;
+  font-size: 1.25rem;
+  line-height: 1.55;
+}
+
+article:has(.vt-post-footer) .lotus-prose {
+  font-size: 1.1875rem;
+  line-height: 1.7;
+}
+
+article:has(.vt-post-footer) .lotus-prose :where(h2) {
+  font-size: 1.85rem;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+article:has(.vt-post-footer) .lotus-prose :where(h3) {
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+article:has(.vt-post-footer) .lotus-prose :where(pre) {
+  font-size: 0.92em;
+}
+
+/* Right rail */
+.vt-rail {
+  display: flex;
+  max-height: calc(100vh - var(--lotus-docs-chrome-height, 7rem) - 2rem);
+  flex-direction: column;
+  gap: 1.35rem;
+  overflow: auto;
+  padding-bottom: 1.5rem;
+}
+
+.vt-rail__label {
+  margin: 0 0 0.45rem;
+  color: var(--lotus-text-strong, #101010);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.vt-rail .lotus-toc-link {
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.vt-rail__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vt-rail__links a {
+  display: block;
+  padding: 0.35rem 0;
+  color: var(--lotus-text-strong, #101010);
+  font-size: 0.875rem;
+  font-weight: 650;
+  line-height: 1.35;
+  text-decoration: underline;
+  text-decoration-color: #d8ff00;
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.18em;
+}
+
+.vt-rail__links a:hover {
+  background: #d8ff00;
+  color: #101010;
+  text-decoration-color: #101010;
+}
+
+.vt-rail .vt-cta-row {
+  flex-direction: column;
+  margin: 0;
+}
+
+.vt-rail .vt-cta {
+  width: 100%;
+}
+
+/*
+  Clickable acid buttons. Prose link rules are stronger than a single class,
+  so the selectors below match that specificity.
+*/
+.vt-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+a.vt-cta,
+button.vt-cta,
+html[data-theme="light"] .lotus-prose a.vt-cta,
+html:not([data-theme="dark"]) .lotus-prose a.vt-cta,
+html[data-theme="dark"] .lotus-prose a.vt-cta,
+html[data-theme="light"] .lotus-prose a.vt-cta:hover,
+html:not([data-theme="dark"]) .lotus-prose a.vt-cta:hover,
+html[data-theme="dark"] .lotus-prose a.vt-cta:hover,
+html[data-theme="light"] .lotus-prose a.vt-cta:focus-visible,
+html:not([data-theme="dark"]) .lotus-prose a.vt-cta:focus-visible,
+html[data-theme="dark"] .lotus-prose a.vt-cta:focus-visible {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0.72rem 1.05rem;
+  border: 2px solid #101010;
+  background: #d8ff00;
+  box-shadow: 3px 3px 0 #101010;
+  color: #101010;
+  font-size: 0.95rem;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.vt-cta--secondary,
+button.vt-cta--secondary,
+html[data-theme="light"] .lotus-prose a.vt-cta--secondary,
+html:not([data-theme="dark"]) .lotus-prose a.vt-cta--secondary,
+html[data-theme="dark"] .lotus-prose a.vt-cta--secondary {
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-theme="dark"] a.vt-cta--secondary,
+html[data-theme="dark"] button.vt-cta--secondary,
+html[data-theme="dark"] .lotus-prose a.vt-cta--secondary {
+  border-color: #d8ff00;
+  color: #fafaf9;
+}
+
+a.vt-cta:hover,
+button.vt-cta:hover,
+html[data-theme="light"] .lotus-prose a.vt-cta:hover,
+html:not([data-theme="dark"]) .lotus-prose a.vt-cta:hover,
+html[data-theme="dark"] .lotus-prose a.vt-cta:hover {
+  background: #e4ff4a;
+  color: #101010;
+  text-decoration: none;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #101010;
+}
+
+a.vt-cta:focus-visible,
+button.vt-cta:focus-visible {
+  outline: 2px solid #101010;
+  outline-offset: 3px;
+}
+
+.vt-post-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+.vt-footer-ctas .vt-cta-row {
+  margin-top: 0;
+}
+
+@media (min-width: 80rem) {
+  .vt-footer-ctas {
+    display: none;
+  }
+}
+
+.vt-faq h2,
+.vt-share h2,
+.vt-keep h2 {
+  margin: 0 0 0.75rem;
+  color: var(--lotus-text-strong, #101010);
+  font-size: 1.85rem;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  scroll-margin-top: calc(var(--lotus-docs-chrome-height, 7rem) + 1.5rem);
+}
+
+.vt-faq__list {
+  border-top: 1px solid var(--lotus-border-muted, #e7e5e4);
+}
+
+.vt-faq__item {
+  border-bottom: 1px solid var(--lotus-border-muted, #e7e5e4);
+}
+
+.vt-faq__item summary {
+  padding: 0.9rem 0.15rem;
+  color: var(--lotus-text-strong, #101010);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.vt-faq__item summary::marker {
+  color: #101010;
+}
+
+.vt-faq__answer {
+  padding: 0 0 1rem 0.15rem;
+  color: var(--lotus-text, #292524);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.vt-faq__answer p {
+  margin: 0 0 0.75rem;
+}
+
+.vt-faq__answer p:last-child {
+  margin-bottom: 0;
+}
+
+.vt-share__note {
+  margin: 0 0 0.85rem;
+  max-width: 40rem;
+  color: var(--lotus-text-subtle, #78716c);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+html[data-theme="dark"] .vt-share__note,
+html[data-theme="dark"] .vt-faq__answer,
+html[data-theme="dark"] .vt-keep__summary {
+  color: var(--lotus-text-muted);
+}
+
+.vt-share__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.vt-share__row a,
+.vt-share__row button {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0.55rem 0.85rem;
+  border: 2px solid #101010;
+  background: transparent;
+  color: var(--lotus-text-strong, #101010);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vt-share__row a:hover,
+.vt-share__row button:hover {
+  background: #d8ff00;
+  color: #101010;
+}
+
+html[data-theme="dark"] .vt-share__row a,
+html[data-theme="dark"] .vt-share__row button {
+  border-color: #d8ff00;
+  color: #fafaf9;
+}
+
+html[data-theme="dark"] .vt-share__row a:hover,
+html[data-theme="dark"] .vt-share__row button:hover {
+  color: #101010;
+}
+
+.vt-keep__list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .vt-keep__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.vt-keep__list a {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--lotus-border-muted, #e7e5e4);
+  border-bottom: 3px solid #d8ff00;
+  color: inherit;
+  text-decoration: none;
+}
+
+.vt-keep__list a:hover {
+  background: var(--lotus-accent-soft, #f4ffc2);
+}
+
+.vt-keep__kicker {
+  color: var(--lotus-text-muted);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.vt-keep__kicker::before {
+  content: "";
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.4rem;
+  background: #d8ff00;
+  vertical-align: 1px;
+}
+
+.vt-keep__title {
+  color: var(--lotus-text-strong, #101010);
+  font-size: 1.05rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.vt-keep__summary {
+  color: var(--lotus-text-subtle, #78716c);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.lotus-prose .vt-post-link-row {
+  margin: 1.25rem 0;
+}
+
+/*
+  Homepage splash only. Lotus centers the hero and stacks hero.image
+  underneath. Pull the geometric panel up beside the real title and CTAs.
+  Scoped to this asset so other splash pages stay on the theme layout.
+*/
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:first-child {
+  margin-inline: 0;
+  text-align: left;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:first-child > p {
+  margin-inline: 0;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:first-child > div {
+  justify-content: flex-start;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type h1 {
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) .lotus-splash-image {
+  border-radius: 0;
+  object-fit: cover;
+  object-position: 70% center;
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:last-child {
+  margin-top: 2.25rem;
+}
+
+@media (min-width: 64rem) {
+  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: stretch;
+    min-height: 24rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+  }
+
+  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:first-child {
+    display: flex;
+    max-width: 40rem;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding-block: 3.5rem;
+  }
+
+  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:last-child {
+    position: relative;
+    max-width: none;
+    height: auto;
+    min-height: 24rem;
+    margin: 0;
+    align-self: stretch;
+  }
+
+  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) .lotus-splash-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}

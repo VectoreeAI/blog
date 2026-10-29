@@ -1,0 +1,61 @@
+---
+import type { FaqEntry } from '../../lib/post-page';
+
+interface Props {
+  items?: FaqEntry[];
+  /** Set false when a markdown H2 already titles the section. */
+  labelled?: boolean;
+  title?: string;
+}
+
+const { items = [], labelled = true, title = 'Frequently asked questions' } = Astro.props;
+const headingId = 'frequently-asked-questions';
+
+function paragraphs(answer: string): string[] {
+  return answer
+    .split(/\n\s*\n/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+const schema =
+  items.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: items.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      }
+    : undefined;
+---
+
+<section class="vt-faq" aria-labelledby={labelled ? headingId : undefined}>
+  {labelled && <h2 id={headingId}>{title}</h2>}
+  <div class="vt-faq__list">
+    {
+      items.map((item) => (
+        <details class="vt-faq__item">
+          <summary>{item.question}</summary>
+          <div class="vt-faq__answer">
+            {paragraphs(item.answer).map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </details>
+      ))
+    }
+    <slot />
+  </div>
+</section>
+
+{
+  schema && (
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  )
+}

@@ -6,5 +6,13 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://blog.vectoree.ai',
   base: '/',
-  integrations: [lotus(), sitemap()],
+  integrations: [
+    lotus({
+      components: {
+        PageAside: './src/components/lotus/PageAside.astro',
+        PageMeta: './src/components/lotus/PageMeta.astro',
+      },
+    }),
+    sitemap(),
+  ],
 });

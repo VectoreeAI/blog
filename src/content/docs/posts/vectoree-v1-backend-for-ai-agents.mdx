@@ -7,7 +7,27 @@ tags:
   - cli
 sidebar:
   order: 90
+nav:
+  what-is-vectoree: "What is Vectoree?"
+  built-for-the-agent-native-workflow: "How does the agent-native workflow work?"
+  one-backend-for-your-ai-application: "What does one backend include?"
+  vectoree-v1-is-just-the-beginning: "What comes after V1?"
+faq:
+  - question: What is Vectoree V1?
+    answer: An agent-native backend with a model gateway, authentication, Postgres, object storage, a CLI, and agent skills. One project instead of wiring those services by hand.
+  - question: Who is it for?
+    answer: Developers and coding agents that need models, users, data, and files in the same place they build the application.
+  - question: How do I try it?
+    answer: The app is at https://vectoree.ai. Setup and API reference live at https://docs.vectoree.ai.
+links:
+  - label: How do I ship an agent?
+    href: /posts/ship-your-agent-with-vectoree/
+  - label: How does Jev fit the gateway?
+    href: /posts/jev/
 ---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
 
 AI agents are changing how software is built.
 
@@ -35,6 +55,10 @@ Vectoree V1 includes:
 
 The goal is to make backend infrastructure easier for both developers and AI coding agents to use.
 
+<CtaRow />
+
+<PostLink href="/posts/ship-your-agent-with-vectoree/">How do I ship an agent on this backend?</PostLink>
+
 ## Built for the Agent-Native Workflow
 
 Traditional development often looks like:
@@ -57,7 +81,7 @@ A modern AI application may need multiple models, user accounts, structured data
 
 Vectoree brings these building blocks together so developers can create complete AI applications around their agents.
 
-Whether you're building a coding agent, an AI SaaS product, or an autonomous application, Vectoree provides the backend layer needed to move from prototype to production.
+Whether you're building a coding agent, an AI SaaS product, or an autonomous application, Vectoree provides the backend layer needed to move from prototype to production. The decision model on that same key is covered in [Jev makes the call](/posts/jev/).
 
 ## Vectoree V1 Is Just the Beginning
 

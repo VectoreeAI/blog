@@ -1,0 +1,26 @@
+---
+import Cta from './Cta.astro';
+import { defaultCtas } from '../../lib/post-page';
+
+interface Item {
+  label: string;
+  href: string;
+  variant?: 'primary' | 'secondary';
+}
+
+interface Props {
+  items?: Item[];
+}
+
+const items = Astro.props.items ?? defaultCtas;
+---
+
+<div class="vt-cta-row not-prose">
+  {
+    items.map((item) => (
+      <Cta href={item.href} variant={item.variant}>
+        {item.label}
+      </Cta>
+    ))
+  }
+</div>

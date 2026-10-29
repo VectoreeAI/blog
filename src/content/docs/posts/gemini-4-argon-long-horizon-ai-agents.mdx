@@ -7,7 +7,31 @@ tags:
   - gateway
 sidebar:
   order: 50
+nav:
+  gemini-4-argon-built-for-long-horizon-ai-workflows: "What is Gemini 4 Argon built for?"
+  1-million-token-output-capacity: "How large is the output window?"
+  gemini-4-argon-pricing: "What does Gemini 4 Argon cost?"
+  gemini-4-argon-use-cases: "Where does Argon fit?"
+  why-ai-agents-need-model-infrastructure: "Why do agents need model infrastructure?"
+  building-multi-model-ai-applications-with-vectoree: "How do I build with more than one model?"
+  the-future-of-long-horizon-ai-agents: "Where is long-horizon AI headed?"
+faq:
+  - question: What is Gemini 4 Argon for?
+    answer: Long-horizon agent work. Google describes it for planning, coding, enterprise workflows, and tasks that need a very large output window, rather than a single question and answer.
+  - question: How large is the output window?
+    answer: Google describes a 1 million token output capacity, aimed at workflows that have to keep going instead of stopping at a short reply.
+  - question: How do I use it next to other models?
+    answer: Vectoree's model gateway is one interface across providers, so Argon can sit next to other models on the same project. Start at https://vectoree.ai and read https://docs.vectoree.ai.
+links:
+  - label: What is the Vectoree backend?
+    href: /posts/vectoree-v1-backend-for-ai-agents/
+  - label: How do I ship the agent?
+    href: /posts/ship-your-agent-with-vectoree/
 ---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
 Google has introduced **Gemini 4 Argon**, a new frontier AI model designed for complex, long-horizon workflows across software engineering, enterprise knowledge work, and cybersecurity.
 
 Unlike traditional AI assistants that focus on answering individual questions, Gemini 4 Argon is built for a new generation of AI agents that can understand, plan, execute, and complete complex tasks over longer workflows.
@@ -17,6 +41,8 @@ With a **1 million token output capacity**, advanced reasoning capabilities, and
 For developers building AI applications, this raises an important question:
 
 > As AI models become more powerful, how should developers access and manage the rapidly growing model ecosystem?
+
+<CtaRow />
 
 ## Gemini 4 Argon: Built for Long-Horizon AI Workflows
 
@@ -243,6 +269,8 @@ A modern AI stack needs:
 Developers should be able to evaluate new models quickly and use the best model for each task.
 
 ## Building Multi-Model AI Applications with Vectoree
+
+<PostLink href="/posts/vectoree-v1-backend-for-ai-agents/">What does the Vectoree backend include?</PostLink>
 
 Vectoree provides a unified **Model Gateway** that helps developers work with multiple AI models through one interface.
 

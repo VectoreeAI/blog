@@ -9,13 +9,36 @@ tags:
   - integration
 sidebar:
   order: 70
+nav:
+  what-you-pay: "What do you pay?"
+  what-the-model-can-do: "What can the model do?"
+  four-jobs-and-where-vectoree-sits-in-each: "Which jobs should use Sol?"
+  which-slug-gets-the-step: "Which slug gets the step?"
+  turn-it-on: "How do I turn it on?"
+faq:
+  - question: What does GPT-6.1 Sol cost?
+    answer: The published card is $2 per million input tokens and $10 per million output tokens. Cached input is $0.10. A request over 272,000 input tokens bills the whole request at a higher rate.
+  - question: How do I turn it on?
+    answer: Create a project at https://vectoree.ai, run the CLI login and link, then use the slug from `npx @vectoree/cli ai models search sol`. Until that search prints a row, stay on vectoree/auto.
+  - question: How is it different from Astra?
+    answer: OpenAI positions Sol near Astra on coding, documents, and multi-step work, at about one-fifth of Astra's standard input and output prices. Keep Astra for the branch where the score is the product.
+links:
+  - label: What are GPT-6 Sol and Luna?
+    href: /posts/gpt-6-sol-and-luna-more-for-less/
+  - label: How does Sonnet 5.5 compare for everyday work?
+    href: /posts/claude-sonnet-5-5-ai-agents/
 ---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
 
 OpenAI released **GPT-6.1 Sol** on September 29, 2026, a week after GPT-6 Sol. It is the model for agent work you run every day: a bug across a real repo, a professional PDF, a multi-step business flow, a screen that has no API. On those jobs OpenAI says it comes close to **GPT-6 Astra**, at one-fifth of Astra's standard input and output prices.
 
 Plus, Pro, Business, Enterprise, and Edu plans can use it in ChatGPT Work and Codex. Developers can call it on the OpenAI API, and it is generally available in Microsoft Foundry. Regular Chat does not have it yet.
 
-The practical question on launch day is which queue gets Sol, which stays on Luna, and which still needs Astra. [Vectoree](https://vectoree.ai/) is the backend for that split. One project key calls the [Model Gateway](https://docs.vectoree.ai/introduction), holds the file, and writes the token row. You change the slug. The OpenAI SDK stays.
+The practical question on launch day is which queue gets Sol, which stays on Luna, and which still needs Astra. [Vectoree](https://vectoree.ai/) is the backend for that split. One project key calls the [Model Gateway](https://docs.vectoree.ai/introduction), holds the file, and writes the token row. You change the slug. The OpenAI SDK stays. Sol and Luna as a pair are in [more for less](/posts/gpt-6-sol-and-luna-more-for-less/).
+
+<CtaRow />
 
 ## What you pay
 
@@ -97,6 +120,8 @@ Pin Sol at `medium` for the script. After two failures, send the same task id to
 `gpt-6.1-sol` is the id on OpenAI's API. On Vectoree, use the slug search prints. An empty search means this project is still on `vectoree/auto`.
 
 ## Turn it on
+
+<PostLink href="/posts/vectoree-v1-backend-for-ai-agents/">What is the backend behind this project key?</PostLink>
 
 The path is the [Vectoree overview](https://docs.vectoree.ai/introduction): a local agent, one Cloud project, then models, auth, data, and files.
 
