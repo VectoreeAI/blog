@@ -1,0 +1,26 @@
+---
+import { PageMeta as LotusPageMeta } from '@prosefly/astro-theme-lotus/components';
+import CtaRow from '../post/CtaRow.astro';
+import Faq from '../post/Faq.astro';
+import KeepReading from '../post/KeepReading.astro';
+import Share from '../post/Share.astro';
+import { getPostPage } from '../../lib/post-page';
+
+const page = await getPostPage(Astro.url.pathname, Astro.site);
+const props = Astro.props;
+---
+
+{
+  page && (
+    <div class="vt-post-footer">
+      <div class="vt-footer-ctas">
+        <CtaRow />
+      </div>
+      {page.faq.length > 0 && <Faq items={page.faq} />}
+      <Share title={page.title} url={page.pageUrl} />
+      <KeepReading posts={page.related} />
+    </div>
+  )
+}
+
+<LotusPageMeta {...props} />

@@ -1,0 +1,14 @@
+---
+interface Props {
+  question: string;
+}
+
+const { question } = Astro.props;
+---
+
+<details class="vt-faq__item">
+  <summary>{question}</summary>
+  <div class="vt-faq__answer">
+    <slot />
+  </div>
+</details>

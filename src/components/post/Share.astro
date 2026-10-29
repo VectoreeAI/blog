@@ -1,0 +1,47 @@
+---
+interface Props {
+  title: string;
+  url: string;
+}
+
+const { title, url } = Astro.props;
+const shareText = `${title} ${url}`.trim();
+const xHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+const linkedInHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+---
+
+<section class="vt-share" aria-labelledby="vt-share-title">
+  <h2 id="vt-share-title">Share this article</h2>
+  <p class="vt-share__note">If this was useful, pass it on. These links open the site’s own share page. No extra tracker.</p>
+  <div class="vt-share__row">
+    <a href={xHref} rel="noopener noreferrer" target="_blank">Share on X</a>
+    <a href={linkedInHref} rel="noopener noreferrer" target="_blank">Share on LinkedIn</a>
+    <button data-vt-copy-link={url} type="button">Copy link</button>
+  </div>
+</section>
+
+<script>
+  function bindCopyLinks(): void {
+    document.querySelectorAll<HTMLButtonElement>('[data-vt-copy-link]').forEach((button) => {
+      if (button.dataset.vtCopyBound === '1') return;
+      button.dataset.vtCopyBound = '1';
+      button.addEventListener('click', async () => {
+        const link = button.dataset.vtCopyLink || window.location.href;
+        const original = button.textContent ?? 'Copy link';
+        try {
+          await navigator.clipboard.writeText(link);
+          button.textContent = 'Link copied';
+        } catch {
+          window.prompt('Copy this link', link);
+          return;
+        }
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 2000);
+      });
+    });
+  }
+
+  bindCopyLinks();
+  document.addEventListener('astro:page-load', bindCopyLinks);
+</script>

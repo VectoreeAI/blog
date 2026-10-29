@@ -1,0 +1,167 @@
+---
+import { EditThisPage, PageAside as LotusPageAside } from '@prosefly/astro-theme-lotus/components';
+import CtaRow from '../post/CtaRow.astro';
+import { getPostPage } from '../../lib/post-page';
+import { labelForHeading } from '../../lib/questions';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  currentSlug?: string;
+  editUrl?: string | boolean;
+  headings?: Heading[];
+  markdownUrl?: string;
+  pageUrl?: string;
+  tableOfContents?: boolean;
+  title?: string;
+}
+
+const props = Astro.props as Props;
+const page = await getPostPage(Astro.url.pathname, Astro.site);
+const showRail = Boolean(page) && props.tableOfContents !== false;
+const headings = props.headings ?? [];
+
+const labels: Record<string, string> = {};
+const tocItems = headings.map((heading) => {
+  const label = labelForHeading(heading, page?.nav);
+  labels[heading.slug] = label;
+  return { ...heading, label };
+});
+
+const faqSlug = 'frequently-asked-questions';
+const appendFaq = Boolean(page && page.faq.length > 0 && !labels[faqSlug]);
+if (appendFaq) {
+  labels[faqSlug] = 'What are the common questions?';
+  tocItems.push({
+    depth: 2,
+    slug: faqSlug,
+    text: 'Frequently asked questions',
+    label: labels[faqSlug],
+  });
+}
+
+const seenHrefs = new Set<string>();
+const railLinks = [
+  ...(page?.links ?? []),
+  ...(page?.related ?? []).map((post) => ({ label: post.title, href: post.href })),
+].filter((link) => {
+  if (seenHrefs.has(link.href)) return false;
+  seenHrefs.add(link.href);
+  return true;
+});
+
+function indent(depth: number): string {
+  if (depth <= 2) return 'ps-3';
+  if (depth === 3) return 'ps-5';
+  return 'ps-7';
+}
+
+const tocPayload = JSON.stringify({ labels, appendFaq }).replace(/</g, '\\u003c');
+---
+
+{
+  showRail && page ? (
+    <div class="vt-rail">
+      {tocItems.length > 0 && (
+        <nav aria-label="On this page" class="vt-rail__toc">
+          <p class="vt-rail__label">On this page</p>
+          <ul class="lotus-border-subtle lotus-toc-list relative space-y-0.5 border-s" data-toc-list>
+            <li aria-hidden="true" class="lotus-toc-indicator" />
+            {tocItems.map((heading) => (
+              <li>
+                <a
+                  class:list={[
+                    'lotus-focus-ring lotus-toc-link block py-1 pe-2 text-sm leading-5 transition-colors',
+                    indent(heading.depth),
+                    'text-(--lotus-text-muted) hover:text-(--lotus-text-strong)',
+                  ]}
+                  data-depth={heading.depth}
+                  data-toc-link={heading.slug}
+                  href={`#${heading.slug}`}
+                >
+                  {heading.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      <div class="vt-rail__block">
+        <p class="vt-rail__label">Try it</p>
+        <CtaRow />
+      </div>
+
+      {railLinks.length > 0 && (
+        <nav aria-label="Related" class="vt-rail__block">
+          <p class="vt-rail__label">Related</p>
+          <ul class="vt-rail__links">
+            {railLinks.map((link) => {
+              const external = /^https?:\/\//i.test(link.href);
+              return (
+                <li>
+                  <a href={link.href} rel={external ? 'noopener noreferrer' : undefined} target={external ? '_blank' : undefined}>
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      )}
+
+      <EditThisPage
+        currentSlug={props.currentSlug}
+        editUrl={props.editUrl}
+        markdownUrl={props.markdownUrl}
+        pageUrl={props.pageUrl ?? page.pageUrl}
+        placement="aside"
+        title={props.title ?? page.title}
+      />
+
+      <script id="vt-toc-labels" is:inline type="application/json" set:html={tocPayload} />
+      <script is:inline>
+        (function () {
+          var node = document.getElementById('vt-toc-labels');
+          if (!node || !node.textContent) return;
+          var data;
+          try {
+            data = JSON.parse(node.textContent);
+          } catch (error) {
+            return;
+          }
+          var labels = data.labels || {};
+          document.querySelectorAll('a[data-toc-link]').forEach(function (link) {
+            var slug = link.getAttribute('data-toc-link');
+            if (slug && labels[slug]) link.textContent = labels[slug];
+          });
+          if (!data.appendFaq || !labels['frequently-asked-questions']) return;
+          document.querySelectorAll('[data-toc-list]').forEach(function (list) {
+            if (list.querySelector('[data-toc-link="frequently-asked-questions"]')) return;
+            var sample = list.querySelector('a[data-toc-link]');
+            var li = document.createElement('li');
+            var anchor = document.createElement('a');
+            anchor.href = '#frequently-asked-questions';
+            anchor.setAttribute('data-toc-link', 'frequently-asked-questions');
+            anchor.setAttribute('data-depth', '2');
+            anchor.className = sample
+              ? sample.className
+              : 'lotus-toc-link block py-1 pe-2 text-sm leading-5 ps-3';
+            anchor.textContent = labels['frequently-asked-questions'];
+            li.appendChild(anchor);
+            list.appendChild(li);
+          });
+        })();
+      </script>
+      <script>
+        import '../../scripts/post-toc.ts';
+      </script>
+    </div>
+  ) : (
+    <LotusPageAside {...props} />
+  )
+}

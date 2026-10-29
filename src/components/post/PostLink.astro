@@ -1,0 +1,24 @@
+---
+/**
+ * In-article link to another post or a product page.
+ * Usage: <PostLink href="/posts/jev/">How does Jev fit the gateway?</PostLink>
+ */
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+const external = /^https?:\/\//i.test(href);
+---
+
+<p class="vt-post-link-row">
+  <a
+    class="vt-post-link"
+    href={href}
+    rel={external ? 'noopener noreferrer' : undefined}
+    target={external ? '_blank' : undefined}
+  >
+    <slot />
+    <span aria-hidden="true"> →</span>
+  </a>
+</p>

@@ -10,6 +10,24 @@ tags:
 sidebar:
   label: "Claude Sonnet 5.5"
   order: 70
+nav:
+  what-sonnet-55-is: "What is Sonnet 5.5?"
+  what-this-release-changed: "What did this release change?"
+  four-jobs-it-fits: "Which jobs fit Sonnet 5.5?"
+  on-vectoree: "How do I call it on Vectoree?"
+  what-to-take-from-the-launch: "What should I take from the launch?"
+faq:
+  - question: What is Claude Sonnet 5.5?
+    answer: Anthropic's everyday model in the Claude 5.5 family, for scoped tasks such as a bug with a repro, a document, a sheet, or a screen pass. Published rates match Sonnet 5 at $2 per million input tokens and $10 per million output tokens.
+  - question: How do I call it?
+    answer: Through the Vectoree Model Gateway, using the slug that `npx @vectoree/cli ai models search sonnet` prints. The Claude API id is claude-sonnet-5-5. If search prints nothing, leave the call on vectoree/auto until a row appears.
+  - question: When should I use Opus instead?
+    answer: For long-horizon or ambiguous work that needs careful judgment. Sonnet 5.5 is the model for work you can already specify.
+links:
+  - label: What should developers know about Opus 5.5?
+    href: /posts/claude-opus-5-5-what-developers-need-to-know/
+  - label: What is the Vectoree backend?
+    href: /posts/vectoree-v1-backend-for-ai-agents/
 hero:
   title: "Claude Sonnet 5.5: Faster Everyday Work at Sonnet 5's Price"
   tagline: "Anthropic has introduced Claude Sonnet 5.5, the second model in the Claude 5.5 family.Positioned between high-end reasoning models and faster, more cost-efficient models.Call it through the Vectoree Model Gateway once the catalog lists the slug."
@@ -24,9 +42,14 @@ hero:
       icon: lucide:arrow-up-right
 ---
 
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
 Anthropic released Claude Sonnet 5.5 on September 28, 2026. It is the everyday model in the Claude 5.5 family: the one you point at a bug, a document, a slide, a spreadsheet, or a screen that needs another pass. Opus 5.5, released six days earlier, stays the model for long work that needs careful judgment.
 
-This post covers three things: what the model is like, what this release changed, and how those jobs run on [Vectoree](https://vectoree.ai/).
+This post covers three things: what the model is like, what this release changed, and how those jobs run on [Vectoree](https://vectoree.ai/). Opus 5.5, for the longer branch, is in [what developers need to know](/posts/claude-opus-5-5-what-developers-need-to-know/).
+
+<CtaRow />
 
 ## What Sonnet 5.5 is
 
@@ -138,6 +161,8 @@ This is where the release shows up in a bill. Output more than 30% faster means 
 | Long-horizon, ambiguous, or expensive to get wrong | An Opus slug, or a person |
 
 ## On Vectoree
+
+<PostLink href="/posts/vectoree-v1-backend-for-ai-agents/">What backend does the slug run on?</PostLink>
 
 [Vectoree](https://vectoree.ai/) is where that slug is called, paid for, and logged. One project. One key. The Anthropic key stays off the agent.
 

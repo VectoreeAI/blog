@@ -6,10 +6,38 @@ tags:
   - models
 sidebar:
   order: 100
+# Right-rail questions. Key is the heading slug or the heading text.
+# The heading in the article can stay a normal phrase.
+nav:
+  what-this-is: "What is this?"
+  how-to-use-it: "How do I use it?"
+faq:
+  - question: What is this post about?
+    answer: One or two sentences a reader, or an answer engine, can lift.
+  - question: How do I try it?
+    answer: The app is https://vectoree.ai and the docs are https://docs.vectoree.ai.
+links:
+  - label: How do I ship an agent?
+    href: /posts/ship-your-agent-with-vectoree/
 ---
 
-Intro paragraph.
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
 
-## Section
+Intro paragraph. Say who it is for and what they can do after reading.
 
-Body in Markdown / MDX.
+<CtaRow />
+
+## What this is
+
+Body in Markdown / MDX. Keep the heading readable. The rail label comes from
+`nav` when you set one, otherwise the theme turns the heading into a question.
+
+<PostLink href="/posts/vectoree-v1-backend-for-ai-agents/">What is the Vectoree backend?</PostLink>
+
+## How to use it
+
+Steps, a snippet, and the product surface this section depends on.
+
+The page adds the FAQ, share row, and keep-reading block after the body.
+Do not set `template: splash` on a post.

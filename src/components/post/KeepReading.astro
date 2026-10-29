@@ -1,0 +1,28 @@
+---
+import type { RelatedPost } from '../../lib/post-page';
+
+interface Props {
+  posts: RelatedPost[];
+}
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="vt-keep" aria-labelledby="vt-keep-title">
+      <h2 id="vt-keep-title">Keep reading</h2>
+      <ul class="vt-keep__list">
+        {posts.map((post) => (
+          <li>
+            <a href={post.href}>
+              {post.kicker && <span class="vt-keep__kicker">{post.kicker}</span>}
+              <span class="vt-keep__title">{post.title}</span>
+              {post.description && <span class="vt-keep__summary">{post.description}</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

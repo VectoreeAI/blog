@@ -1,4 +1,4 @@
-/** Funnel stages for blog posts. */
+/** Funnel stages for blog posts. English labels match the live site. */
 export const categorySlugs = ['challenge', 'evaluate', 'solution', 'adopt'] as const;
 
 export type CategorySlug = (typeof categorySlugs)[number];
