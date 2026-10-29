@@ -80,7 +80,7 @@ html[data-theme="dark"] .lotus-prose a.pf-card:hover {
 .lotus-prose .pf-card .vt-card-kicker {
   margin: 0;
   color: var(--lotus-text-muted);
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   line-height: 1.2;
@@ -90,11 +90,11 @@ html[data-theme="dark"] .lotus-prose a.pf-card:hover {
 .lotus-prose .pf-card .vt-card-kicker::before {
   content: "";
   display: inline-block;
-  width: 0.45rem;
-  height: 0.45rem;
-  margin-right: 0.4rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.45rem;
   background: #d8ff00;
-  vertical-align: 1px;
+  vertical-align: 0.08em;
 }
 
 .lotus-prose .pf-card .vt-card-title {
@@ -140,8 +140,8 @@ html[data-theme="dark"] .lotus-prose .vt-stage-nav a:hover {
 .lotus-prose .vt-stage-nav a {
   border: 1px solid var(--lotus-border-muted);
   border-bottom: 2px solid #d8ff00;
-  padding: 0.3rem 0.65rem;
-  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
   letter-spacing: 0.08em;
   line-height: 1.2;
   text-transform: uppercase;
