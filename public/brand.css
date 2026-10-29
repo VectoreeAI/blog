@@ -594,17 +594,47 @@ html[data-theme="dark"] .vt-share__row button:hover {
 }
 
 /*
-  Homepage splash only. Lotus centers the hero and stacks hero.image
-  underneath. Pull the geometric panel up beside the real title and CTAs.
-  Scoped to this asset so other splash pages stay on the theme layout.
+  Homepage splash only. Lotus centers the copy and stacks hero.image in a
+  box underneath; an earlier pass pulled that box into a right-hand panel.
+  Paint the geometric art across the whole hero instead, with a scrim so
+  the title and CTAs stay readable. Scoped to this asset so other splash
+  pages stay on the theme layout.
 */
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: clamp(24rem, 78vw, 34rem);
+  overflow: hidden;
+  border-bottom: 3px solid #d8ff00;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(16, 16, 16, 0.82);
+  pointer-events: none;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div {
+  width: 100%;
+}
+
 main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:first-child {
+  position: relative;
+  z-index: 2;
+  max-width: 40rem;
   margin-inline: 0;
   text-align: left;
 }
 
 main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:first-child > p {
+  max-width: 34rem;
   margin-inline: 0;
+  color: #e7e5e4;
 }
 
 main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:first-child > div {
@@ -612,57 +642,73 @@ main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type >
 }
 
 main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type h1 {
+  max-width: 14ch;
+  color: #fafaf9;
   font-weight: 750;
-  letter-spacing: -0.03em;
-}
-
-main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) .lotus-splash-image {
-  border-radius: 0;
-  object-fit: cover;
-  object-position: 70% center;
-  aspect-ratio: 16 / 9;
-  height: auto;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 
 main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:last-child {
-  margin-top: 2.25rem;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  max-width: none;
+  margin: 0;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) .lotus-splash-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: auto;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type a[href="https://docs.vectoree.ai"] {
+  border-color: rgba(250, 250, 249, 0.72);
+  background: transparent;
+  color: #fafaf9;
+}
+
+main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type a[href="https://docs.vectoree.ai"]:hover {
+  border-color: #d8ff00;
+  background: #d8ff00;
+  color: #101010;
 }
 
 @media (min-width: 64rem) {
-  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
-    column-gap: clamp(1.5rem, 3vw, 3rem);
-    align-items: stretch;
-    min-height: 24rem;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-right: 0;
+  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type {
+    min-height: clamp(28rem, 68vh, 40rem);
   }
 
-  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:first-child {
-    display: flex;
-    max-width: 40rem;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0;
-    padding-block: 3.5rem;
+  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type::before {
+    background: linear-gradient(
+      105deg,
+      rgba(16, 16, 16, 0.9) 0%,
+      rgba(16, 16, 16, 0.8) 42%,
+      rgba(16, 16, 16, 0.62) 100%
+    );
   }
+}
 
-  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type > div > div:last-child {
-    position: relative;
-    max-width: none;
-    height: auto;
-    min-height: 24rem;
-    margin: 0;
-    align-self: stretch;
-  }
+/* Homepage close: FAQ under the grouped list, then one primary action. */
+.lotus-prose .vt-home-faq {
+  margin-top: 3.25rem;
+}
 
-  main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) .lotus-splash-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: auto;
-  }
+.lotus-prose .vt-home-cta {
+  margin-top: 2.5rem;
+}
+
+.lotus-prose .vt-home-cta p {
+  max-width: 28rem;
+  margin: 0 0 0.9rem;
+  color: var(--lotus-text-strong, #101010);
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }

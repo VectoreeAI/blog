@@ -1,13 +1,13 @@
 ---
 title: Vectoree Blog
-description: Product updates, guides, and notes from Vectoree.
+description: Ship agents on one gateway. Models, CLI, and the agent-native cloud — notes for builders.
 template: splash
 pagefind: false
 sidebar:
   hidden: true
 hero:
-  title: Vectoree Blog
-  tagline: Model gateway, CLI, skills, and agent-native cloud — written for builders.
+  title: Ship agents on one gateway.
+  tagline: Models, CLI, and the agent-native cloud — for builders.
   image:
     file: /hero-geom.jpg
     alt: Abstract black and lime geometric pattern
@@ -23,5 +23,34 @@ hero:
 ---
 
 import PostList from '../../components/PostList.astro';
+import Faq from '../../components/post/Faq.astro';
+import FaqItem from '../../components/post/FaqItem.astro';
+import Cta from '../../components/post/Cta.astro';
 
 <PostList grouped />
+
+<div class="vt-home-faq">
+  <Faq title="Common questions">
+    <FaqItem question="What is Vectoree?">
+      An agent-native backend: model gateway, auth, database, storage, and deploy.
+      One project key calls models and ships the app around them.
+    </FaqItem>
+    <FaqItem question="What is this blog for?">
+      Product narrative, how-tos, comparisons, and launch notes. API reference
+      and SDK guides stay on the [product docs](https://docs.vectoree.ai).
+    </FaqItem>
+    <FaqItem question="How are the posts grouped?">
+      Challenge is the job an agent is asked to do. Evaluate covers models and
+      APIs. Solution is what Vectoree provides.
+    </FaqItem>
+    <FaqItem question="How do I try it?">
+      Create a project at [vectoree.ai](https://vectoree.ai) and call the gateway
+      with that key.
+    </FaqItem>
+  </Faq>
+</div>
+
+<div class="vt-home-cta">
+  <p>Start with a project key.</p>
+  <Cta href="https://vectoree.ai">Try Vectoree</Cta>
+</div>

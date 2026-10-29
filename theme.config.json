@@ -83,6 +83,14 @@
   "search": {
     "provider": "local"
   },
+  "ui": {
+    "en": {
+      "search.label": "Search posts",
+      "search.placeholder": "Search posts",
+      "search.triggerLabel": "Search posts",
+      "search.typeToSearch": "Type to search posts."
+    }
+  },
   "source": {
     "github": "VectoreeAI/blog",
     "branch": "main"
