@@ -1,0 +1,123 @@
+---
+title: "From Zero to a Project Key with the Vectoree CLI"
+description: "Install the Skill, log in, link a project, and get one scoped API key under .vectoree/ — then chat, tools, db, and storage share that key."
+category: solution
+tags:
+  - cli
+  - gateway
+  - agents
+  - integration
+sidebar:
+  order: 2
+nav:
+  create-a-cloud-account: "Where do I start?"
+  install-the-skill: "How do agents learn Vectoree?"
+  login-and-link: "How do I get a project key?"
+  check-the-gateway: "How do I know setup worked?"
+  connect-tool-hub: "How do I connect Tool Hub?"
+  useful-commands: "What else can the CLI do?"
+faq:
+  - question: Do I pass a project id on the command line?
+    answer: No. link asks you to pick or create a project, then writes a scoped API key under .vectoree/.
+  - question: How do I run login without a browser?
+    answer: Use npx @vectoree/cli login --use-device-code, or set VECTOREE_API_KEY and skip login.
+  - question: Is App Auth the same as Cloud login?
+    answer: No. Cloud login is for you and your agents on Vectoree. App Auth is email or Google sign-in for the people who use your product.
+links:
+  - label: How do I call models with that key?
+    href: /posts/call-models-through-vectoree-gateway/
+  - label: What is the V1 backend?
+    href: /posts/vectoree-v1-backend-for-ai-agents/
+---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
+Vectoree is one project: models, tools, auth, database, and storage on a single key. The CLI is how you attach that project to the repo your agent already lives in.
+
+This walkthrough gets you from an empty Cloud account to `whoami` and `ai chat "ping"` succeeding. After that, the same key powers app calls through the [Model Gateway](/posts/call-models-through-vectoree-gateway/).
+
+<CtaRow />
+
+## Create a Cloud account
+
+Open [vectoree.ai](https://vectoree.ai), sign in with Google or email, and make sure you have an organization. Top up the org wallet in the dashboard before paid gateway or Tool Hub usage will succeed.
+
+## Install the Skill
+
+Agents need task-oriented context, not only an API. From the machine that runs Cursor, Claude Code, or Codex:
+
+```bash
+npx skills add VectoreeAI/vectoree-skills
+```
+
+The skill pack lives in [VectoreeAI/vectoree-skills](https://github.com/VectoreeAI/vectoree-skills).
+
+## Login and link
+
+From your app repo:
+
+```bash
+npx @vectoree/cli login
+npx @vectoree/cli link
+```
+
+`login` opens a browser (PKCE). `link` asks you to pick or create a project, then writes a scoped API key under `.vectoree/`. You do not pass a project id on the command line.
+
+Headless CI: `npx @vectoree/cli login --use-device-code`, or set `VECTOREE_API_KEY` and skip login.
+
+Production API default is `https://vectoree.ai`. Staging: `VECTOREE_API_URL=https://vectoree.net`.
+
+## Check the gateway
+
+Setup is done when chat works:
+
+```bash
+npx @vectoree/cli whoami
+npx @vectoree/cli ai chat "ping"
+```
+
+If those already succeed, skip `login` / `link`. Do not probe every modality here — start with chat, then open other surfaces when you need them.
+
+Optional: start from a Template in the dashboard instead of an empty folder. Copy the prompt, let the agent clone a Vectoree-adapted repo, then continue from the check above in that directory.
+
+<PostLink href="/posts/call-models-through-vectoree-gateway/">How do I call the gateway from application code?</PostLink>
+
+## Connect Tool Hub
+
+Use a scoped project key with `tools:*` (from `link` or Dashboard → API Keys). The CLI can write MCP config for your editor:
+
+```bash
+npx @vectoree/cli tools status
+npx @vectoree/cli tools snippet --write --replace-search
+```
+
+`--write` defaults to Cursor (`.cursor/mcp.json`). Pass `--client claude` or `--client vscode` for the others. `--replace-search` removes third-party search servers so the agent uses Vectoree instead.
+
+REST probes:
+
+```bash
+npx @vectoree/cli tools search "<query>"
+npx @vectoree/cli tools extract <url>
+```
+
+## Useful commands
+
+```bash
+npx @vectoree/cli db list
+npx @vectoree/cli storage buckets list
+npx @vectoree/cli tools status
+npx @vectoree/cli --help
+```
+
+Every command accepts `--json`. Destructive commands confirm unless you pass `--yes`.
+
+App Auth (`auth status` / `auth snippet`) configures login for your app's end users. That is not the same as logging into Vectoree Cloud.
+
+Optional: point Codex CLI at the Model Gateway with the one-liner in the [CLI setup docs](https://docs.vectoree.ai/quickstart) — useful after the project key exists, not a substitute for `login` and `link`.
+
+<PostLink href="/posts/ship-your-agent-with-vectoree/">How do Skills and the CLI fit the shipping path?</PostLink>
+
+When Deploy and Payments launch, they attach to this same linked project. Today the agent runs where you run it, against that key.
+
+[Open Vectoree](https://vectoree.ai/) · [CLI setup docs](https://docs.vectoree.ai/quickstart) · [npm @vectoree/cli](https://www.npmjs.com/package/@vectoree/cli)

@@ -1,0 +1,114 @@
+---
+title: "Call Models Through the Vectoree Gateway"
+description: "One OpenAI-compatible endpoint and one project key for multiple models. Point any OpenAI SDK at Vectoree and ship."
+category: solution
+tags:
+  - gateway
+  - models
+  - integration
+sidebar:
+  order: 1
+nav:
+  one-endpoint-one-key: "What does the gateway give me?"
+  call-from-your-app: "How do I call it from my app?"
+  browse-and-probe: "How do I browse and probe models?"
+  beyond-chat: "What else can the same key reach?"
+  what-you-pay: "How is usage billed?"
+faq:
+  - question: What is the Vectoree Model Gateway?
+    answer: One OpenAI-compatible API endpoint and one project key for multiple providers. You change base_url and api_key, then call chat and other modalities through the same credential.
+  - question: Where do I get a project key?
+    answer: Create a project at https://vectoree.ai, then run npx @vectoree/cli login and npx @vectoree/cli link. Link writes a scoped key under .vectoree/.
+  - question: Can I put the key in the browser?
+    answer: No. Keep API keys on your server. Do not use NEXT_PUBLIC_ or ship sk-ve-v1 keys in a client bundle.
+links:
+  - label: How do I get a project key with the CLI?
+    href: /posts/vectoree-cli-project-key-workflow/
+  - label: How do I ship an agent?
+    href: /posts/ship-your-agent-with-vectoree/
+---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
+Builders rarely want one model forever. You want a cheap default for triage, a stronger model for hard coding, and speech or image routes when the product needs them — without juggling a provider key per vendor.
+
+The Vectoree Model Gateway is that single door: one OpenAI-compatible endpoint, one project API key, pay-per-token from the organization wallet.
+
+<CtaRow />
+
+## One endpoint, one key
+
+Point any OpenAI-compatible SDK at Vectoree:
+
+| Concept | Value |
+| --- | --- |
+| `base_url` | `https://vectoree.ai/api/v1` |
+| `api_key` | Your project key (`sk-ve-v1-…`) |
+| `model` | A catalog slug, or `vectoree/auto` to route by cost and availability |
+
+Browse pricing and status in the dashboard Model Plaza. The same project key is what [CLI login and link](/posts/vectoree-cli-project-key-workflow/) write under `.vectoree/`.
+
+## Call from your app
+
+Use the OpenAI Python SDK (or any compatible client). Change `base_url` and `api_key`:
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://vectoree.ai/api/v1",
+    api_key="sk-ve-v1-your-key",
+)
+
+resp = client.chat.completions.create(
+    model="vectoree/auto",
+    messages=[{"role": "user", "content": "Hello"}],
+)
+print(resp.choices[0].message.content)
+```
+
+Omit a specific slug or pass `vectoree/auto` when you want smart routing across the catalog.
+
+Keep the key on the server. Never put it in a browser bundle, and do not prefix it with `NEXT_PUBLIC_`.
+
+<PostLink href="/posts/vectoree-cli-project-key-workflow/">How do I mint that project key with the CLI?</PostLink>
+
+## Browse and probe
+
+Before you hard-code a slug, list and search from the terminal:
+
+```bash
+npx @vectoree/cli ai models list
+npx @vectoree/cli ai models search --input-modality speech
+npx @vectoree/cli ai chat "ping"
+npx @vectoree/cli ai status
+```
+
+Model Plaza shows pricing, provider, and status. Playground lets you run the same prompt across models side by side.
+
+## Beyond chat
+
+The same key reaches more than text chat (`/api/v1/chat/completions`):
+
+- `/api/v1/audio/speech` — text-to-speech
+- `/api/v1/audio/transcriptions` — speech-to-text
+- `/api/v1/images` — image generation
+- `/api/v1/videos` — video generation
+- `/api/v1/embeddings` — text embeddings
+
+Filter with `ai models list --output-modality speech` when you need TTS slugs. Do not send a TTS slug to `ai chat`.
+
+Full reference lives in the [Model Gateway docs](https://docs.vectoree.ai/models).
+
+## What you pay
+
+Usage is billed from the organization wallet: tokens in and out, at the unit price shown in Model Plaza. Prices can vary by call type, region, and peak versus off-peak slots.
+
+Top up the wallet in the dashboard before paid calls succeed. Auth, database, and storage on shared infrastructure are separate from gateway token billing — see the product docs for what ships in the current launch.
+
+<PostLink href="/posts/vectoree-v1-backend-for-ai-agents/">What else sits next to the gateway on one project?</PostLink>
+
+When the agent needs models, tools, auth, and data on the same key, start with [Ship Your Agent with Vectoree](/posts/ship-your-agent-with-vectoree/), then wire chat through this gateway.
+
+[Open Vectoree](https://vectoree.ai/) · [Model Gateway docs](https://docs.vectoree.ai/models)
