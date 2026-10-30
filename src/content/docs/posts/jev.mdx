@@ -1,6 +1,7 @@
 ---
 title: "Jev makes the call. Vectoree does the rest."
 description: "Call TypeSafe AI's Jev through the Vectoree Model Gateway — typed, calibrated decisions on your project key — then let the same key draft, search, and store the result."
+cover: /covers/jev.svg
 category: solution
 tags:
   - models
@@ -41,6 +42,8 @@ import PostLink from '../../../components/post/PostLink.astro';
 TypeSafe AI [shipped Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) on September 15. It is not a chat model. You hand it some state and a set of typed questions — yes or no, one of N, a score on a scale — and it answers all of them in one parallel pass, returning a probability and a confidence for each instead of generated text. TypeSafe's own launch numbers put a call at 70 to 500 milliseconds and $0.042 per million input tokens, with output free.
 
 That changes where the expensive model sits in your agent. Jev decides; something else has to act. It has to draft the reply, fetch the page, remember what was decided, and know who asked. That something is Vectoree: one project, one key, a Model Gateway for the generative half, Tool Hub for retrieval, Postgres for the record, Auth for the people on the other end. Here's how the two fit together.
+
+![One piece of state goes to Jev once. Noul, Choice, and Score questions run in parallel and each returns a value, a probability, and a confidence.](/posts/jev/01-parallel-questions.svg)
 
 <CtaRow
   items={[
@@ -231,6 +234,9 @@ You do not create a TypeSafe account or put a TypeSafe key in the agent. Jev is 
 <Eyebrow>Why Vectoree</Eyebrow>
 
 ## What happens after Jev answers
+
+![After Jev answers, Vectoree still has to write the reply, fetch state, store the decision, and know who asked. Those use the same project key.](/posts/jev/02-after-the-decision.svg)
+
 
 Jev returns a number. Your agent acts on it, and that action needs a backend. Here's what each Vectoree product does on the other side of the decision.
 
