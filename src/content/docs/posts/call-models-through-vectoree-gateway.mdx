@@ -1,6 +1,7 @@
 ---
 title: "Call Models Through the Vectoree Gateway"
 description: "One OpenAI-compatible endpoint and one project key for multiple models. Point any OpenAI SDK at Vectoree and ship."
+cover: /covers/call-models-through-vectoree-gateway.svg
 category: solution
 tags:
   - gateway
@@ -34,6 +35,9 @@ import PostLink from '../../../components/post/PostLink.astro';
 Builders rarely want one model forever. You want a cheap default for triage, a stronger model for hard coding, and speech or image routes when the product needs them — without juggling a provider key per vendor.
 
 The Vectoree Model Gateway is that single door: one OpenAI-compatible endpoint, one project API key, pay-per-token from the organization wallet.
+
+![Instead of a separate provider key for each model, the app sends one project key to one OpenAI-compatible endpoint and names a catalog slug.](/posts/call-models-through-vectoree-gateway/01-one-endpoint-one-key.svg)
+
 
 <CtaRow />
 
@@ -88,6 +92,9 @@ npx @vectoree/cli ai status
 Model Plaza shows pricing, provider, and status. Playground lets you run the same prompt across models side by side.
 
 ## Beyond chat
+
+![The same project key reaches chat, speech, transcription, images, video, and embeddings. A speech slug does not go to chat.](/posts/call-models-through-vectoree-gateway/02-beyond-chat.svg)
+
 
 The same key reaches more than text chat (`/api/v1/chat/completions`):
 

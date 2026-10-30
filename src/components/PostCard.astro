@@ -1,0 +1,25 @@
+---
+import { Card } from '@prosefly/astro-components';
+
+interface Props {
+  href: string;
+  title: string;
+  summary?: string;
+  kicker?: string;
+  /** Public path, e.g. /covers/my-post.svg */
+  cover?: string;
+}
+
+const { href, title, summary, kicker, cover } = Astro.props;
+---
+
+<Card href={href} icon={cover ? undefined : 'lucide:newspaper'}>
+  {
+    cover && (
+      <img class="vt-card-cover" src={cover} alt="" width="1600" height="900" />
+    )
+  }
+  {kicker && <p class="vt-card-kicker">{kicker}</p>}
+  <p class="vt-card-title">{title}</p>
+  {summary && <p class="vt-card-summary">{summary}</p>}
+</Card>

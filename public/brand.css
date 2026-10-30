@@ -712,3 +712,32 @@ main:has(img.lotus-splash-image[src="/hero-geom.jpg"]) > section:first-of-type a
   letter-spacing: -0.02em;
   line-height: 1.25;
 }
+
+/* Cover sits flush on the card; the newspaper icon is omitted when it is set. */
+.lotus-prose .pf-card:has(.vt-card-cover) {
+  overflow: hidden;
+  padding-top: 0;
+}
+
+.lotus-prose .pf-card .vt-card-cover {
+  display: block;
+  width: calc(100% + 2rem);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 0 -1rem 0.55rem;
+  border-radius: 0;
+  background: #101010;
+  object-fit: cover;
+}
+
+/* In-article figures. Topic diagrams, not decoration. */
+.lotus-prose img[src^="/posts/"] {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-block: 1.15rem 1.45rem;
+  border: 1px solid color-mix(in oklab, #d8ff00 32%, #2a2a2a);
+  border-radius: 0;
+  background: #101010;
+}

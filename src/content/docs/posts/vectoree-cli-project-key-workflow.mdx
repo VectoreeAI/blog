@@ -1,6 +1,7 @@
 ---
 title: "From Zero to a Project Key with the Vectoree CLI"
 description: "Install the Skill, log in, link a project, and get one scoped API key under .vectoree/ — then chat, tools, db, and storage share that key."
+cover: /covers/vectoree-cli-project-key-workflow.svg
 category: solution
 tags:
   - cli
@@ -55,6 +56,9 @@ The skill pack lives in [VectoreeAI/vectoree-skills](https://github.com/Vectoree
 
 ## Login and link
 
+![CLI setup is login in the browser, then link, which writes a scoped project key under .vectoree. You do not pass a project id on the command line.](/posts/vectoree-cli-project-key-workflow/01-login-link-key.svg)
+
+
 From your app repo:
 
 ```bash
@@ -69,6 +73,9 @@ Headless CI: `npx @vectoree/cli login --use-device-code`, or set `VECTOREE_API_K
 Production API default is `https://vectoree.ai`. Staging: `VECTOREE_API_URL=https://vectoree.net`.
 
 ## Check the gateway
+
+![Setup is done when whoami and ai chat ping succeed. That same key then reaches chat, tools, the database, and storage. App auth for end users is a different login.](/posts/vectoree-cli-project-key-workflow/02-same-key-check.svg)
+
 
 Setup is done when chat works:
 

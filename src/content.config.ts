@@ -34,6 +34,11 @@ const docs = defineCollection({
           }),
         )
         .optional(),
+      /**
+       * Card cover in public/, e.g. /covers/my-post.svg.
+       * Omitted covers keep the newspaper icon on listing cards.
+       */
+      cover: z.string().optional(),
     }),
   }),
 });

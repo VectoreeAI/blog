@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import { Card, CardGrid } from '@prosefly/astro-components';
+import { CardGrid } from '@prosefly/astro-components';
 import { categories, categoryBySlug, type CategorySlug } from '../lib/categories';
+import PostCard from './PostCard.astro';
 
 interface Props {
   /** Group cards into funnel stages. Listings stay in editorial order when false. */
@@ -56,11 +57,13 @@ const uncategorized = posts.filter(
             <p class="vt-post-group__blurb">{group.blurb}</p>
             <CardGrid>
               {group.posts.map((post) => (
-                <Card href={hrefFor(post.id)} icon="lucide:newspaper">
-                  <p class="vt-card-kicker">{group.label}</p>
-                  <p class="vt-card-title">{post.data.title}</p>
-                  <p class="vt-card-summary">{post.data.description}</p>
-                </Card>
+                <PostCard
+                  href={hrefFor(post.id)}
+                  kicker={group.label}
+                  title={post.data.title}
+                  summary={post.data.description}
+                  cover={post.data.cover}
+                />
               ))}
             </CardGrid>
           </section>
@@ -70,10 +73,12 @@ const uncategorized = posts.filter(
             <h2 class="vt-post-group__title">Uncategorized</h2>
             <CardGrid>
               {uncategorized.map((post) => (
-                <Card href={hrefFor(post.id)} icon="lucide:newspaper">
-                  <p class="vt-card-title">{post.data.title}</p>
-                  <p class="vt-card-summary">{post.data.description}</p>
-                </Card>
+                <PostCard
+                  href={hrefFor(post.id)}
+                  title={post.data.title}
+                  summary={post.data.description}
+                  cover={post.data.cover}
+                />
               ))}
             </CardGrid>
           </section>
@@ -84,11 +89,13 @@ const uncategorized = posts.filter(
         {posts.map((post) => {
           const category = categoryBySlug(post.data.category);
           return (
-            <Card href={hrefFor(post.id)} icon="lucide:newspaper">
-              {category && <p class="vt-card-kicker">{category.label}</p>}
-              <p class="vt-card-title">{post.data.title}</p>
-              <p class="vt-card-summary">{post.data.description}</p>
-            </Card>
+            <PostCard
+              href={hrefFor(post.id)}
+              kicker={category?.label}
+              title={post.data.title}
+              summary={post.data.description}
+              cover={post.data.cover}
+            />
           );
         })}
       </CardGrid>
