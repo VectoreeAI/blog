@@ -1,0 +1,143 @@
+---
+title: "The Real Cost of Switching Models in Production"
+description: "Changing the model string in a coding agent looks like a one-line edit. Context, prompts, evals, and on-call load do not move with the slug."
+cover: /covers/the-real-cost-of-switching-models.svg
+category: challenge
+tags:
+  - models
+  - agents
+  - gateway
+  - integration
+sidebar:
+  label: "Cost of Switching Models"
+  order: 16
+nav:
+  "The switch looks cheap": "What does a model switch look like on paper?"
+  "Context does not move with the slug": "Where does context get lost?"
+  "Prompts drift after the first patch": "How do prompts drift after a switch?"
+  "Evals still grade the old model": "Why do evals miss the swap?"
+  "Ops toil shows up on the second incident": "What ops toil shows up after the switch?"
+  "Write four lines before the next swap": "What should you write down before you switch?"
+faq:
+  - question: Is the expensive part of switching models the token price?
+    answer: Token price is the visible line. The larger cost is context that did not move, a prompt that now fits one model, evals that still grade the old shape, and the operational work of explaining the next failure.
+  - question: Does one gateway remove context loss?
+    answer: A gateway removes client and key sprawl. Context still has to be packed on purpose — the files, decisions, and tool results the next slug needs. A shared endpoint does not replay a vendor's hidden thinking channel.
+  - question: When is a model switch actually cheap?
+    answer: When the step is stateless, the prompt is short, and the eval scores the task on both slugs. Classification and formatting often qualify. A multi-hour coding run usually does not.
+links:
+  - label: How do I evaluate an LLM gateway?
+    href: /posts/how-to-evaluate-an-llm-gateway/
+  - label: Which model gets which step?
+    href: /posts/which-model-gets-which-step/
+  - label: Why did hand-wired providers break?
+    href: /posts/why-we-stopped-wiring-providers-one-by-one/
+---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
+The first time a coding agent changes models, the diff is one string. The second time, someone is in three dashboards explaining why Tuesday's run forgot Monday's decision.
+
+Switching LLM models in production is cheap to type and expensive to absorb. Context does not move with the slug. Prompts drift toward whichever model was patched last. Evals keep grading the old shape. Ops toil shows up when the incident is no longer a demo.
+
+This is the bill teams pay when an agent — a coding agent especially — treats a model change as a config edit. Price per token is the line everyone can see. The rest is why the agent feels worse on a model that should have been an upgrade.
+
+![A swap keeps the latest message, reattached files, tool names, and the task you named. It drops the prefix cache, tool-call shape, buried decisions, and any vendor thinking channel.](/posts/the-real-cost-of-switching-models/01-what-a-swap-keeps.svg)
+
+<CtaRow />
+
+## The switch looks cheap
+
+On paper the agent is unchanged.
+
+- Same loop.
+- Same tools.
+- Same repo.
+- A new `model` string.
+
+That description holds for a stateless call: classify this label, summarize this paragraph, rewrite this function with the file already in the prompt. A coding agent in production is rarely that call. It has already opened files, rejected a patch, and chosen a test. The next turn assumes that history is still the plan.
+
+The slug change does not replay the plan. It sends whatever transcript you remembered to pack.
+
+## Context does not move with the slug
+
+What usually survives is the part you attach on purpose.
+
+- The latest user message.
+- Files you read again and put back in the prompt.
+- Tool names, when the schema you send is the same schema the next model expects.
+- The task you named for that step — triage, draft, review — which you have to state again.
+
+What usually does not survive:
+
+- The prefix cache you were paying to reuse.
+- Tool-call transcripts stored in a shape the next API will not accept.
+- Decisions buried in earlier assistant turns, such as "leave the auth module alone."
+- A vendor thinking channel the next model never receives.
+
+Coding agents lose the thread in a specific way. Model A left a plan in prose. Model B treats that plan as a suggestion and re-plans from the ticket. The diff no longer matches the tests the first model wrote. Reviewers call it a quality drop. It is a context drop.
+
+One shared client removes a different cost: five SDKs and five message shapes. That account is [Why We Stopped Wiring Providers One by One](/posts/why-we-stopped-wiring-providers-one-by-one/). Context loss remains after the clients collapse. A single endpoint does not invent the files, decisions, and tool results the next slug needs. You pack those, or the agent starts over.
+
+## Prompts drift after the first patch
+
+The first week on a new model, someone fixes the prompt.
+
+- "Be concise," because the new model narrates.
+- An XML or JSON wrapper, because the parser stopped matching.
+- A constraint deleted, because the new model over-applies a rule the old one ignored.
+
+Each edit is local and reasonable. The file in git now describes one slug. The previous model, still on a fallback or a cheaper step, regresses. Two copies show up: `system.md` and `system-sonnet.md`. A comment says not to remove a line, because the strong model ignores the schema without it.
+
+That is prompt drift. The contract and the model moved on different days, and only one of them was reviewed.
+
+Treat the prompt as a contract for a job, and name the slug it was run against. When the model changes, change the prompt in the same pull request and point at the eval that moved. [Which Model Gets Which Step](/posts/which-model-gets-which-step/) is the routing card. The card goes stale when prompts are edited in a chat window and never committed against a slug.
+
+## Evals still grade the old model
+
+Most agent evals were collected on one model's habits.
+
+- A string match on a plan format.
+- A snapshot of tool-call order.
+- A golden diff from a session that used a specific slug.
+
+Those checks score shape. A new model can fix the bug and fail the eval, or miss the bug and pass because it copied the golden phrasing.
+
+The gaps that let a switch look fine:
+
+- No paired run of the same tasks on the old slug and the new slug, scored on task success.
+- No cost per successful run, so a cheaper model that retries twice looks like a saving.
+- No fallback case, so the suite never sees model A time out and model B continue.
+- Staging and production disagree on the slug, and the suite runs in only one of them.
+
+Re-baseline on the slug you intend to run. Keep the old slug in the suite for one release so the switch shows up as a diff. An eval that stays green through a model change is a warning.
+
+![The week after a switch: the prompt file forks, the eval stays green, on-call opens three consoles, and the preview slug no longer matches production.](/posts/the-real-cost-of-switching-models/02-the-week-after.svg)
+
+## Ops toil shows up on the second incident
+
+The first switch is a launch. The second is a ticket.
+
+- Rate limits differ, so a retry policy written for one provider hammers the next.
+- Logs name a provider in one place and a slug in another. On-call cannot answer which model failed.
+- Spend lands in more than one invoice. "What did this agent cost last week?" becomes a spreadsheet.
+- A flag sets the model per environment, and preview drifted from production weeks ago.
+- A laptop `.env` gets a copy of a provider key "just to reproduce it." Rotation now has another copy.
+
+A gateway with one project key and one trace cuts the number of places you look. It still has to print the slug. How that door is called is in [Call Models Through the Vectoree Gateway](/posts/call-models-through-vectoree-gateway/). Whether any gateway beats the glue you already run is a separate selection problem, covered in [How to Evaluate an LLM Gateway](/posts/how-to-evaluate-an-llm-gateway/).
+
+<PostLink href="/posts/how-to-evaluate-an-llm-gateway/">How do I judge a gateway against stitching providers myself?</PostLink>
+
+## Write four lines before the next swap
+
+| Question | Write this down |
+| --- | --- |
+| Which step is changing? | Triage, draft, or review. One of them. |
+| What must survive? | The files, decisions, and tool results you will attach again. |
+| Which eval proves the task? | A check that scores the outcome, not the old phrasing. |
+| Who can see the slug and the cost? | One trace, and one project. |
+
+If the table is empty, the agent is about to continue a conversation the API has already forgotten.
+
+<PostLink href="/posts/which-model-gets-which-step/">Which step should change, and which should stay put?</PostLink>

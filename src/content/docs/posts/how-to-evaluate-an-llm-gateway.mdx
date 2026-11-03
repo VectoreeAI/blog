@@ -1,0 +1,163 @@
+---
+title: "How to Evaluate an LLM Gateway"
+description: "A scorecard for an LLM gateway — unified API, routing, observability, and cost controls — set against the provider stack you would keep if you walked away."
+cover: /covers/how-to-evaluate-an-llm-gateway.svg
+category: evaluate
+tags:
+  - gateway
+  - models
+  - integration
+  - agents
+  - cli
+sidebar:
+  label: "Evaluate an LLM Gateway"
+  order: 22
+nav:
+  "Stitching is still the right call sometimes": "When is stitching providers still right?"
+  "A unified API has to be one contract": "What does a unified API have to guarantee?"
+  "Routing is a policy you can name": "How should routing behave?"
+  "Observability has to name the model": "What should one trace show?"
+  "Cost controls have to stop a run": "Which cost controls are real?"
+  "Score both paths on the same tasks": "How do I score a gateway against our glue?"
+  "Run a two-week proof": "What should a two-week proof cover?"
+faq:
+  - question: Is an LLM gateway just a proxy in front of provider keys?
+    answer: A proxy that only forwards a key still leaves vendor-shaped errors and split logs. Score the contract, the routing policy, the trace, and the spend stop. Forwarding alone fails that list.
+  - question: How long should a gateway trial take?
+    answer: Long enough to replay real tasks, change a slug, force one failure, and match a bill. An afternoon demo will not show prompt, eval, or on-call gaps. Two weeks on a real agent branch is enough for a yes or a no.
+  - question: What if we only use one model today?
+    answer: Stay on that provider until a second model, a second modality, or a failover requirement shows up. Run this scorecard then. A gateway with nothing to route adds a console and removes no problem.
+  - question: Does this scorecard assume Vectoree?
+    answer: The rows are the same for any gateway and for the SDKs you run now. Vectoree is one place to check them, because this blog is written from that product. Pass or fail it on the same table.
+links:
+  - label: What does switching models cost?
+    href: /posts/the-real-cost-of-switching-models/
+  - label: How do I call the Vectoree gateway?
+    href: /posts/call-models-through-vectoree-gateway/
+  - label: Which model gets which step?
+    href: /posts/which-model-gets-which-step/
+---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
+An LLM gateway promises one API in front of many models. Stitching providers yourself promises that you own every edge. Teams choose from a slide, then meet the difference on the first failover that still needs a deploy.
+
+Use this as a scorecard. Run it on any gateway, including Vectoree, and on the stack you would keep if you walked away. The rows are a unified API, routing, observability, and cost controls. A logo is not a row.
+
+If the pain you are pricing is a model switch — lost context, a drifted prompt, an eval that stayed green — start with [The Real Cost of Switching Models in Production](/posts/the-real-cost-of-switching-models/). This piece is the buying question that follows.
+
+![Four tests for a gateway: one contract, a named routing policy, one trace, and a hard stop on spend.](/posts/how-to-evaluate-an-llm-gateway/01-four-criteria.svg)
+
+<CtaRow />
+
+## Stitching is still the right call sometimes
+
+Keep the provider SDKs when all of these are true.
+
+- One model family, for as far as this product currently goes.
+- No failover requirement.
+- One team that already knows that vendor's errors, limits, and bill.
+- A spike or an internal tool that will not add a second modality.
+
+A gateway is something you operate. With one vendor and a stable prompt, the extra hop and the extra console are overhead. Say that out loud before a migration. The move starts to pay when a second provider, a second modality, or a failover shows up, and "change the model" means editing code. That break is what [Why We Stopped Wiring Providers One by One](/posts/why-we-stopped-wiring-providers-one-by-one/) walks through.
+
+## A unified API has to be one contract
+
+"OpenAI-compatible" is a sentence until you execute the edges your agent uses.
+
+| Edge | What you send | A pass |
+| --- | --- | --- |
+| Chat with tools | A tool schema you already run in production | Tool-call JSON your parser already accepts |
+| Streaming | A long completion | Chunks your client already handles, including the stop |
+| Errors | A bad key, an unknown slug, a rate limit | One error shape, with a code you can branch on |
+| Other modalities | Speech, image, or embeddings, if the product needs them | The same credential, a documented path, and a wrong slug rejected |
+| Retries | The same call, sent twice | A request id that separates a retry from a double charge |
+
+Fail the trial if tool calls, streams, or errors still need a per-vendor branch inside the agent. That result is stitching, with a proxy added. On Vectoree the shape under test is one `base_url`, one project key, and a catalog slug, as in [Call Models Through the Vectoree Gateway](/posts/call-models-through-vectoree-gateway/). Put any other gateway through the same table. Compatibility you have not run is a claim.
+
+## Routing is a policy you can name
+
+The useful version of routing is a change to which model runs a step, without a deploy, that you can read back afterward.
+
+Try each of these and find it in a log.
+
+- Pin a slug per step. `vectoree/auto`, or another product's auto route, is a default for steps you have not measured yet. The card for assigning those steps is [Which Model Gets Which Step](/posts/which-model-gets-which-step/).
+- Fail over from the pinned slug to a named backup when the call times out or returns a 5xx.
+- Leave the other steps alone. Triage stays put when review moves.
+- Confirm the next request logs the new slug.
+
+A router you cannot name is a second product. "The system picked the best model," with no slug on the trace, is how an eval and a bill drift apart. Slug, fallback, and timeout — written down, and visible on the call — are the policy.
+
+## Observability has to name the model
+
+Take one real agent run, not a scripted demo, and answer these from a single trace.
+
+- Which slug ran each step.
+- Input tokens, output tokens, and whether a cache hit applied.
+- Latency to the first token and to the tool call.
+- The error, when a step failed, on the same trace as the steps that succeeded.
+- A request id you can find in your own logs and hand to support.
+
+A hand-built stack can do this when every SDK emits those fields. Most stacks have a console per vendor instead. Score the gateway on a run you did not prepare for the trial. If the slug shows up only after a debug flag, it will be missing during the incident.
+
+## Cost controls have to stop a run
+
+A price table is a document. A control changes what the agent is allowed to do when spend misbehaves.
+
+Look for four things.
+
+- The price of a slug before you pin it, including cache and peak differences where that vendor publishes them.
+- Spend per project or per key, not only an organization total.
+- A budget or hard stop that fails the next call when the cap is exhausted.
+- The fields you need to compute cost per successful task: tokens, model, and a request id. You do the division. The gateway has to expose the inputs.
+
+A weekly note to finance is a report. A failed call when the wallet or the cap is empty is a control.
+
+Put the credential on the same list. It should be project-scoped and it should stay on the server. A product that makes a browser key easy fails this row even when the router is clever. [From Zero to a Project Key with the Vectoree CLI](/posts/vectoree-cli-project-key-workflow/) shows one way to mint that key. The test is the same anywhere: one scoped key, never a `NEXT_PUBLIC_` variable.
+
+You should also be able to list models and send one prompt without installing a second vendor SDK. On this catalog that probe is:
+
+```bash
+npx @vectoree/cli ai models list
+npx @vectoree/cli ai chat "ping"
+```
+
+A gateway you cannot search and ping from a terminal will teach you its edges in production.
+
+<PostLink href="/posts/call-models-through-vectoree-gateway/">What does one OpenAI-compatible door actually expose?</PostLink>
+
+## Score both paths on the same tasks
+
+Use one week and the same 20 tasks, taken from production traces rather than a launch post.
+
+| Criterion | Stitch | Gateway |
+| --- | --- | --- |
+| One client for every step you actually run |  |  |
+| A named slug per step, changed without a deploy |  |  |
+| Failover you can point at a backup slug |  |  |
+| One trace with slug, tokens, latency, and the error |  |  |
+| Spend per project, and a hard stop |  |  |
+| The key stays off the client |  |  |
+| You can leave: exportable logs, an ordinary client |  |  |
+
+Mark pass or fail. A gateway that wins on routing and loses on traces is not ready for on-call. A hand-built stack that already has traces, and only one provider, can be the better system this quarter.
+
+Leaving belongs on the scorecard. Prefer calls you already know how to write, the ordinary OpenAI-compatible client, so stopping is a `base_url` change plus a log export. The lock-in to watch for is a tool-call dialect you would have to rewrite, and logs you cannot download.
+
+## Run a two-week proof
+
+![A two-week proof: replay 20 real tasks, change a slug and read the trace, force one failure, hit a budget cap, and match the bill.](/posts/how-to-evaluate-an-llm-gateway/02-two-week-proof.svg)
+
+Skip the bake-off slide. Run this on a branch of the agent.
+
+1. Point the branch at the gateway with a server-side project key.
+2. Replay 20 real tasks. Record task success, retries, and cost per success on the current stack and on the gateway.
+3. Change one step's slug without a deploy. Read the trace and confirm the new slug.
+4. Force one failure — an unknown slug, or a timeout if you can simulate one. Confirm a named fallback or a clear error on that same trace.
+5. Exhaust a budget in a non-production project. Confirm the next call stops.
+6. Read that project's bill and match it to the traces. Spend you cannot match is a fail.
+
+A pass is a reason to move the next step, using [Which Model Gets Which Step](/posts/which-model-gets-which-step/) as the policy you then configure. A fail is useful too: it names the row that actually mattered.
+
+<PostLink href="/posts/the-real-cost-of-switching-models/">What does a model switch cost after the slug changes?</PostLink>
