@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <title>Routing compared</title>
+  <desc>OpenRouter fails over providers and can walk an ordered model list into logs. Vectoree uses the slug you set, or vectoree/auto, and bills the organization wallet.</desc>
+  <rect width="1600" height="900" fill="#101010"/>
+  <polygon points="1180,0 1600,0 1600,220" fill="#1c1c1c"/>
+  <circle cx="1488" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1516" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1544" cy="72" r="6" fill="#d8ff00"/>
+  <text x="72" y="78" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2.2" text-anchor="start">HOW A CALL IS ROUTED</text>
+  <text x="72" y="142" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="0" text-anchor="start">Two kinds of auto.</text>
+  <text x="72" y="200" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.6" text-anchor="start">OPENROUTER</text>
+  <text x="848" y="200" fill="#d8ff00" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.6" text-anchor="start">VECTOREE</text>
+  <rect x="72" y="230" width="680" height="120" fill="#161616" stroke="#3a3a3a" stroke-width="3"/>
+  <text x="100" y="280" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="0" text-anchor="start">Request</text>
+  <text x="100" y="322" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0" text-anchor="start">The model you named</text>
+  <rect x="848" y="230" width="680" height="120" fill="#161616" stroke="#d8ff00" stroke-width="3"/>
+  <text x="876" y="280" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="0" text-anchor="start">Request</text>
+  <text x="876" y="322" fill="#c8c8be" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0" text-anchor="start">A catalog slug, or vectoree/auto</text>
+  <rect x="72" y="385" width="680" height="120" fill="#161616" stroke="#3a3a3a" stroke-width="3"/>
+  <text x="100" y="435" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="0" text-anchor="start">Provider failover</text>
+  <text x="100" y="477" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0" text-anchor="start">On by default, same model</text>
+  <rect x="848" y="385" width="680" height="120" fill="#161616" stroke="#d8ff00" stroke-width="3"/>
+  <text x="876" y="435" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="0" text-anchor="start">The slug, or auto</text>
+  <text x="876" y="477" fill="#c8c8be" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0" text-anchor="start">Auto means cost and availability</text>
+  <rect x="72" y="540" width="680" height="120" fill="#161616" stroke="#3a3a3a" stroke-width="3"/>
+  <text x="100" y="590" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="0" text-anchor="start">Model fallbacks</text>
+  <text x="100" y="632" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0" text-anchor="start">Opt-in. Next model, in order</text>
+  <rect x="848" y="540" width="680" height="120" fill="#161616" stroke="#d8ff00" stroke-width="3"/>
+  <text x="876" y="590" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="0" text-anchor="start">No fallback list</text>
+  <text x="876" y="632" fill="#c8c8be" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0" text-anchor="start">Change model on the next call</text>
+  <rect x="72" y="695" width="680" height="120" fill="#161616" stroke="#3a3a3a" stroke-width="3"/>
+  <text x="100" y="745" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="0" text-anchor="start">Logs</text>
+  <text x="100" y="787" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0" text-anchor="start">Provider, latency, cost, attempts</text>
+  <rect x="848" y="695" width="680" height="120" fill="#161616" stroke="#d8ff00" stroke-width="3"/>
+  <text x="876" y="745" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="0" text-anchor="start">Org wallet</text>
+  <text x="876" y="787" fill="#c8c8be" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0" text-anchor="start">Price from Model Plaza</text>
+</svg>

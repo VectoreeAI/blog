@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <title>When each product is enough</title>
+  <desc>OpenRouter is enough when the backend exists. Vectoree matters when the agent still has to create users, rows, and files on the model key.</desc>
+  <rect width="1600" height="900" fill="#101010"/>
+  <polygon points="1180,0 1600,0 1600,220" fill="#1c1c1c"/>
+  <circle cx="1488" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1516" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1544" cy="72" r="6" fill="#d8ff00"/>
+  <text x="72" y="84" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2.2" text-anchor="start">WHERE THE GATEWAY STOPS</text>
+  <text x="72" y="156" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="46" font-weight="700" letter-spacing="0" text-anchor="start">Keep the router you already trust.</text>
+  <text x="72" y="214" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="32" font-weight="500" letter-spacing="0" text-anchor="start">Add a project only if the agent still needs a backend.</text>
+  <rect x="72" y="270" width="700" height="540" fill="#161616"/>
+  <rect x="72" y="270" width="700" height="78" fill="#2a2a2a"/>
+  <text x="104" y="320" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="1" text-anchor="start">OPENROUTER IS ENOUGH</text>
+  <rect x="104" y="390" width="48" height="48" fill="#d8ff00"/>
+  <text x="128" y="424" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="0" text-anchor="middle">✓</text>
+  <text x="172" y="424" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">Auth, database, and files exist</text>
+  <rect x="104" y="486" width="48" height="48" fill="#d8ff00"/>
+  <text x="128" y="520" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="0" text-anchor="middle">✓</text>
+  <text x="172" y="520" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">You need failover and a spend cap</text>
+  <rect x="104" y="582" width="48" height="48" fill="#d8ff00"/>
+  <text x="128" y="616" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="0" text-anchor="middle">✓</text>
+  <text x="172" y="616" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">You want a log per generation</text>
+  <rect x="104" y="678" width="48" height="48" fill="#d8ff00"/>
+  <text x="128" y="712" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="0" text-anchor="middle">✓</text>
+  <text x="172" y="712" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">The agent is not provisioning</text>
+  <rect x="828" y="270" width="700" height="540" fill="#161616" stroke="#d8ff00" stroke-width="4"/>
+  <rect x="828" y="270" width="700" height="78" fill="#d8ff00"/>
+  <text x="860" y="320" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="1" text-anchor="start">VECTOREE PROJECT</text>
+  <rect x="860" y="390" width="48" height="48" fill="#d8ff00"/>
+  <text x="884" y="424" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="0" text-anchor="middle">→</text>
+  <text x="928" y="424" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">No home yet for users or rows</text>
+  <rect x="860" y="486" width="48" height="48" fill="#d8ff00"/>
+  <text x="884" y="520" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="0" text-anchor="middle">→</text>
+  <text x="928" y="520" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">One key for chat and the database</text>
+  <rect x="860" y="582" width="48" height="48" fill="#d8ff00"/>
+  <text x="884" y="616" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="0" text-anchor="middle">→</text>
+  <text x="928" y="616" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">Tool Hub on that same wallet</text>
+  <rect x="860" y="678" width="48" height="48" fill="#d8ff00"/>
+  <text x="884" y="712" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="0" text-anchor="middle">→</text>
+  <text x="928" y="712" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">You can skip the routing console</text>
+</svg>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <title>Shared and different primitives</title>
+  <desc>Both offer Postgres, vectors, RLS, auth, and storage. Supabase adds realtime, functions, and self-host. Vectoree adds the model gateway and Tool Hub.</desc>
+  <rect width="1600" height="900" fill="#101010"/>
+  <polygon points="1180,0 1600,0 1600,220" fill="#1c1c1c"/>
+  <circle cx="1488" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1516" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1544" cy="72" r="6" fill="#d8ff00"/>
+  <text x="72" y="78" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2.2" text-anchor="start">SIMILAR, THEN NOT</text>
+  <text x="72" y="146" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" letter-spacing="0" text-anchor="start">The overlap is the database.</text>
+  <rect x="72" y="200" width="1456" height="150" fill="#d8ff00"/>
+  <text x="104" y="258" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.6" text-anchor="start">BOTH</text>
+  <text x="104" y="312" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="650" letter-spacing="0" text-anchor="start">Postgres   ·   pgvector   ·   row-level security   ·   app auth   ·   object storage</text>
+  <rect x="72" y="390" width="700" height="420" fill="#161616"/>
+  <text x="104" y="450" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.2" text-anchor="start">SUPABASE, BEYOND THAT</text>
+  <text x="104" y="520" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Realtime subscriptions</text>
+  <text x="104" y="572" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Edge functions</text>
+  <text x="104" y="624" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">API generated per table</text>
+  <text x="104" y="676" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Branching and a local stack</text>
+  <text x="104" y="728" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Self-host the backend</text>
+  <rect x="828" y="390" width="700" height="420" fill="#161616" stroke="#d8ff00" stroke-width="4"/>
+  <text x="860" y="450" fill="#d8ff00" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.2" text-anchor="start">VECTOREE, BEYOND THAT</text>
+  <text x="860" y="520" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Model gateway on the project key</text>
+  <text x="860" y="572" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Speech, image, video, embeddings</text>
+  <text x="860" y="624" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Tool Hub, same wallet</text>
+  <text x="860" y="676" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Skill and CLI for the agent</text>
+  <text x="860" y="728" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">No realtime, functions, or self-host</text>
+</svg>
