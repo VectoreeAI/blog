@@ -1,0 +1,184 @@
+---
+title: "Vectoree vs OpenRouter: When a Model Gateway Is Enough"
+description: "OpenRouter is a multi-model router with failover, logs, and spend controls. Vectoree is an agent backend whose gateway shares one project key with auth, Postgres, storage, and tools."
+cover: /covers/vectoree-vs-openrouter.svg
+category: evaluate
+tags:
+  - gateway
+  - models
+  - agents
+  - integration
+sidebar:
+  label: "Vectoree vs OpenRouter"
+  order: 27
+nav:
+  "What you are actually comparing": "What am I comparing?"
+  "What OpenRouter is built to do": "What is OpenRouter built to do?"
+  "What Vectoree is built to do": "What is Vectoree built to do?"
+  "Unified API": "How do the APIs differ?"
+  "Routing": "How does routing differ?"
+  "Observability and cost": "How do logs and spend controls differ?"
+  "One project key": "What does one project key change?"
+  "When OpenRouter is enough": "When is OpenRouter enough?"
+  "When the rest of the backend matters": "When does the rest of the backend matter?"
+  "A plain scorecard": "Which product fits which job?"
+faq:
+  - question: Is Vectoree a replacement for OpenRouter?
+    answer: Only when you want a gateway and the app backend on one project. If you want a routing network with provider failover and generation logs, OpenRouter is the specialist and Vectoree does not copy it.
+  - question: Can I point the OpenAI SDK at either one?
+    answer: Yes. Change base URL and API key. Model ids are not interchangeable. OpenRouter uses its own provider/model ids. Vectoree uses catalog slugs or vectoree/auto.
+  - question: Does vectoree/auto do what OpenRouter fallbacks do?
+    answer: No. vectoree/auto picks a catalog model by cost and availability. It is not a documented provider waterfall, and it is not an ordered list of fallback models.
+  - question: Where does the Vectoree project key come from?
+    answer: Run npx @vectoree/cli login and then link. Link writes a scoped key under .vectoree/. Keep it on the server.
+links:
+  - label: How does Vectoree compare with InsForge?
+    href: /posts/vectoree-vs-insforge/
+  - label: Which model gets which step?
+    href: /posts/which-model-gets-which-step/
+  - label: How do I mint a project key?
+    href: /posts/vectoree-cli-project-key-workflow/
+---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
+This is an indirect comparison. OpenRouter does not claim to be your application's database. Vectoree does not claim to be a specialist routing network with provider waterfalls and generation logs. The useful question is where the gateway ends.
+
+If the other product on the table is a full agent backend, the matching post is [Vectoree vs InsForge](/posts/vectoree-vs-insforge/). If it is a Postgres backend your team already operates, read [Vectoree vs Supabase](/posts/vectoree-vs-supabase/).
+
+![OpenRouter routes model calls and records them. A Vectoree project key reaches the gateway and also auth, Postgres, storage, and Tool Hub.](/covers/vectoree-vs-openrouter.svg)
+
+<CtaRow />
+
+## What you are actually comparing
+
+| | OpenRouter | Vectoree Model Gateway | The Vectoree project |
+| --- | --- | --- | --- |
+| Job | Route model calls | Route model calls | Run the agent and the app behind it |
+| API | One OpenAI-compatible API across many providers | One OpenAI-compatible API at `https://vectoree.ai/api/v1` | That gateway, plus Tool Hub, Auth, Postgres, and storage |
+| Credential | An OpenRouter API key | A project key (`sk-ve-v1-…`) | The same project key for gateway, tools, `db`, and `storage` |
+| Outside the product | Your users, your tables, your files | The rest of the backend, if you only use the gateway | Edge functions, realtime, and a public URL. Deploy is coming soon |
+
+Use the first two columns when the only new work is the model call. Use the third column when a coding agent is also supposed to create tables and buckets.
+
+## What OpenRouter is built to do
+
+OpenRouter is a unified API for many models, with billing in one place. Provider failover inside a model is on by default. Cross-model fallbacks are opt-in, through a `models` list you order yourself. You can restrict which providers are allowed to serve a request.
+
+Logs show each generation: model, provider, latency, cost, and the upstream attempts. Prompt and completion text stay out of those logs unless you opt in. Activity rolls spend and tokens up by model, provider, key, app, or user. Credit limits, guardrail budgets, and workspace budgets are how you stop a loop from spending without a ceiling.
+
+That is a routing product. A request can also pick up charges for web search, web fetch, or file processing. Those are line items on a generation. They are not tables, sessions, or buckets your application owns.
+
+## What Vectoree is built to do
+
+The gateway is the part that resembles OpenRouter. One endpoint, many models, pay per token from an organization wallet. Model Plaza lists price, provider, and status. Playground runs one prompt across models. `vectoree/auto` picks by cost and availability when you have not pinned a slug. The same key reaches chat, speech, transcription, images, video, and embeddings. The call shape is in [Call Models Through the Vectoree Gateway](/posts/call-models-through-vectoree-gateway/).
+
+Vectoree does not document provider-level failover waterfalls, a `models` fallback array, per-generation upstream logs, or guardrail budgets. If those are the requirement, use OpenRouter. On Vectoree, changing a step means changing the `model` string. That workflow is [Which Model Gets Which Step](/posts/which-model-gets-which-step/).
+
+The rest of the project is why this comparison exists. After `login` and `link`, the agent holds a key that also runs database, storage, and Tool Hub commands. The app can use email or Google auth on that same project. Setup is [From Zero to a Project Key](/posts/vectoree-cli-project-key-workflow/).
+
+## Unified API
+
+Both take an OpenAI-style client. The switch is `base_url` and `api_key`.
+
+```python
+from openai import OpenAI
+
+# OpenRouter — model calls only
+router = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key="sk-or-your-key",
+)
+
+# Vectoree — model calls on the project key
+vectoree = OpenAI(
+    base_url="https://vectoree.ai/api/v1",
+    api_key="sk-ve-v1-your-key",
+)
+```
+
+Keep either key on the server. A gateway does not make a browser-side key safe. Do not prefix a Vectoree key with `NEXT_PUBLIC_`.
+
+Model ids are not portable. OpenRouter uses `provider/model` ids from its catalog. Vectoree uses slugs from `npx @vectoree/cli ai models list`, or `vectoree/auto`. Pasting one vendor's id into the other client will not resolve.
+
+## Routing
+
+![OpenRouter fails over across providers and can fall through an ordered model list into logs. Vectoree sends the slug you set, or vectoree/auto, and bills the org wallet.](/posts/vectoree-vs-openrouter/01-routing.svg)
+
+| | OpenRouter | Vectoree |
+| --- | --- | --- |
+| Default | Provider failover for the model you named | The slug you set, or `vectoree/auto` for cost and availability |
+| Try another model | Opt-in `models` list, walked in order | A different `model` on the next call, or auto |
+| Pin a provider | Provider `only`, `ignore`, and `order` | Pick the catalog row whose provider and price you already accept |
+| Other modalities | Whatever that model and account expose | Chat, speech, transcription, images, video, and embeddings on the same key. A speech slug does not go to chat |
+
+OpenRouter is the deeper router. Vectoree's routing is the right size when the decision is "which catalog row, and what does it cost," and you would rather not run a second account to make it.
+
+## Observability and cost
+
+| Question | OpenRouter | Vectoree |
+| --- | --- | --- |
+| What did this call cost? | Generation log: tokens, cost, provider, latency | The org wallet, at the Model Plaza unit price. Price can vary by call type, region, and peak versus off-peak |
+| Why that provider? | Upstream attempt waterfall in Logs | Not a documented feature. You chose the slug, or auto chose by cost and availability |
+| Can I cap spend? | Per-key credit limits, guardrail budgets, workspace budgets | The wallet balance. There is no separate guardrail product in this launch |
+| Where do I compare models first? | Catalog and Activity | Model Plaza, Playground, and `ai models search` |
+
+OpenRouter is the better instrument panel for routing. Vectoree is a wallet and a catalog attached to the rest of the project. Do not buy Vectoree expecting those logs.
+
+## One project key
+
+This part is not a gateway feature.
+
+On Vectoree, `npx @vectoree/cli link` writes one scoped key. Server code sends it as `api_key`. The agent uses it for `ai chat`, `db`, `storage`, and `tools`. App Auth is still a separate login for end users — email or Google — and row-level security should follow that user, not the project key. The project key is not a user session.
+
+An OpenRouter key does not create tables, buckets, or app users. You bring those from somewhere else: your own Postgres, Supabase, or InsForge. InsForge's current model docs hand you an OpenRouter key and tell new code to call OpenRouter directly, while data stays on the InsForge client. That split is reasonable. It is a different split from one Vectoree key.
+
+<PostLink href="/posts/vectoree-cli-project-key-workflow/">How does link write that project key?</PostLink>
+
+## When OpenRouter is enough
+
+OpenRouter is the right tool when all of these are true:
+
+- The application already has auth, a database, and file storage.
+- The new work is model choice, failover, and a spend cap.
+- You want per-generation logs and provider-level fallbacks.
+- A coding agent is not being asked to provision the backend.
+
+Plenty of production apps are in this bucket. Replacing a working OpenRouter client with Vectoree, and changing nothing else, adds a second surface you will not use. Keep OpenRouter.
+
+## When the rest of the backend matters
+
+Vectoree is the right scope when the agent is building the product, not only completing a chat call inside one:
+
+- You do not yet have a place for users, rows, and files.
+- You want chat and a second modality without a second vendor client. Five clients is how [we stopped wiring providers one by one](/posts/why-we-stopped-wiring-providers-one-by-one/).
+- You want Tool Hub — search, extract, data lookups — on the same key and the same wallet.
+- You can live without OpenRouter's routing console, and without edge functions, realtime, or a hosted public URL, until Deploy ships.
+
+Using both on purpose is allowed. You then own two bills and two keys. Do that when the router and the backend are both load-bearing. It should not be the default.
+
+![OpenRouter is enough when auth, data, and files already exist. The Vectoree project matters when the agent still has to create them on the same key as the model call.](/posts/vectoree-vs-openrouter/02-enough-vs-backend.svg)
+
+## A plain scorecard
+
+| Criterion | OpenRouter | Vectoree |
+| --- | --- | --- |
+| Unified OpenAI-compatible API | Yes | Yes, at `https://vectoree.ai/api/v1` |
+| Provider failover and model fallback lists | Yes | No. A slug, or `vectoree/auto` |
+| Generation logs and budget guardrails | Yes | No. Wallet and Model Plaza |
+| Auth, Postgres, storage | No | Yes, on the linked project |
+| Hosted search and extract | Not an application backend | Tool Hub, same project key |
+| Coding agent operates the project | Not the product | Skill plus CLI |
+| Public app URL | No | Coming soon. Not this launch |
+
+<CtaRow
+  items={[
+    { label: 'Try Vectoree', href: 'https://vectoree.ai', variant: 'primary' },
+    { label: 'Compare InsForge', href: '/posts/vectoree-vs-insforge/', variant: 'secondary' },
+  ]}
+/>
+
+<PostLink href="/posts/vectoree-vs-insforge/">How does Vectoree compare with InsForge?</PostLink>
+
+<PostLink href="/posts/which-model-gets-which-step/">Which catalog slug belongs on which agent step?</PostLink>

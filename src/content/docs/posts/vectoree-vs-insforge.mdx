@@ -1,0 +1,167 @@
+---
+title: "Vectoree vs InsForge: Agent-Native Backend or AI-Native Backend?"
+description: "Vectoree and InsForge both target coding agents. Compare the operator, the model credential, and which primitives are actually live: gateway, auth, Postgres, storage, functions, and deploy."
+cover: /covers/vectoree-vs-insforge.svg
+category: evaluate
+tags:
+  - gateway
+  - models
+  - agents
+  - integration
+sidebar:
+  label: "Vectoree vs InsForge"
+  order: 26
+nav:
+  "What each product is": "What is Vectoree, and what is InsForge?"
+  "What is similar": "What do Vectoree and InsForge share?"
+  "What is different": "Where do Vectoree and InsForge differ?"
+  "Operator model": "Who operates the backend?"
+  "Backend primitives": "Which primitives are actually live?"
+  "How a feature gets built": "How does a feature get built on each?"
+  "When to choose which": "When should I choose Vectoree or InsForge?"
+  "A plain scorecard": "Which product fits which job?"
+faq:
+  - question: Is Vectoree the same kind of product as InsForge?
+    answer: Yes. Both are backends for coding agents, with Postgres, auth, storage, and a path to more than one model. The live catalogs are not the same, and the model call is not issued the same way.
+  - question: Does Vectoree deploy the app today?
+    answer: No. Deploy, a public HTTPS URL for the linked project, is documented as coming soon. Until then the agent runs where you run it, against the project key.
+  - question: Does InsForge include a model gateway?
+    answer: Yes. It is OpenRouter-backed. Current InsForge docs tell new code to call OpenRouter with the key InsForge provisions, and they mark the older InsForge proxy routes as deprecated.
+  - question: Should I use Vectoree and InsForge together?
+    answer: You can, and you should not need to. Two backends means two operator surfaces. Pick the one whose live primitives match the app you are actually shipping.
+links:
+  - label: How does Vectoree compare with OpenRouter?
+    href: /posts/vectoree-vs-openrouter/
+  - label: How does Vectoree compare with Supabase?
+    href: /posts/vectoree-vs-supabase/
+  - label: How do I call the Vectoree gateway?
+    href: /posts/call-models-through-vectoree-gateway/
+---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
+InsForge and Vectoree are aimed at the same job: give a coding agent a backend, not another dashboard the agent has to be talked through. Both sit in the agent-backend category. InsForge calls that an AI-native backend. Vectoree calls it an agent-native backend. This post is the direct comparison — what they share, who operates them, and which primitives are actually live.
+
+If you only need multi-model routing and the rest of the app already exists, read [Vectoree vs OpenRouter](/posts/vectoree-vs-openrouter/). If the other option is a classic Postgres backend your team operates by hand, read [Vectoree vs Supabase](/posts/vectoree-vs-supabase/).
+
+![Vectoree is a model gateway plus auth, Postgres, and storage on one project key. InsForge is an AI-native backend whose model path is OpenRouter, with functions, realtime, and site deploy in its live catalog.](/covers/vectoree-vs-insforge.svg)
+
+<CtaRow />
+
+## What each product is
+
+[Vectoree](https://vectoree.ai/) is an agent-native backend. The live launch is one Cloud project: a [Model Gateway](/posts/call-models-through-vectoree-gateway/), Tool Hub, Authentication, Postgres, and object storage. Agents operate that project with a Skill pack and the CLI. Deploy (a public HTTPS URL) and Payments are in the docs as coming soon. Edge functions, realtime, and compute are not part of this launch. The short version is in [Vectoree V1](/posts/vectoree-v1-backend-for-ai-agents/).
+
+[InsForge](https://insforge.dev/) is an AI-native backend for agentic coding. Its product list includes Postgres, authentication, storage, realtime, edge functions, a model gateway, site deployment, analytics, and payments. Compute is called out as a private preview. Coding agents reach the backend through an MCP server on cloud and on self-hosted installs. Cloud also offers a CLI and skills. InsForge documents self-hosting. Vectoree does not.
+
+Same category. Different surface area, and a different place where the model call lives.
+
+## What is similar
+
+Both products exist because wiring auth, a database, files, and models by hand is a bad loop once a coding agent is the one doing the wiring. The shared bets:
+
+- A managed Postgres database, including pgvector, with row-level security tied to the signed-in user.
+- Authentication for the people who use the app, separate from the credential the agent uses to administer the project.
+- Object storage for files.
+- An OpenAI-compatible way to call more than one model family, so the app is not stuck on a single vendor SDK.
+- An agent-facing control surface, so the backend is something the agent can inspect and change.
+- A hosted project, so the first version does not start with you running servers.
+
+If the checklist is only "Postgres, users, files, and a model API," both look like a yes. The choice is under that line.
+
+## What is different
+
+Three differences decide it: who operates the project, which credential calls the model, and what is shipping this month.
+
+Vectoree keeps the model call on its own gateway: `https://vectoree.ai/api/v1`, one project key (`sk-ve-v1-…`), a catalog slug or `vectoree/auto`. That same linked project is what the `db`, `storage`, and `tools` commands use. Tool Hub is a hosted catalog — search, extract, and data lookups — billed to the organization wallet. It is not an admin API for the database.
+
+InsForge's model gateway is OpenRouter-backed. The current REST and TypeScript docs tell new integrations to call OpenRouter directly with a key InsForge provisions, and they mark the older InsForge proxy routes as deprecated compatibility. Database, auth, storage, and functions stay on the InsForge client. In the path those docs recommend, the model call and the backend call are two clients.
+
+InsForge's extra live primitives are the ones Vectoree left out of this launch: edge functions, realtime, and site deployment. InsForge also documents self-hosting. Vectoree's Deploy and Payments pages say launching soon.
+
+That is a scope choice, not a verdict. Pick the scope you will use this month.
+
+## Operator model
+
+![On Vectoree the agent operates with Skill plus CLI against one project key. On InsForge the agent operates with MCP, and current model docs send chat to a separate OpenRouter key.](/posts/vectoree-vs-insforge/01-operator-model.svg)
+
+| | Vectoree | InsForge |
+| --- | --- | --- |
+| Primary operator | A coding agent, with a human reviewing | A coding agent, with a human reviewing |
+| How the agent operates | Skill pack plus CLI: `login`, `link`, `ai`, `db`, `storage`, `tools` | MCP for schemas, queries, functions, and deploy. Cloud also documents CLI and skills |
+| What the human still does | Sign in, pick or create the project, review the change, top up the wallet | Define intent, review outcomes, hold the keys the dashboard issues |
+| App users | Email and Google through App Auth. That login is not Cloud login | Email and password, passwordless, OAuth, and mobile logins, with JWT sessions |
+| Where it runs | Vectoree Cloud | InsForge Cloud, or self-hosted |
+
+`link` writes a scoped project key under `.vectoree/`. You do not pass a project id on the command line. The walkthrough is [From Zero to a Project Key](/posts/vectoree-cli-project-key-workflow/).
+
+InsForge's MCP is how an agent reads backend state and applies changes. Vectoree's CLI is the equivalent for the primitives Vectoree actually ships. Same idea — the agent is a backend operator — different tools, different catalog.
+
+## Backend primitives
+
+![Shared primitives are Postgres, auth, and storage. Vectoree's live extras are its own gateway and Tool Hub. InsForge's live extras include edge functions, realtime, site deploy, and self-host.](/posts/vectoree-vs-insforge/02-primitives.svg)
+
+| Capability | Vectoree, this launch | InsForge |
+| --- | --- | --- |
+| Model API | Own OpenAI-compatible gateway. Chat, speech, transcription, images, video, embeddings. `vectoree/auto` or a catalog slug | OpenRouter-backed. Current docs say call OpenRouter with the provisioned key. Legacy proxy routes remain and are deprecated |
+| Auth | Email and Google for app users | Email and password, passwordless, OAuth, mobile. JWT and row-level security |
+| Database | Postgres per project, SQL, RLS, pgvector. Dashboard and `vectoree db` | Postgres, migrations, branching, pgvector, typed REST and SDK |
+| Storage | Buckets, public or private, signed access | S3-compatible storage, signed URLs, row-level policies |
+| Serverless functions | Not in this launch | Deno edge functions, including schedules |
+| Realtime | Not in this launch | Database changes, broadcast, and presence |
+| Public URL | Deploy is documented as coming soon | Site deployment is a shipping product |
+| Payments | Coming soon. Today's wallet is you paying Vectoree | Listed as a product |
+| Agent tools | Tool Hub on the project key: hosted search, extract, and data lookups | MCP that operates the backend. A different job from Tool Hub |
+| Self-host | No | Documented |
+| Billing shape | Organization wallet. Gateway and Tool Hub are pay-per-use. Auth, database, and storage are not separately metered in this launch | Per-project model usage and quotas are documented. Check their dashboard before comparing invoices |
+
+A typed REST API for every table, database branching, and an S3 gateway are InsForge features. Do not infer them from the Vectoree CLI. Vectoree gives you SQL and row operations in the CLI and the dashboard.
+
+<PostLink href="/posts/vectoree-v1-backend-for-ai-agents/">What does the Vectoree V1 backend include?</PostLink>
+
+## How a feature gets built
+
+| Stage | Vectoree | InsForge |
+| --- | --- | --- |
+| Start | Cloud account, then `npx skills add VectoreeAI/vectoree-skills`, `login`, and `link`. Or clone a dashboard template and link that project | Create a project and connect the agent through MCP, or the cloud CLI and skills |
+| Models | Point an OpenAI SDK at `https://vectoree.ai/api/v1` with the project key. Change `model` per step | Copy the OpenRouter key into server-side config and call OpenRouter. Keep the InsForge client for data |
+| Data and files | The agent runs `db` and `storage`, or you use the dashboard | The agent uses MCP to migrate, query, and configure buckets |
+| App login | Email or Google. RLS so a signed-in user only sees their rows | Providers you enable. The same JWT is what database, storage, realtime, and functions enforce |
+| Ship a URL | Not available yet. The agent runs where you run it, against the linked project | Site deployment is part of the product |
+| Human checkpoint | Review the diff, the schema, and the wallet | Review what the agent provisioned |
+
+Which slug belongs on which step, once the gateway is the model path, is [Which Model Gets Which Step](/posts/which-model-gets-which-step/).
+
+## When to choose which
+
+Choose InsForge when the backend you need this month includes edge functions, realtime, a public site, or a self-hosted stack, and you are fine calling models through OpenRouter on a separate key. The agent still has an MCP surface for the backend. OpenRouter remains a deep router. That combination is coherent.
+
+Choose Vectoree when the coding agent should link one project and use that key for the gateway, Tool Hub, database, and storage — and you do not need edge functions, realtime, or a public URL yet. Chat, speech, and images stay on Vectoree's endpoint. You are not asked to keep a second provider key in sync for the model call.
+
+Stay on a single vendor SDK only for a spike that will never change models. That setup, and where it broke, is [Why We Stopped Wiring Providers One by One](/posts/why-we-stopped-wiring-providers-one-by-one/).
+
+## A plain scorecard
+
+| You need | Closer fit today |
+| --- | --- |
+| Edge functions, realtime, or a public site | InsForge |
+| Self-hosting | InsForge |
+| Broader app login (password, OAuth, mobile) | InsForge |
+| One project key for models, tools, Postgres, and files | Vectoree |
+| Speech, image, video, and embeddings on that same key | Vectoree |
+| Provider failover, generation logs, and spend guardrails as the main model product | OpenRouter, including the key InsForge provisions |
+| Auth, database, and storage with no separate meter in the current launch | Vectoree. Gateway and Tool Hub still bill the wallet |
+
+If the first rows are the product, InsForge is the honest pick. If the middle rows are the product, Vectoree is the one built around that key.
+
+<CtaRow
+  items={[
+    { label: 'Try Vectoree', href: 'https://vectoree.ai', variant: 'primary' },
+    { label: 'Compare OpenRouter', href: '/posts/vectoree-vs-openrouter/', variant: 'secondary' },
+  ]}
+/>
+
+<PostLink href="/posts/vectoree-vs-openrouter/">When is a model gateway enough on its own?</PostLink>
+
+<PostLink href="/posts/vectoree-vs-supabase/">How does this differ from a Supabase-style backend?</PostLink>

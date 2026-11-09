@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <title>Vectoree versus InsForge</title>
+  <desc>Two agent backends side by side: Vectoree's own gateway and project key, versus InsForge's OpenRouter-backed models plus functions, realtime, and sites.</desc>
+  <rect width="1600" height="900" fill="#101010"/>
+  <polygon points="1180,0 1600,0 1600,220" fill="#1c1c1c"/>
+  <circle cx="1488" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1516" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1544" cy="72" r="6" fill="#d8ff00"/>
+  <text x="72" y="78" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2.4" text-anchor="start">EVALUATE  ·  DIRECT COMPARISON</text>
+  <text x="72" y="148" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="0" text-anchor="start">Same category.</text>
+  <text x="72" y="214" fill="#d8ff00" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="0" text-anchor="start">Different model path.</text>
+  <rect x="72" y="270" width="700" height="540" fill="#161616" stroke="#d8ff00" stroke-width="4"/>
+  <text x="104" y="330" fill="#d8ff00" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2" text-anchor="start">VECTOREE</text>
+  <text x="104" y="392" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="0" text-anchor="start">Agent-native</text>
+  <text x="104" y="448" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="0" text-anchor="start">backend</text>
+  <rect x="104" y="472" width="14" height="14" fill="#d8ff00"/>
+  <text x="136" y="486" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">Own model gateway</text>
+  <rect x="104" y="540" width="14" height="14" fill="#d8ff00"/>
+  <text x="136" y="554" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">Auth, Postgres, storage</text>
+  <rect x="104" y="608" width="14" height="14" fill="#d8ff00"/>
+  <text x="136" y="622" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">One project key</text>
+  <rect x="104" y="676" width="14" height="14" fill="#d8ff00"/>
+  <text x="136" y="690" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">CLI and skills operate it</text>
+  <rect x="104" y="744" width="14" height="14" fill="#d8ff00"/>
+  <text x="136" y="758" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">Deploy — coming soon</text>
+  <rect x="828" y="270" width="700" height="540" fill="#161616" stroke="#3a3a3a" stroke-width="4"/>
+  <text x="860" y="330" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2" text-anchor="start">INSFORGE</text>
+  <text x="860" y="392" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="0" text-anchor="start">AI-native</text>
+  <text x="860" y="448" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="0" text-anchor="start">backend</text>
+  <rect x="860" y="472" width="14" height="14" fill="#9a9a92"/>
+  <text x="892" y="486" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">OpenRouter-backed models</text>
+  <rect x="860" y="540" width="14" height="14" fill="#9a9a92"/>
+  <text x="892" y="554" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">Auth, Postgres, storage</text>
+  <rect x="860" y="608" width="14" height="14" fill="#9a9a92"/>
+  <text x="892" y="622" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">Separate model key, new code</text>
+  <rect x="860" y="676" width="14" height="14" fill="#9a9a92"/>
+  <text x="892" y="690" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">MCP operates the backend</text>
+  <rect x="860" y="744" width="14" height="14" fill="#9a9a92"/>
+  <text x="892" y="758" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="0" text-anchor="start">Functions, realtime, sites</text>
+</svg>

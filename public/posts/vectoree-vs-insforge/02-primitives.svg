@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <title>Live primitives</title>
+  <desc>Shared Postgres, auth, and storage. Vectoree adds its own gateway and Tool Hub. InsForge adds functions, realtime, sites, and self-host.</desc>
+  <rect width="1600" height="900" fill="#101010"/>
+  <polygon points="1180,0 1600,0 1600,220" fill="#1c1c1c"/>
+  <circle cx="1488" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1516" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1544" cy="72" r="6" fill="#d8ff00"/>
+  <text x="72" y="80" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2.2" text-anchor="start">WHAT IS LIVE</text>
+  <text x="72" y="146" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="0" text-anchor="start">Shared core. Different extras.</text>
+  <rect x="72" y="200" width="432" height="620" fill="#161616"/>
+  <rect x="72" y="200" width="432" height="72" fill="#d8ff00"/>
+  <text x="96" y="246" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="1.2" text-anchor="start">SHARED</text>
+  <rect x="96" y="320" width="384" height="58" fill="#2a2a2a"/>
+  <text x="116" y="358" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Postgres</text>
+  <rect x="96" y="396" width="384" height="58" fill="#2a2a2a"/>
+  <text x="116" y="434" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">pgvector</text>
+  <rect x="96" y="472" width="384" height="58" fill="#2a2a2a"/>
+  <text x="116" y="510" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Row-level security</text>
+  <rect x="96" y="548" width="384" height="58" fill="#2a2a2a"/>
+  <text x="116" y="586" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">App auth</text>
+  <rect x="96" y="624" width="384" height="58" fill="#2a2a2a"/>
+  <text x="116" y="662" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Object storage</text>
+  <rect x="96" y="700" width="384" height="58" fill="#2a2a2a"/>
+  <text x="116" y="738" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Hosted project</text>
+  <rect x="584" y="200" width="432" height="620" fill="#161616"/>
+  <rect x="584" y="200" width="432" height="72" fill="#d8ff00"/>
+  <text x="608" y="246" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="1.2" text-anchor="start">VECTOREE LIVE</text>
+  <rect x="608" y="320" width="384" height="58" fill="#2a2a2a"/>
+  <text x="628" y="358" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Own model gateway</text>
+  <rect x="608" y="396" width="384" height="58" fill="#2a2a2a"/>
+  <text x="628" y="434" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">vectoree/auto</text>
+  <rect x="608" y="472" width="384" height="58" fill="#2a2a2a"/>
+  <text x="628" y="510" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Speech, image, video</text>
+  <rect x="608" y="548" width="384" height="58" fill="#2a2a2a"/>
+  <text x="628" y="586" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Tool Hub on the key</text>
+  <rect x="608" y="624" width="384" height="58" fill="#2a2a2a"/>
+  <text x="628" y="662" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">CLI and skills</text>
+  <rect x="608" y="700" width="384" height="58" fill="#2a2a2a"/>
+  <text x="628" y="738" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Same key for db and files</text>
+  <rect x="1096" y="200" width="432" height="620" fill="#161616"/>
+  <rect x="1096" y="200" width="432" height="72" fill="#f3f3ec"/>
+  <text x="1120" y="246" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="1.2" text-anchor="start">INSFORGE LIVE</text>
+  <rect x="1120" y="320" width="384" height="58" fill="#2a2a2a"/>
+  <text x="1140" y="358" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">OpenRouter models</text>
+  <rect x="1120" y="396" width="384" height="58" fill="#2a2a2a"/>
+  <text x="1140" y="434" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Edge functions</text>
+  <rect x="1120" y="472" width="384" height="58" fill="#2a2a2a"/>
+  <text x="1140" y="510" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Realtime</text>
+  <rect x="1120" y="548" width="384" height="58" fill="#2a2a2a"/>
+  <text x="1140" y="586" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Site deployment</text>
+  <rect x="1120" y="624" width="384" height="58" fill="#2a2a2a"/>
+  <text x="1140" y="662" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">MCP operator</text>
+  <rect x="1120" y="700" width="384" height="58" fill="#2a2a2a"/>
+  <text x="1140" y="738" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="0" text-anchor="start">Self-host option</text>
+</svg>

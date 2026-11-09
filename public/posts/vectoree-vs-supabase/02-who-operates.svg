@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <title>Who operates the backend</title>
+  <desc>Supabase work is a human checklist plus a separate model key. Vectoree work is login, link, then ai, db, and storage on that key.</desc>
+  <rect width="1600" height="900" fill="#101010"/>
+  <polygon points="1180,0 1600,0 1600,220" fill="#1c1c1c"/>
+  <circle cx="1488" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1516" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1544" cy="72" r="6" fill="#d8ff00"/>
+  <text x="72" y="80" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2.2" text-anchor="start">TWO LOOPS</text>
+  <text x="72" y="150" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="54" font-weight="700" letter-spacing="0" text-anchor="start">A checklist, or one key.</text>
+  <rect x="72" y="210" width="1456" height="78" fill="#2a2a2a"/>
+  <text x="104" y="260" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="650" letter-spacing="0" text-anchor="start">SUPABASE  ·  human checklist, model key added beside it</text>
+  <rect x="72" y="320" width="220" height="88" fill="#161616"/>
+  <text x="182" y="374" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="650" letter-spacing="0" text-anchor="middle">Create project</text>
+  <rect x="314" y="320" width="220" height="88" fill="#161616"/>
+  <text x="424" y="374" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="650" letter-spacing="0" text-anchor="middle">Write SQL</text>
+  <rect x="556" y="320" width="220" height="88" fill="#161616"/>
+  <text x="666" y="374" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="650" letter-spacing="0" text-anchor="middle">Enable auth</text>
+  <rect x="798" y="320" width="220" height="88" fill="#161616"/>
+  <text x="908" y="374" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="650" letter-spacing="0" text-anchor="middle">Bucket policy</text>
+  <rect x="1040" y="320" width="220" height="88" fill="#161616"/>
+  <text x="1150" y="374" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="650" letter-spacing="0" text-anchor="middle">Store model key</text>
+  <rect x="1282" y="320" width="220" height="88" fill="#161616"/>
+  <text x="1392" y="374" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="650" letter-spacing="0" text-anchor="middle">Deploy your app</text>
+  <rect x="72" y="460" width="1456" height="78" fill="#d8ff00"/>
+  <text x="104" y="510" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="0" text-anchor="start">VECTOREE  ·  agent loop on the linked project</text>
+  <rect x="72" y="570" width="220" height="88" fill="#d8ff00"/>
+  <text x="182" y="624" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="0" text-anchor="middle">login</text>
+  <rect x="314" y="570" width="220" height="88" fill="#d8ff00"/>
+  <text x="424" y="624" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="0" text-anchor="middle">link</text>
+  <rect x="556" y="570" width="220" height="88" fill="#d8ff00"/>
+  <text x="666" y="624" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="0" text-anchor="middle">ai chat</text>
+  <rect x="798" y="570" width="220" height="88" fill="#d8ff00"/>
+  <text x="908" y="624" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="0" text-anchor="middle">db / storage</text>
+  <rect x="1040" y="570" width="220" height="88" fill="#d8ff00"/>
+  <text x="1150" y="624" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="0" text-anchor="middle">App Auth</text>
+  <rect x="1282" y="570" width="220" height="88" fill="#d8ff00"/>
+  <text x="1392" y="624" fill="#101010" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="0" text-anchor="middle">URL still yours</text>
+  <text x="72" y="760" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Supabase hosts the backend. You host the frontend.</text>
+  <text x="72" y="812" fill="#d8ff00" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Vectoree Deploy, a public URL for the project, is not live yet.</text>
+</svg>

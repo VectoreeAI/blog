@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <title>Vectoree versus Supabase</title>
+  <desc>Supabase is a fuller human-operated Postgres backend. Vectoree puts models on the same project key as auth, database, and storage.</desc>
+  <rect width="1600" height="900" fill="#101010"/>
+  <polygon points="1180,0 1600,0 1600,220" fill="#1c1c1c"/>
+  <circle cx="1488" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1516" cy="72" r="6" fill="#d8ff00"/>
+  <circle cx="1544" cy="72" r="6" fill="#d8ff00"/>
+  <text x="72" y="78" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2.4" text-anchor="start">EVALUATE  ·  INDIRECT COMPARISON</text>
+  <text x="72" y="156" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="0" text-anchor="start">Who runs the</text>
+  <text x="72" y="228" fill="#d8ff00" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="0" text-anchor="start">Postgres?</text>
+  <rect x="72" y="300" width="700" height="510" fill="#161616"/>
+  <text x="104" y="364" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.8" text-anchor="start">SUPABASE</text>
+  <text x="104" y="440" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="0" text-anchor="start">A developer</text>
+  <text x="104" y="500" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="0" text-anchor="start">operates it</text>
+  <text x="104" y="590" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">SQL, auth, storage</text>
+  <text x="104" y="642" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Realtime and functions</text>
+  <text x="104" y="694" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Local stack and self-host</text>
+  <text x="104" y="760" fill="#9a9a92" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">Models stay your integration.</text>
+  <rect x="828" y="300" width="700" height="510" fill="#161616" stroke="#d8ff00" stroke-width="4"/>
+  <text x="860" y="364" fill="#d8ff00" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.8" text-anchor="start">VECTOREE</text>
+  <text x="860" y="440" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="0" text-anchor="start">An agent links</text>
+  <text x="860" y="500" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="0" text-anchor="start">one key</text>
+  <text x="860" y="590" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Models on that key</text>
+  <text x="860" y="642" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">Auth, Postgres, files</text>
+  <text x="860" y="694" fill="#f3f3ec" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="0" text-anchor="start">No realtime or functions</text>
+  <text x="860" y="760" fill="#d8ff00" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0" text-anchor="start">Thinner BaaS. Same credential.</text>
+</svg>

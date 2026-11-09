@@ -1,0 +1,183 @@
+---
+title: "Vectoree vs Supabase: Postgres Backend or Agent Backend?"
+description: "Supabase is a strong human-operated Postgres backend. Vectoree puts a model gateway, auth, database, and storage on one project key a coding agent can link and use."
+cover: /covers/vectoree-vs-supabase.svg
+category: evaluate
+tags:
+  - agents
+  - integration
+  - gateway
+  - models
+sidebar:
+  label: "Vectoree vs Supabase"
+  order: 28
+nav:
+  "What Supabase is for": "What is Supabase for?"
+  "What Vectoree is for": "What is Vectoree for?"
+  "What is similar": "What do Vectoree and Supabase share?"
+  "What is different": "Where do Vectoree and Supabase differ?"
+  "Operator model": "Who operates each backend?"
+  "Backend primitives": "Which backend primitives does each ship?"
+  "How the work gets done": "How does the day-to-day work differ?"
+  "When Supabase is the right backend": "When should I stay on Supabase?"
+  "When the agent needs models on the same key": "When does one project key matter?"
+  "A plain scorecard": "Which product fits which job?"
+faq:
+  - question: Is Vectoree a Supabase alternative?
+    answer: For a coding agent that needs models, auth, Postgres, and storage on one project key, yes. For a team that wants realtime, edge functions, a local stack, and self-hosting, no. Supabase is the more complete classic backend.
+  - question: Does Vectoree use Postgres?
+    answer: Yes. One managed Postgres database per project, with row-level security and pgvector. You use SQL from the dashboard or the CLI. It does not generate a REST API per table.
+  - question: Can I keep Supabase and use the Vectoree gateway?
+    answer: Yes. Point server-side model calls at https://vectoree.ai/api/v1 and leave Supabase as the system of record. You then run two products on purpose.
+  - question: How does a coding agent connect to Vectoree?
+    answer: Install the skill with npx skills add VectoreeAI/vectoree-skills, then run npx @vectoree/cli login and link. Link writes the project key under .vectoree/.
+links:
+  - label: How does Vectoree compare with InsForge?
+    href: /posts/vectoree-vs-insforge/
+  - label: What is in the V1 backend?
+    href: /posts/vectoree-v1-backend-for-ai-agents/
+  - label: How do I call models on that key?
+    href: /posts/call-models-through-vectoree-gateway/
+---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
+Supabase is the familiar answer when a team needs Postgres, auth, and files without running servers. Vectoree is the answer when a coding agent needs those pieces and a model gateway on one project key. The products overlap. They are not substitutes.
+
+The direct comparison inside the agent-backend category is [Vectoree vs InsForge](/posts/vectoree-vs-insforge/). The routing-only comparison is [Vectoree vs OpenRouter](/posts/vectoree-vs-openrouter/).
+
+![Supabase is a Postgres backend a developer operates, including realtime and edge functions. Vectoree links models, auth, Postgres, and files to one project key for a coding agent.](/covers/vectoree-vs-supabase.svg)
+
+<CtaRow />
+
+## What Supabase is for
+
+[Supabase](https://supabase.com/) is an open-source backend built on Postgres. Teams use it for a managed database, auto-generated APIs, authentication, object storage, realtime subscriptions, and edge functions. Access control is row-level security written in SQL. You can develop against a local stack, branch databases, and self-host.
+
+That is a human-operated product. An agent can be pointed at the project. The dashboard, the SQL, the CLI, and the docs still assume a developer is configuring each service and reviewing each integration. That assumption is how a lot of solid applications get built.
+
+Supabase does not include a multi-provider model gateway in that backend. You call a model provider, or a router such as OpenRouter, from your own server or an edge function, with that vendor's key. `pgvector` stores embeddings. A vector column is not a model catalog.
+
+## What Vectoree is for
+
+Vectoree is an agent-native backend. The live project is a Model Gateway, Tool Hub, email and Google auth, Postgres, and storage. Agents operate it with the Skill pack and the CLI. The project key the gateway uses is the key `db` and `storage` use.
+
+Vectoree does not, in this launch, copy the Supabase features people adopt it for: realtime, edge functions, a generated API per table, database branching, a local self-hostable stack, or a public URL. Deploy is documented as coming soon. If those missing rows are the product, stay on Supabase.
+
+The gateway only matters after that shape fits. The call itself is [Call Models Through the Vectoree Gateway](/posts/call-models-through-vectoree-gateway/).
+
+## What is similar
+
+- Managed Postgres, including pgvector.
+- Row-level security, so one database can serve many end users.
+- Authentication for those users, separate from the credential that administers the project.
+- Object storage for files.
+- A hosted option, so the first version is not a rack of machines.
+- Access through APIs, rather than a VM you patch yourself.
+
+A small app with accounts, rows, and uploads can be sketched on either. Someone still has to decide which rows a user may see. Vectoree does not remove that decision.
+
+## What is different
+
+![The overlap is Postgres, auth, storage, and row-level security. Supabase adds realtime, functions, and self-host. Vectoree adds a model gateway and Tool Hub on the project key.](/posts/vectoree-vs-supabase/01-shared-and-not.svg)
+
+| | Supabase | Vectoree |
+| --- | --- | --- |
+| Who it is shaped for | Developers operating an app backend | Coding agents, and the developers who review them |
+| Models | Your integration. Bring a provider key or a separate gateway | Model Gateway on the project key |
+| Realtime | Subscriptions on database changes | Not in this launch |
+| Edge functions | Yes | Not in this launch |
+| Data API | Generated APIs over tables | SQL and row commands in the dashboard and CLI. Not a generated API per table |
+| Open source and self-host | Yes | Cloud only |
+| Public app hosting | You deploy the frontend yourself. Supabase hosts the backend | Deploy, a public URL for the linked project, is coming soon |
+| Agent loop | You can connect an agent. The product is still SQL, the dashboard, and a CLI a human runs | Skill plus CLI is the loop: `link`, then `ai`, `db`, `storage`, and `tools` |
+
+The model row is the one teams skip, then meet again as a handful of environment variables. Keeping models at OpenRouter and data in Supabase is a clean architecture. It is the split described in [Vectoree vs OpenRouter](/posts/vectoree-vs-openrouter/).
+
+## Operator model
+
+![A Supabase change is still a human checklist across SQL, auth, storage, and a separate model key. A Vectoree change starts from one linked project key.](/posts/vectoree-vs-supabase/02-who-operates.svg)
+
+Supabase's loop is: read the docs, write the policy, apply the migration, deploy the function, store the model key. An agent can draft each step. The checklist is still spread across Supabase and whoever serves the model.
+
+Vectoree's loop is: install the skill, `login`, `link`, then use one key for the catalog and the project data. You still review schema changes. `db sql` asks for confirmation because a dropped table is still a dropped table. The difference is that a chat feature does not require a second vendor account.
+
+App Auth on Vectoree is email or Google. Supabase's auth list is wider. If the product needs a specific OAuth provider, magic links, or phone login, read Supabase's current provider list before you assume two methods are enough. For many products, they are not.
+
+<PostLink href="/posts/vectoree-cli-project-key-workflow/">What does login and link actually write?</PostLink>
+
+## Backend primitives
+
+| Capability | Supabase | Vectoree |
+| --- | --- | --- |
+| Postgres, RLS, and pgvector | Yes | Yes. One database per project |
+| Auth | A broad provider list, sessions, RLS | Email and Google. RLS follows that app user |
+| Storage | Buckets and policies | Buckets, public or private, signed access |
+| Realtime | Yes | No |
+| Functions | Edge functions | No |
+| Model gateway | No | Yes. `https://vectoree.ai/api/v1` |
+| Hosted search and extract | Not the product | Tool Hub, billed to the org wallet |
+| Local dev and branching | Yes | Not this offer. The CLI talks to the linked Cloud project |
+| Self-host | Yes | No |
+| How usage is billed | Supabase plans cover database, auth, storage, and related products | Gateway and Tool Hub bill the org wallet. Auth, database, and storage are not separately metered in this launch |
+
+"Not separately metered" is not a promise about unlimited scale. It is what this launch documents. Read the current pricing pages on both sides before you bet capacity on either sentence.
+
+## How the work gets done
+
+| Stage | Supabase | Vectoree |
+| --- | --- | --- |
+| Provision | Create a project. Schema through migrations, SQL, or the studio | `link` a project. Schema through `db create`, `db sql`, or the dashboard |
+| Add login | Enable providers and write RLS | Enable email or Google. RLS follows the app user |
+| Add files | Create a bucket and policies | `storage` commands, or the dashboard |
+| Add a model | Store a provider key. Call it from the app or an edge function | Set `base_url` to Vectoree and pass the project key |
+| Change models later | Change client code and secrets, or put a gateway in front | Change the `model` slug. The client stays |
+| Put the app on the internet | Deploy the frontend to your host. Supabase remains the backend | The app runs where you run it today. A Vectoree public URL is not live yet |
+
+Supabase will not stop you from swapping models. It also will not do that swap for you. The slug change on one client is the gateway's whole contribution, and it is covered in [Which Model Gets Which Step](/posts/which-model-gets-which-step/).
+
+## When Supabase is the right backend
+
+Stay on Supabase when:
+
+- People on the team operate the backend, and they want SQL, a local stack, and branching.
+- The product needs realtime or edge functions.
+- You want to self-host, or auth is already standardized on Supabase.
+- Models are one feature inside the app, and that key already lives in a gateway you trust.
+
+For a human-operated application, Supabase is often the more complete backend. Vectoree is not trying to win a feature-count contest against it.
+
+## When the agent needs models on the same key
+
+Lean toward Vectoree when a coding agent is assembling the product and the missing piece is models plus a small backend:
+
+- One key for chat and for `db`, `storage`, and `tools`.
+- You can ship without realtime, edge functions, and a generated data API.
+- Email and Google are enough for app login in this version.
+- You do not need a public Vectoree URL on day one. [Ship Your Agent with Vectoree](/posts/ship-your-agent-with-vectoree/) is the product path. Deploy itself is still coming soon, so plan hosting the way you would for any other app.
+
+You can also keep Supabase and call Vectoree only as the gateway. That is two projects and two bills. It is the right move when Supabase is already the system of record and the only pain left is provider wiring, which is the story in [Why We Stopped Wiring Providers One by One](/posts/why-we-stopped-wiring-providers-one-by-one/).
+
+## A plain scorecard
+
+| Job | Closer fit |
+| --- | --- |
+| A classic app backend a team operates | Supabase |
+| Realtime, edge functions, self-host, local branching | Supabase |
+| A wider set of auth methods | Supabase |
+| A coding agent links one project for models and data | Vectoree |
+| Speech, image, video, and embeddings without another vendor key | Vectoree |
+| Hosted search and extract on that key | Vectoree |
+| A public URL from the backend vendor today | Neither, for the frontend. Supabase hosts the backend. Vectoree Deploy is not live |
+
+<CtaRow
+  items={[
+    { label: 'Try Vectoree', href: 'https://vectoree.ai', variant: 'primary' },
+    { label: 'Compare InsForge', href: '/posts/vectoree-vs-insforge/', variant: 'secondary' },
+  ]}
+/>
+
+<PostLink href="/posts/vectoree-vs-insforge/">How does Vectoree compare with InsForge?</PostLink>
+
+<PostLink href="/posts/vectoree-v1-backend-for-ai-agents/">What is in the Vectoree backend today?</PostLink>
