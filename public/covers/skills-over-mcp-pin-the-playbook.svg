@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif">
+  <title>An MCP server playbook passing through a review switch</title>
+  <desc>A server-hosted skill or playbook whose update path is gated by a review switch before it reaches the agent. The playbook is clipped as pinned, and an amber cable labeled SKILL must pass the review-update switch. Conceptual architecture, not a product screenshot.</desc>
+  <defs>
+    <marker id="cover-skill-arrow" markerWidth="22" markerHeight="22" refX="20" refY="11" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L21,11 L1,21 Z" fill="#BE7835"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#F6F3EA"/>
+
+  <text x="96" y="126" fill="#29755C" font-size="36" font-weight="700" letter-spacing="3.8">SKILLS OVER MCP</text>
+  <text x="96" y="236" fill="#172522" font-size="90" font-weight="800" letter-spacing="-1.6">PIN THE PLAYBOOK</text>
+  <text x="96" y="340" fill="#172522" font-size="90" font-weight="800" letter-spacing="-1.6">SERVER UPDATES?</text>
+
+  <!-- Server block. The playbook sits on top; the cable is drawn later so it can leave the book. -->
+  <rect x="96" y="604" width="548" height="192" rx="24" fill="#E4DDD0" stroke="#172522" stroke-width="8"/>
+  <rect x="120" y="676" width="500" height="96" rx="12" fill="#EFE8DA"/>
+  <circle cx="164" cy="724" r="10" fill="#29755C" stroke="#172522" stroke-width="3"/>
+  <text x="370" y="738" fill="#172522" font-size="40" font-weight="800" text-anchor="middle">MCP SERVER</text>
+  <path d="M520,702 H612 M520,724 H612 M520,746 H612" fill="none" stroke="#172522" stroke-width="6" stroke-linecap="round" opacity="0.45"/>
+
+  <!-- Open playbook -->
+  <rect x="124" y="448" width="230" height="204" rx="8" fill="#FFFDF8" stroke="#172522" stroke-width="6"/>
+  <rect x="374" y="448" width="230" height="204" rx="8" fill="#FFFDF8" stroke="#172522" stroke-width="6"/>
+  <rect x="338" y="438" width="52" height="224" rx="8" fill="#29755C" stroke="#172522" stroke-width="4"/>
+  <circle cx="364" cy="500" r="7" fill="#F6F3EA"/>
+  <circle cx="364" cy="556" r="7" fill="#F6F3EA"/>
+  <circle cx="364" cy="612" r="7" fill="#F6F3EA"/>
+  <path d="M168,448 V424 H214 V448" fill="none" stroke="#172522" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M264,448 V424 H310 V448" fill="none" stroke="#172522" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="152" y="436" width="180" height="52" rx="8" fill="#29755C" stroke="#172522" stroke-width="4"/>
+  <text x="242" y="471" fill="#F6F3EA" font-size="32" font-weight="800" text-anchor="middle">PINNED</text>
+  <path d="M156,528 H326 M156,566 H300 M156,604 H316" fill="none" stroke="#29755C" stroke-width="7" stroke-linecap="round"/>
+  <path d="M402,496 H572 M402,536 H544 M402,576 H560" fill="none" stroke="#BE7835" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Amber SKILL cable. The switch plate covers the middle, so the cable reads as passing through it. -->
+  <path d="M560,616 H768" fill="none" stroke="#BE7835" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1168,616 H1228" fill="none" stroke="#BE7835" stroke-width="18" stroke-linecap="round" marker-end="url(#cover-skill-arrow)"/>
+  <rect x="640" y="546" width="116" height="46" rx="10" fill="#BE7835"/>
+  <text x="698" y="578" fill="#F6F3EA" font-size="32" font-weight="800" text-anchor="middle">SKILL</text>
+
+  <!-- Physical review switch -->
+  <rect x="768" y="448" width="400" height="214" rx="26" fill="#F6F3EA" stroke="#172522" stroke-width="8"/>
+  <rect x="756" y="596" width="28" height="40" rx="6" fill="#BE7835" stroke="#172522" stroke-width="4"/>
+  <rect x="1152" y="596" width="28" height="40" rx="6" fill="#BE7835" stroke="#172522" stroke-width="4"/>
+  <circle cx="940" cy="548" r="18" fill="#172522"/>
+  <path d="M940,548 L1088,468" fill="none" stroke="#172522" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="1102" cy="456" r="34" fill="#BE7835" stroke="#172522" stroke-width="6"/>
+  <text x="968" y="724" fill="#172522" font-size="38" font-weight="800" text-anchor="middle">REVIEW UPDATE</text>
+
+  <!-- Agent window -->
+  <rect x="1252" y="448" width="252" height="340" rx="18" fill="#FFFDF8" stroke="#172522" stroke-width="7"/>
+  <circle cx="1284" cy="492" r="6" fill="#29755C"/>
+  <circle cx="1308" cy="492" r="6" fill="#BE7835"/>
+  <circle cx="1332" cy="492" r="6" fill="#E4DDD0" stroke="#172522" stroke-width="2"/>
+  <text x="1484" y="502" fill="#172522" font-size="32" font-weight="800" text-anchor="end">AGENT</text>
+  <path d="M1276,524 H1480" fill="none" stroke="#E4DDD0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="1276" y="552" width="168" height="26" rx="7" fill="#E7F3EC"/>
+  <rect x="1276" y="592" width="204" height="26" rx="7" fill="#F3E6D4" stroke="#BE7835" stroke-width="3"/>
+  <rect x="1316" y="648" width="164" height="26" rx="7" fill="#E4DDD0"/>
+  <rect x="1316" y="688" width="128" height="26" rx="7" fill="#E4DDD0"/>
+  <rect x="1276" y="736" width="96" height="28" rx="8" fill="#29755C"/>
+</svg>

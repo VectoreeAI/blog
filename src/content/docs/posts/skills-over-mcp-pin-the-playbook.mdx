@@ -1,0 +1,136 @@
+---
+title: "Skills over MCP: Pin the Playbook Before the Server Updates It"
+description: "On November 24, MCP servers began shipping skills that update with the server, and Google set a February 1, 2027 date for Workspace agents. Review the playbook like production code."
+cover: /covers/skills-over-mcp-pin-the-playbook.svg
+category: challenge
+tags:
+  - agents
+  - integration
+  - gateway
+sidebar:
+  label: "Pin the MCP Playbook"
+  order: 11
+nav:
+  "What did Anthropic ship on November 24?": "What did Anthropic ship?"
+  "Why does a server-updated skill need a review step?": "Why review a remote skill?"
+  "What did Google change for Workspace agents?": "What did Google change?"
+  "Where should your application keep a gate?": "Where do you keep a gate?"
+  "Where does Vectoree fit beside a skill-shipping server?": "Where does Vectoree fit?"
+  "When is an automatic skill update the right default?": "When is auto-update fine?"
+  "Which playbook will you pin first?": "Which playbook will you pin?"
+faq:
+  - question: What is Skills over MCP?
+    answer: Anthropic's November 24 announcement places Skills over MCP in public beta in Claude and Claude Code. An MCP server can publish skills alongside its tools, including workflows and best practices. Claude loads a skill only when it is needed. Skills update with the server, so users have nothing separate to install.
+  - question: Who can use Skills over MCP in Claude today?
+    answer: Anthropic says the public beta is on by default for Pro, Max, and Ultra plans, available to Team plans once an admin enables it, and coming soon to Enterprise. Tasks and Elicitation are generally available for Pro, Max, and Ultra, and rolling out to Team and Enterprise organizations. File Uploads is rolling out soon.
+  - question: When must Workspace agents stop calling REST APIs directly?
+    answer: Google's November 24 Workspace update says AI agents or similar access tools must use Workspace MCP servers or the official Workspace CLI rather than calling Workspace REST APIs directly. Technical enforcement begins on February 1, 2027. Scaled-tier billing for higher quota begins on April 1, 2027.
+  - question: Does Vectoree ship Skills over MCP?
+    answer: Public Tool Hub documentation describes hosted MCP tools for search, page extraction, and data lookups, connected with a project API key. Those pages do not claim Skills over MCP, Tasks, or Elicitation. Keep workflow policy and approval in your own application.
+links:
+  - label: How should you audit a local agent's tools?
+    href: /posts/inkling-2-mini-local-agent-privacy/
+  - label: What should a gateway evaluation cover?
+    href: /posts/how-to-evaluate-an-llm-gateway/
+  - label: How do I call models through Vectoree?
+    href: /posts/call-models-through-vectoree-gateway/
+---
+
+import CtaRow from '../../../components/post/CtaRow.astro';
+import PostLink from '../../../components/post/PostLink.astro';
+
+**A tool name tells the model what a server can do. A skill tells it how to do the work.** On November 24, Anthropic put Skills over MCP in public beta, so a server can publish that playbook and update it without a separate install. Review the skill text the way you review a prompt in your own repository.
+
+The same day, Google made Workspace MCP servers and the official Workspace CLI generally available, and set a date. From February 1, 2027, AI agents that reach Workspace data must use those paths rather than call Workspace REST APIs directly. The connector is now part of the control plane. Put the playbook that arrives with it into your change process.
+
+<CtaRow />
+
+## What did Anthropic ship on November 24?
+
+Anthropic's [launch article](https://claude.com/resources/articles/skills-over-mcp-tasks-and-more) describes Skills over MCP as a public beta in Claude and Claude Code. Tool names and descriptions already tell Claude what a server can do. They do not explain how to handle a specific use case. A skill can include best practices, step-by-step workflows, or playbooks tailored to an account or organization.
+
+Claude loads a skill only when it is needed, which keeps the unused text out of context. Skills update with the server. Developers ship tools and guidance together, and users have nothing separate to install.
+
+Anthropic lists early uses. Shopify helps Claude design and update a merchant store end to end. HubSpot onboards customers in Claude. Atlassian helps Claude draw on organizational context. Carta will help Claude draft and issue equity from an uploaded document, marked coming soon.
+
+The same article moves two other extensions to general availability in Claude and Claude Code for Pro, Max, and Ultra plans, with Team and Enterprise still rolling out. **Tasks** let a server run a long operation, or even a full agent loop, while Claude keeps working and picks up the result later. ZoomInfo uses this for deeper account and contact research that previously took several prompts. **Elicitation** lets a server pause and ask the user for input through a form or link. Supabase confirms costs before creating a paid project and before running destructive SQL. Railway asks before potentially destructive changes such as removing a service. GitHub has users enter a repository name before an agent deletes it.
+
+**File Uploads** will let Claude pass PDFs, spreadsheets, and images to a server without sending the file through the context window. Anthropic says this is rolling out soon, so do not treat it as available in every client today.
+
+These features are part of the open MCP specification and its extensions. A server that supports them can work in any compatible client, not only Claude. Availability in Claude is still gated by plan: Skills over MCP is on by default for Pro, Max, and Ultra, available to Team once an admin enables it, and coming soon to Enterprise.
+
+Anthropic also states that MCP now sees over **700 million monthly SDK downloads**, and that there are over **10,000 MCP connectors for Claude**. Tool search, which loads tool definitions only when needed, can cut the context those definitions use by over **85%** in multi-server setups. Those figures describe MCP adoption and context use. They do not measure the quality or safety of any particular skill.
+
+## Why does a server-updated skill need a review step?
+
+The update path is the point of the feature, and it is the part you have to review. A skill is text that steers the model toward a sequence of tool calls. That text lives on the server and updates with the server, so the workflow can change after you approved the connection.
+
+You already treat a dependency bump in production as a reviewable change. A remote skill deserves the same habit. Read the skill when you first connect the server. If the client exposes a version, hash, or last-updated field, record it. Decide which updates may apply without a person looking, and which ones require a pause.
+
+The case for automatic updates is strong. Vendor tools change. A playbook you wrote last quarter can call a renamed method or skip a new required confirmation. A skill that ships with the server stays in sync, and an organization-specific skill can include account context a generic prompt in your repo cannot. Those are real benefits. They still leave you with a change-control problem.
+
+Consider a hypothetical review, not a report about any vendor. You connect a billing MCP server and accept its "create invoice" skill. Two weeks later the skill adds a step that also opens an optional add-on, or it changes the confirmation copy for a delete. The tool list looks familiar. The sequence is different. If your client applied the update without a prompt, the first you learn about it is a customer ticket or a charge.
+
+![A proposed design: your application pins prompts and approval rules, an MCP server ships tools plus a skill that updates with the server, and an app-owned review gate sits in front of write, charge, delete, Workspace, and background-task actions.](/posts/skills-over-mcp-pin-the-playbook/01-playbook-review.svg)
+
+[Inkling 2 Mini and agent privacy](/posts/inkling-2-mini-local-agent-privacy/) argued that a local model does not make the surrounding tools private. A hosted connector has a related question: a familiar tool list does not make the current playbook the one you reviewed.
+
+## What did Google change for Workspace agents?
+
+Google's [November 24 Workspace update](https://workspaceupdates.googleblog.com/2026/11/mcp-servers-cli-standardized-usage-tiers-now-available.html) makes Workspace MCP servers and the official Workspace CLI generally available. The hosted servers cover Gmail, Drive, Docs, Sheets, Slides, Calendar, Chat, and Tasks, with Keep coming soon. The CLI targets local terminals, VMs, and containerized sandboxes, and Google says it includes packaged agent skills, dynamic command discovery, and scoped sign-in.
+
+Google also set a hard requirement. AI agents or similar access tools must use Workspace MCP servers or the Workspace CLI to access Workspace data, rather than calling Workspace REST APIs directly. **Technical enforcement begins on February 1, 2027.**
+
+Usage tiers rolled out the same day, starting with Gmail, Drive, and Calendar. The Standard tier has no cost and published quotas. The Scaled tier is for projects that need higher limits. **Scaled-tier billing begins on April 1, 2027**, and Google says you will be charged only for API or MCP usage above any daily free allowances. If you take no action, projects may be throttled to the published Standard quotas. Google states that over **99%** of active developers currently operate within the Standard tier and will continue to access these APIs at no additional cost. This article does not invent a price or a quota number beyond that announcement.
+
+Developers who build agents also need to mark OAuth 2.0 clients with **Use this client for an AI-powered agent (`is_agentic`)**. Traditional non-agent features should use a separate client. The Workspace AI Tools Addendum accompanies the change, including limits on storing certain derived data for extended periods and on using agents to scrape Workspace APIs.
+
+Google's case for the mandate is governance, not fashion. Admins can manage agent access in the Admin console the way they manage traditional apps. They can set human-in-the-loop rules for sensitive actions. Existing user-level DLP rules apply when someone uses an agent, and audit logs record agent actions and user confirmations. Google also argues that MCP tools return synthesized summaries inside Workspace's boundary, which it says can lower token costs and latency compared with pulling raw data over REST. That is Google's claim about its own tools. Measure it on your traffic if the token bill is the reason you would switch.
+
+If you already wrap Gmail or Drive with a well-tested REST client, the February date is still calendar work. From the November 24 announcement to February 1 is just over two months. That is enough time if you start now, and a short window if the first design review happens in late January.
+
+## Where should your application keep a gate?
+
+Elicitation is the right pattern for irreversible work. A server that asks for a repository name before a delete, or for cost confirmation before a paid project, gives a person a chance to refuse. Keep that check even when a skill looks trustworthy. Show the destination and the exact payload, not only a generic "Allow this action?" prompt.
+
+Background Tasks change the timing of that check. A research job that continues after Claude moves on can still write a result later. Your application needs to know the job is running, what it is allowed to write, and how a person stops it.
+
+File Uploads, once it reaches your client, will send documents to a server without placing the file in the model context. That can be a privacy improvement for the prompt, and it is still an outbound transfer of the file. Approve the destination and the file, not only the model call.
+
+Do not assume every MCP client already implements these extensions. Anthropic's article says a compatible client can use them. It does not claim that every coding agent you run has Skills, Tasks, or Elicitation turned on. Check the client you actually ship.
+
+<PostLink href="/posts/inkling-2-mini-local-agent-privacy/">How do you audit the tools around a local model?</PostLink>
+
+## Where does Vectoree fit beside a skill-shipping server?
+
+You can separate three layers and keep them honest.
+
+The [Vectoree Model Gateway](https://vectoree.ai/) is an OpenAI-compatible endpoint at `https://vectoree.ai/api/v1`. It chooses and bills models from the catalog. It does not review a skill that another MCP server injects into the agent.
+
+[Tool Hub](https://vectoree.ai/product/tool-hub) is hosted MCP for search, page extraction, and data lookups, called with a project API key. The [Tool Hub docs](https://docs.vectoree.ai/tools) describe dashboard browse and try, MCP at `https://vectoree.ai/mcp`, and a REST twin of the same calls. Public pages do **not** claim that Tool Hub ships Skills over MCP, Tasks, or Elicitation. If you need those extensions, check the client and the server you connected. Do not infer them from a Vectoree catalog listing.
+
+The Vectoree Skill and CLI remain guidance and project operations in your own environment: login, link, models, database. That is playbook you can pin in a repository. A vendor skill that arrives over MCP is a different artifact. Write your approval rules in the application that sends the tool call. The public product pages do not establish a skill-pinning or payload-approval product.
+
+Vectoree Cloud [1.0.6](https://docs.vectoree.ai/changelog), published November 23, added app hosting from a GitHub repository, Organization Pro, and ten new public models, including GPT-6.2 Astra and Claude Fable 5.2. Those are catalog and deploy changes. They do not close the playbook review described here.
+
+Keep project credentials on the trusted server or agent host. Do not paste them into model prompts or a browser bundle.
+
+<PostLink href="/posts/how-to-evaluate-an-llm-gateway/">Which gateway claims should you test before trusting them?</PostLink>
+
+If you want hosted tools or model calls beside a client that already uses Skills over MCP, [start with Vectoree](https://vectoree.ai/) and write down the first skill or Workspace path you will review.
+
+## When is an automatic skill update the right default?
+
+A solo experiment on a personal account can accept vendor updates and re-read the skill when something feels off. A stale local prompt can be worse than a current vendor workflow, especially when the tool schema changed last week.
+
+Teams can leave Skills over MCP off until an admin enables it, which Anthropic already allows on the Team plan. Enterprise support is still listed as coming soon, so a company-wide rollout may have to wait for that client support anyway.
+
+You may also decide that a vendor you already trust for the underlying product should own the workflow. That is a contract and a review cadence, not a reason to skip the first read. Record who is allowed to accept updates.
+
+## Which playbook will you pin first?
+
+On November 24 Anthropic let MCP servers ship skills that update with the server, and Google set a Workspace migration deadline. Pin the skill as production text.
+
+If you already use Claude with a third-party MCP server, open the skill it shipped and read the steps that write, charge, or delete. If you reach Gmail, Drive, or Calendar from an agent over REST, put the MCP or CLI migration on the calendar before February.
+
+Which skill or Workspace path will you review first, and what would make you reject an automatic update? Say so with [@VectoreeAI](https://x.com/VectoreeAI) on X.

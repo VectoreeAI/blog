@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif">
+  <title>Proposed design for an app-owned MCP skill review gate</title>
+  <desc>A proposed design: your application pins prompts and approval rules, an MCP server ships tools plus a skill that updates with the server, and an app-owned review gate sits in front of write, charge, delete, Workspace, and background-task actions.</desc>
+  <defs>
+    <marker id="go-amber" markerWidth="22" markerHeight="22" refX="20" refY="11" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L21,11 L1,21 Z" fill="#BE7835"/>
+    </marker>
+    <marker id="go-gray" markerWidth="22" markerHeight="22" refX="20" refY="11" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L21,11 L1,21 Z" fill="#6E6A62"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#F6F3EA"/>
+  <text x="1568" y="46" fill="#BE7835" font-size="32" font-weight="800" letter-spacing="1.2" text-anchor="end">PROPOSED DESIGN</text>
+
+  <!-- Your repo / application. Solid green marks what stays pinned in the app. -->
+  <rect x="32" y="72" width="480" height="520" rx="22" fill="#E7F3EC" stroke="#29755C" stroke-width="5"/>
+  <text x="60" y="138" fill="#172522" font-size="42" font-weight="800">YOUR REPO /</text>
+  <text x="60" y="190" fill="#29755C" font-size="42" font-weight="800">APPLICATION</text>
+  <rect x="60" y="220" width="424" height="100" rx="14" fill="#FFFDF8" stroke="#29755C" stroke-width="4"/>
+  <rect x="60" y="340" width="424" height="100" rx="14" fill="#FFFDF8" stroke="#29755C" stroke-width="4"/>
+  <rect x="60" y="460" width="424" height="100" rx="14" fill="#FFFDF8" stroke="#29755C" stroke-width="4"/>
+  <rect x="78" y="244" width="10" height="52" rx="4" fill="#29755C"/>
+  <rect x="78" y="364" width="10" height="52" rx="4" fill="#29755C"/>
+  <rect x="78" y="484" width="10" height="52" rx="4" fill="#29755C"/>
+  <text x="106" y="280" fill="#172522" font-size="34" font-weight="800">PINNED PROMPTS</text>
+  <text x="106" y="400" fill="#172522" font-size="34" font-weight="800">APPROVAL POLICY</text>
+  <text x="106" y="520" fill="#172522" font-size="34" font-weight="800">PAYLOAD PREVIEW</text>
+
+  <!-- MCP server: tools, plus a skill that updates with the server -->
+  <rect x="536" y="72" width="468" height="520" rx="22" fill="#FBF8F1" stroke="#172522" stroke-width="5"/>
+  <text x="564" y="138" fill="#172522" font-size="44" font-weight="800">MCP SERVER</text>
+  <text x="564" y="196" fill="#172522" font-size="32" font-weight="800" letter-spacing="1.6">TOOLS</text>
+  <rect x="564" y="214" width="412" height="48" rx="10" fill="#F6F3EA" stroke="#172522" stroke-width="3"/>
+  <rect x="564" y="272" width="412" height="48" rx="10" fill="#F6F3EA" stroke="#172522" stroke-width="3"/>
+  <rect x="564" y="330" width="412" height="48" rx="10" fill="#F6F3EA" stroke="#172522" stroke-width="3"/>
+  <rect x="582" y="228" width="20" height="20" rx="4" fill="#172522"/>
+  <rect x="582" y="286" width="20" height="20" rx="4" fill="#172522"/>
+  <rect x="582" y="344" width="20" height="20" rx="4" fill="#172522"/>
+  <text x="616" y="246" fill="#172522" font-size="32" font-weight="700">search</text>
+  <text x="616" y="304" fill="#172522" font-size="32" font-weight="700">extract</text>
+  <text x="616" y="362" fill="#172522" font-size="32" font-weight="700">lookup</text>
+  <rect x="564" y="398" width="412" height="170" rx="14" fill="#F6F3EA" stroke="#BE7835" stroke-width="5"/>
+  <text x="588" y="438" fill="#172522" font-size="32" font-weight="800">SKILLS / PLAYBOOK</text>
+  <rect x="588" y="456" width="364" height="78" rx="10" fill="#BE7835"/>
+  <text x="770" y="488" fill="#F6F3EA" font-size="32" font-weight="800" text-anchor="middle">UPDATES WITH</text>
+  <text x="770" y="522" fill="#F6F3EA" font-size="32" font-weight="800" text-anchor="middle">THE SERVER</text>
+  <path d="M604,552 H940" fill="none" stroke="#BE7835" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Consequential actions -->
+  <rect x="1096" y="72" width="472" height="772" rx="22" fill="#E4E0D6" stroke="#172522" stroke-width="4"/>
+  <text x="1124" y="140" fill="#172522" font-size="42" font-weight="800">CONSEQUENTIAL</text>
+  <text x="1124" y="192" fill="#172522" font-size="42" font-weight="800">ACTIONS</text>
+  <rect x="1124" y="220" width="416" height="84" rx="12" fill="#FFFDF8" stroke="#172522" stroke-width="3"/>
+  <rect x="1124" y="320" width="416" height="84" rx="12" fill="#FFFDF8" stroke="#172522" stroke-width="3"/>
+  <rect x="1124" y="420" width="416" height="84" rx="12" fill="#FFFDF8" stroke="#172522" stroke-width="3"/>
+  <text x="1148" y="272" fill="#172522" font-size="32" font-weight="800">Write / Charge / Delete</text>
+  <text x="1148" y="372" fill="#172522" font-size="32" font-weight="800">Workspace data</text>
+  <text x="1148" y="472" fill="#172522" font-size="32" font-weight="800">Background Tasks</text>
+  <text x="1124" y="556" fill="#172522" font-size="32" font-weight="700">e.g. Vectoree Tool Hub</text>
+  <text x="1124" y="596" fill="#172522" font-size="32" font-weight="700">supplies tools, not a</text>
+  <text x="1124" y="636" fill="#172522" font-size="32" font-weight="700">claimed skill host</text>
+  <text x="1124" y="756" fill="#BE7835" font-size="32" font-weight="800">APPROVED</text>
+
+  <!-- App-owned review gate between the server skill and the actions -->
+  <path d="M770,576 V642" fill="none" stroke="#BE7835" stroke-width="14" stroke-linecap="round" marker-end="url(#go-amber)"/>
+  <rect x="536" y="656" width="468" height="188" rx="20" fill="#FFFDF8" stroke="#172522" stroke-width="8"/>
+  <text x="770" y="742" fill="#172522" font-size="44" font-weight="800" text-anchor="middle">APP-OWNED</text>
+  <text x="770" y="798" fill="#172522" font-size="44" font-weight="800" text-anchor="middle">SKILL REVIEW</text>
+  <path d="M1004,750 H1076" fill="none" stroke="#BE7835" stroke-width="14" stroke-linecap="round" marker-end="url(#go-amber)"/>
+
+  <!-- Rejected update ends at a stop bar -->
+  <path d="M536,780 H196" fill="none" stroke="#6E6A62" stroke-width="12" stroke-linecap="round" marker-end="url(#go-gray)"/>
+  <path d="M156,724 V836" fill="none" stroke="#6E6A62" stroke-width="16" stroke-linecap="round"/>
+  <path d="M132,748 L180,804 M180,748 L132,804" fill="none" stroke="#6E6A62" stroke-width="8" stroke-linecap="round"/>
+  <text x="180" y="872" fill="#6E6A62" font-size="32" font-weight="800">DENIED</text>
+
+  <text x="536" y="900" fill="#172522" font-size="32" font-weight="700">Read the skill text + decide which updates may auto-apply</text>
+
+  <path d="M32,962 H96" fill="none" stroke="#29755C" stroke-width="12" stroke-linecap="round"/>
+  <text x="112" y="974" fill="#172522" font-size="32" font-weight="700">Pinned in your application</text>
+  <path d="M560,962 H624" fill="none" stroke="#BE7835" stroke-width="12" stroke-linecap="round"/>
+  <text x="640" y="974" fill="#172522" font-size="32" font-weight="700">Server skill pending or approved</text>
+  <path d="M1196,962 H1260" fill="none" stroke="#6E6A62" stroke-width="12" stroke-linecap="round"/>
+  <path d="M1272,946 L1300,982 M1300,946 L1272,982" fill="none" stroke="#6E6A62" stroke-width="6" stroke-linecap="round"/>
+  <text x="1316" y="974" fill="#172522" font-size="32" font-weight="700">Rejected update</text>
+</svg>
